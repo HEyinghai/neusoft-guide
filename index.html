@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+<title>何学长 · 成都东软学院新生指南</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Noto+Serif+SC:wght@400;500;700;900&family=Noto+Sans+SC:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+/* ===========================
+   DESIGN TOKENS
+   =========================== */
+:root {
+  --c-ink-0:   oklch(8%  0.04 250);
+  --c-ink-1:   oklch(12% 0.06 250);
+  --c-ink-2:   oklch(20% 0.10 250);
+  --c-ink-3:   oklch(32% 0.14 250);
+  --c-glow:    oklch(72% 0.20 230);
+  --c-accent:  oklch(72% 0.18 35);
+
+  --c-pastel-0: oklch(97% 0.02 290);
+  --c-pastel-1: oklch(94% 0.04 285);
+  --c-pastel-2: oklch(89% 0.07 285);
+  --c-pastel-ink: oklch(25% 0.06 285);
+  --c-pastel-ink-2: oklch(45% 0.05 285);
+  --c-pastel-ink-3: oklch(60% 0.04 285);
+
+  --c-text:      oklch(18% 0.02 260);
+  --c-text-2:    oklch(45% 0.02 260);
+  --c-text-3:    oklch(62% 0.02 260);
+
+  --bg-app:    oklch(96% 0.03 290);
+  --bg-card:   #fff;
+  --bg-soft:   oklch(95% 0.03 285);
+  --bg-mask:   oklch(20% 0.02 260 / 0.5);
+  --border:    oklch(92% 0.02 285);
+  --tab-bg:    oklch(98% 0.02 285 / 0.92);
+
+  --f-display: "DM Serif Display", "Noto Serif SC", serif;
+  --f-serif:   "Noto Serif SC", "Songti SC", serif;
+  --f-sans:    "Noto Sans SC", "Inter", -apple-system, "PingFang SC", sans-serif;
+  --f-num:     "Oswald", "Inter", sans-serif;
+
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-expo:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out:    cubic-bezier(0.65, 0, 0.35, 1);
+
+  --r-sm: 8px; --r-md: 14px; --r-lg: 20px; --r-xl: 28px; --r-2xl: 36px;
+  --tabbar-h: 64px;
+}
+
+/* 暗色模式 */
+[data-theme="dark"] {
+  --bg-app:    oklch(14% 0.03 260);
+  --bg-card:   oklch(20% 0.04 260);
+  --bg-soft:   oklch(17% 0.03 260);
+  --bg-mask:   oklch(5% 0.02 260 / 0.7);
+  --border:    oklch(28% 0.04 260);
+  --tab-bg:    oklch(16% 0.03 260 / 0.92);
+  --c-text:    oklch(94% 0.02 260);
+  --c-text-2:  oklch(72% 0.02 260);
+  --c-text-3:  oklch(55% 0.02 260);
+  --c-pastel-ink: oklch(94% 0.02 260);
+  --c-pastel-ink-2: oklch(72% 0.02 260);
+  --c-pastel-ink-3: oklch(55% 0.02 260);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; overflow: hidden; background: var(--c-ink-0); color: #fff; font-family: var(--f-sans); -webkit-font-smoothing: antialiased; }
+body { overscroll-behavior: none; transition: background 400ms var(--ease-out-quart); }
+
+.stage {
+  position: fixed; inset: 0;
+  display: grid; place-items: center;
+  background:
+    radial-gradient(ellipse at 30% 20%, oklch(20% 0.08 250) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 80%, oklch(15% 0.06 280) 0%, transparent 60%),
+    oklch(6% 0.02 250);
+}
+.phone {
+  position: relative;
+  width: min(420px, 100vw);
+  height: min(900px, 100vh);
+  border-radius: 44px;
+  overflow: hidden;
+  background: var(--bg-app);
+  box-shadow:
+    0 60px 120px -30px rgba(0,0,0,0.7),
+    0 30px 60px -20px rgba(0,0,0,0.5),
+    0 0 0 1px rgba(255,255,255,0.04) inset,
+    0 0 0 12px oklch(12% 0.02 250),
+    0 0 0 13px oklch(20% 0.02 250);
+  transition: background 400ms var(--ease-out-quart);
+}
+@media (max-width: 480px) {
+  .stage { display: block; background: var(--bg-app); }
+  .phone { width: 100vw; height: 100vh; border-radius: 0; box-shadow: none; }
+}
+
+.statusbar {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 44px; padding: 0 28px;
+  display: flex; align-items: center; justify-content: flex-end;
+  z-index: 50; pointer-events: none;
+}
+.statusbar .dot { width: 6px; height: 6px; border-radius: 50%; background: oklch(20% 0.02 250); }
+.statusbar .bar { width: 50px; height: 14px; background: oklch(20% 0.02 250); border-radius: 10px; margin: 0 8px; }
+.statusbar .ico { width: 26px; height: 26px; border: 2px solid oklch(20% 0.02 250); border-radius: 50%; position: relative; }
+.statusbar .ico::after { content: ''; position: absolute; inset: 4px; background: oklch(20% 0.02 250); border-radius: 50%; }
+
+.screen {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  transition: opacity 600ms var(--ease-out-expo), transform 700ms var(--ease-out-expo);
+}
+.screen.is-hidden { opacity: 0; pointer-events: none; transform: scale(0.96); }
+
+/* ===========================
+   启动/倒计时页
+   =========================== */
+#screen-splash {
+  background: radial-gradient(circle at 50% 50%, oklch(28% 0.16 250) 0%, oklch(18% 0.10 250) 35%, oklch(10% 0.06 250) 70%, oklch(6% 0.04 250) 100%);
+  color: #fff;
+}
+#splash-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+
+.aura {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, oklch(50% 0.20 240 / 0.18) 0%, oklch(60% 0.18 280 / 0.10) 35%, transparent 65%);
+  filter: blur(20px);
+  animation: aura-pulse 8s ease-in-out infinite;
+  z-index: 0;
+}
+@keyframes aura-pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+  50% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+}
+
+.school-tag {
+  position: absolute; top: 88px; left: 50%; transform: translateX(-50%);
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 22px;
+  background: oklch(25% 0.10 250 / 0.4);
+  border: 1px solid oklch(70% 0.10 240 / 0.25);
+  border-radius: 999px;
+  font-size: 13px; letter-spacing: 0.05em;
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  opacity: 0; animation: tag-in 900ms var(--ease-out-expo) 200ms forwards;
+  z-index: 2;
+}
+.school-tag::before {
+  content: ''; width: 8px; height: 8px; border-radius: 50%;
+  background: oklch(75% 0.20 230);
+  box-shadow: 0 0 12px oklch(75% 0.20 230);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(0.8); } }
+@keyframes tag-in { from { opacity: 0; transform: translateX(-50%) translateY(-10px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+
+.splash-title {
+  position: absolute; top: 150px; left: 0; right: 0; text-align: center;
+  font-family: var(--f-serif); font-weight: 700; font-size: 28px; letter-spacing: 0.15em;
+  background: linear-gradient(180deg, #fff 0%, oklch(80% 0.10 240) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  opacity: 0; animation: title-in 1000ms var(--ease-out-expo) 400ms forwards; z-index: 2;
+}
+@keyframes title-in { from { opacity: 0; transform: translateY(20px) scale(0.96); filter: blur(10px); } to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } }
+
+.countdown {
+  position: absolute; top: 220px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 10px;
+  opacity: 0; animation: cd-in 1100ms var(--ease-out-expo) 600ms forwards; z-index: 2;
+}
+@keyframes cd-in { from { opacity: 0; transform: translateX(-50%) translateY(30px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+.cd-cell {
+  position: relative; width: 76px; height: 100px;
+  background: linear-gradient(180deg, oklch(28% 0.10 250 / 0.6) 0%, oklch(18% 0.08 250 / 0.4) 100%);
+  border: 1px solid oklch(50% 0.10 240 / 0.3);
+  border-radius: var(--r-md);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 8px 30px -10px oklch(20% 0.10 250 / 0.5), inset 0 1px 0 oklch(70% 0.10 240 / 0.15);
+}
+.cd-cell::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: oklch(60% 0.10 240 / 0.3); }
+.cd-cell::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, oklch(70% 0.10 240 / 0.1) 0%, transparent 30%, transparent 70%, oklch(0% 0 0 / 0.2) 100%); pointer-events: none; }
+.cd-num {
+  font-family: var(--f-num); font-size: 44px; font-weight: 500; color: #fff; line-height: 1;
+  text-shadow: 0 2px 12px oklch(0% 0 0 / 0.5); font-feature-settings: "tnum";
+}
+.cd-num.flip { animation: flip 600ms var(--ease-out-quart); }
+@keyframes flip { 0% { transform: translateY(0); opacity: 1; } 40% { transform: translateY(-30%); opacity: 0; } 60% { transform: translateY(30%); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+.cd-label { font-size: 11px; color: oklch(70% 0.05 240); letter-spacing: 0.2em; margin-top: 6px; font-weight: 300; }
+
+.open-date {
+  position: absolute; top: 360px; left: 0; right: 0; text-align: center;
+  font-size: 14px; color: oklch(75% 0.06 240); letter-spacing: 0.08em;
+  opacity: 0; animation: date-in 1000ms var(--ease-out-expo) 900ms forwards; z-index: 2;
+}
+.open-date .date { color: #fff; font-weight: 500; }
+@keyframes date-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.loading-card {
+  position: absolute; top: 410px; left: 24px; right: 24px;
+  padding: 18px 20px;
+  background: oklch(20% 0.08 250 / 0.45);
+  border: 1px solid oklch(50% 0.10 240 / 0.25);
+  border-radius: var(--r-lg);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  display: flex; align-items: center; gap: 14px;
+  opacity: 0; animation: lc-in 1000ms var(--ease-out-expo) 1100ms forwards;
+  z-index: 2; overflow: hidden;
+}
+@keyframes lc-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.loading-card::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, oklch(75% 0.10 240 / 0.08), transparent); animation: shimmer 2.5s ease-in-out infinite; }
+@keyframes shimmer { 0% { left: -100%; } 100% { left: 100%; } }
+.lc-ico { width: 44px; height: 44px; border-radius: 50%; background: oklch(28% 0.10 250); display: grid; place-items: center; flex-shrink: 0; }
+.lc-dots { display: flex; gap: 4px; }
+.lc-dots span { width: 4px; height: 4px; border-radius: 50%; background: oklch(75% 0.10 240); animation: dot-bounce 1.4s ease-in-out infinite; }
+.lc-dots span:nth-child(2) { animation-delay: 0.2s; }
+.lc-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes dot-bounce { 0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; } 40% { transform: scale(1); opacity: 1; } }
+.lc-body { flex: 1; min-width: 0; }
+.lc-title { font-size: 15px; font-weight: 500; color: #fff; margin-bottom: 4px; }
+.lc-sub { font-size: 12px; color: oklch(70% 0.04 240); }
+
+.divider { position: absolute; top: 510px; left: 50%; transform: translateX(-50%); width: 36px; height: 2px; background: linear-gradient(90deg, transparent, oklch(50% 0.10 240 / 0.5), transparent); opacity: 0; animation: d-in 1000ms var(--ease-out-expo) 1300ms forwards; z-index: 2; }
+@keyframes d-in { to { opacity: 1; } }
+
+.enter-btn {
+  position: absolute; top: 540px; left: 50%; transform: translateX(-50%);
+  padding: 14px 40px;
+  background: linear-gradient(135deg, oklch(70% 0.18 230) 0%, oklch(65% 0.20 280) 100%);
+  color: #fff; border: none; border-radius: 999px;
+  font-size: 15px; font-weight: 500; letter-spacing: 0.1em; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px;
+  opacity: 0; animation: btn-in 1000ms var(--ease-out-expo) 1500ms forwards;
+  box-shadow: 0 12px 40px -10px oklch(70% 0.18 230 / 0.6), inset 0 1px 0 oklch(90% 0.10 240 / 0.3);
+  transition: transform 250ms var(--ease-out-quart), box-shadow 250ms var(--ease-out-quart);
+  z-index: 2; overflow: hidden; font-family: var(--f-sans);
+}
+.enter-btn::before { content: ''; position: absolute; inset: 0; background: linear-gradient(120deg, transparent 30%, oklch(100% 0 0 / 0.3) 50%, transparent 70%); transform: translateX(-100%); transition: transform 600ms var(--ease-out-quart); }
+.enter-btn:hover { transform: translateX(-50%) translateY(-2px); box-shadow: 0 18px 50px -10px oklch(70% 0.18 230 / 0.8); }
+.enter-btn:hover::before { transform: translateX(100%); }
+.enter-btn:active { transform: translateX(-50%) translateY(0); }
+@keyframes btn-in { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+.enter-btn .arrow { display: inline-block; transition: transform 300ms var(--ease-out-quart); }
+.enter-btn:hover .arrow { transform: translateX(4px); }
+
+.signature { position: absolute; bottom: 40px; left: 0; right: 0; text-align: center; font-family: var(--f-serif); font-size: 13px; letter-spacing: 0.3em; color: oklch(60% 0.05 240); opacity: 0; animation: s-in 1000ms var(--ease-out-expo) 1800ms forwards; z-index: 2; }
+@keyframes s-in { to { opacity: 1; } }
+
+.orb { position: absolute; border-radius: 50%; pointer-events: none; z-index: 0; filter: blur(40px); opacity: 0.5; }
+.orb-1 { width: 200px; height: 200px; top: 10%; left: -50px; background: oklch(50% 0.25 230 / 0.4); animation: float 12s ease-in-out infinite; }
+.orb-2 { width: 150px; height: 150px; top: 60%; right: -30px; background: oklch(55% 0.20 280 / 0.4); animation: float 14s ease-in-out infinite 2s; }
+.orb-3 { width: 120px; height: 120px; bottom: 20%; left: 30%; background: oklch(60% 0.18 30 / 0.25); animation: float 10s ease-in-out infinite 4s; }
+@keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 33% { transform: translate(20px, -30px) scale(1.1); } 66% { transform: translate(-15px, 20px) scale(0.95); } }
+
+/* ===========================
+   主应用容器
+   =========================== */
+#screen-app {
+  background: var(--bg-app);
+  color: var(--c-text);
+  display: flex; flex-direction: column;
+  padding-bottom: var(--tabbar-h);
+}
+#screen-app::-webkit-scrollbar { display: none; }
+
+/* 顶部条 */
+.app-top {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 20px 12px;
+  background: var(--tab-bg);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  opacity: 0; transform: translateY(-10px);
+  animation: h-top 800ms var(--ease-out-expo) 200ms forwards;
+}
+@keyframes h-top { to { opacity: 1; transform: translateY(0); } }
+.app-title { font-family: var(--f-serif); font-weight: 700; font-size: 18px; color: var(--c-text); letter-spacing: 0.05em; }
+.app-sub { font-size: 12px; color: var(--c-text-3); margin-left: 8px; font-weight: 400; }
+.app-top .right { display: flex; align-items: center; gap: 10px; }
+.icon-btn {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--bg-soft);
+  display: grid; place-items: center; cursor: pointer;
+  transition: all 200ms var(--ease-out-quart);
+  color: var(--c-text-2); border: none;
+}
+.icon-btn:hover { background: var(--bg-card); transform: scale(1.05); box-shadow: 0 4px 12px -4px oklch(50% 0.10 285 / 0.2); }
+.icon-btn svg { width: 16px; height: 16px; }
+
+/* Tab 内容区 */
+.tab-panels { flex: 1; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; position: relative; }
+.tab-panels::-webkit-scrollbar { display: none; }
+.tab-panel { display: none; animation: panel-in 400ms var(--ease-out-expo); }
+.tab-panel.active { display: block; }
+@keyframes panel-in { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
+
+/* 轮播 */
+.carousel { margin: 16px 20px 20px; position: relative; border-radius: var(--r-2xl); overflow: hidden; height: 180px; opacity: 0; transform: translateY(20px); animation: cr-in 800ms var(--ease-out-expo) 350ms forwards; }
+@keyframes cr-in { to { opacity: 1; transform: translateY(0); } }
+.carousel-track { display: flex; height: 100%; transition: transform 600ms var(--ease-out-expo); }
+.carousel-slide { flex: 0 0 100%; height: 100%; position: relative; overflow: hidden; cursor: grab; }
+.carousel-slide:active { cursor: grabbing; }
+.slide-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.slide-content { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; color: #fff; z-index: 1; text-shadow: 0 2px 12px rgba(0,0,0,0.7); }
+.slide-title { font-family: var(--f-serif); font-weight: 900; font-size: 32px; letter-spacing: 0.1em; line-height: 1; }
+.slide-sub { font-size: 12px; opacity: 0.9; margin-top: 4px; }
+.slide-foot { font-size: 11px; opacity: 0.8; letter-spacing: 0.1em; }
+.carousel-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 2; }
+.carousel-dots span { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.5); transition: all 300ms var(--ease-out-quart); }
+.carousel-dots span.on { width: 20px; border-radius: 3px; background: #fff; }
+
+/* 搜索框 */
+.search-box {
+  margin: 0 20px 24px; height: 48px;
+  background: var(--bg-card); border-radius: 999px;
+  display: flex; align-items: center; padding: 0 18px; gap: 10px;
+  box-shadow: 0 8px 24px -10px oklch(50% 0.10 285 / 0.2);
+  cursor: text; transition: all 300ms var(--ease-out-quart);
+  opacity: 0; transform: translateY(20px);
+  animation: s-in 800ms var(--ease-out-expo) 500ms forwards;
+  border: 1px solid var(--border);
+}
+.search-box:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -10px oklch(50% 0.10 285 / 0.3); }
+.search-ico { color: var(--c-text-3); }
+.search-text { flex: 1; color: var(--c-text-3); font-size: 14px; }
+.search-arrow { color: var(--c-text-3); }
+
+/* 区块标题 */
+.section-head { display: flex; align-items: center; justify-content: space-between; padding: 0 20px 12px; opacity: 0; transform: translateY(20px); }
+.section-head h2 { font-family: var(--f-serif); font-weight: 700; font-size: 22px; color: var(--c-text); letter-spacing: 0.05em; }
+.section-head .count { font-size: 12px; padding: 4px 10px; border-radius: 999px; background: var(--bg-soft); color: var(--c-text-2); }
+.section-head.count-anim { animation: s-in 800ms var(--ease-out-expo) 650ms forwards; }
+.section-head.more-anim  { animation: s-in 800ms var(--ease-out-expo) 1300ms forwards; }
+@keyframes s-in { to { opacity: 1; transform: translateY(0); } }
+
+/* 宫格菜单 */
+.menu-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;
+  background: var(--bg-card); margin: 0 20px 24px;
+  border-radius: var(--r-2xl); padding: 20px 16px;
+  box-shadow: 0 8px 24px -10px oklch(50% 0.10 285 / 0.15);
+  opacity: 0; transform: translateY(20px);
+  animation: s-in 800ms var(--ease-out-expo) 750ms forwards;
+  border: 1px solid var(--border);
+}
+.menu-item { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 8px 4px; border-radius: var(--r-md); cursor: pointer; transition: all 200ms var(--ease-out-quart); position: relative; }
+.menu-item:hover { transform: translateY(-3px); }
+.menu-item:active { transform: scale(0.95); }
+.menu-ico { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; font-size: 22px; transition: all 300ms var(--ease-out-quart); position: relative; overflow: hidden; }
+.menu-ico::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 60%); opacity: 0.6; }
+.menu-item:hover .menu-ico { transform: rotate(-8deg) scale(1.1); }
+.menu-name { font-size: 12px; color: var(--c-text-2); font-weight: 500; }
+
+/* 校园介绍横向卡片 */
+.campus-card { flex: 0 0 200px; border-radius: var(--r-lg); overflow: hidden; background: var(--bg-card); box-shadow: 0 8px 24px -10px oklch(50% 0.10 285 / 0.2); cursor: pointer; transition: transform 300ms var(--ease-out-quart); position: relative; border: 1px solid var(--border); }
+.campus-card:hover { transform: translateY(-4px); }
+.campus-img { height: 120px; position: relative; overflow: hidden; }
+.campus-body { padding: 12px; }
+.campus-title { font-size: 14px; font-weight: 600; color: var(--c-text); }
+.campus-sub { font-size: 11px; color: var(--c-text-3); margin-top: 2px; }
+.campus-row { display: flex; gap: 12px; padding: 0 20px 24px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.campus-row::-webkit-scrollbar { display: none; }
+.campus-card { scroll-snap-align: start; }
+
+/* 更多服务 */
+.more-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 20px 32px; opacity: 0; transform: translateY(20px); }
+.more-grid.anim { animation: s-in 800ms var(--ease-out-expo) 1400ms forwards; }
+.more-item { background: var(--bg-card); border-radius: var(--r-lg); padding: 16px; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: all 300ms var(--ease-out-quart); box-shadow: 0 4px 16px -6px oklch(50% 0.10 285 / 0.15); position: relative; overflow: hidden; border: 1px solid var(--border); }
+.more-item::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, var(--bg-soft) 0%, transparent 50%); opacity: 0; transition: opacity 300ms var(--ease-out-quart); }
+.more-item:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -6px oklch(50% 0.10 285 / 0.25); }
+.more-item:hover::before { opacity: 1; }
+.more-ico { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; flex-shrink: 0; position: relative; z-index: 1; transition: transform 300ms var(--ease-out-quart); }
+.more-item:hover .more-ico { transform: scale(1.1) rotate(-5deg); }
+.more-body { flex: 1; min-width: 0; position: relative; z-index: 1; }
+.more-name { font-size: 14px; font-weight: 600; color: var(--c-text); }
+.more-sub { font-size: 11px; color: var(--c-text-3); margin-top: 2px; }
+
+/* ===========================
+   底部 Tab 栏
+   =========================== */
+.tabbar {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: var(--tabbar-h);
+  background: var(--tab-bg);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-around;
+  z-index: 20;
+  transform: translateY(100%);
+  transition: transform 500ms var(--ease-out-expo);
+}
+.tabbar.show { transform: translateY(0); }
+.tab-item {
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;
+  padding: 8px 0; cursor: pointer;
+  color: var(--c-text-3);
+  transition: color 250ms var(--ease-out-quart);
+  position: relative;
+}
+.tab-item .tab-ico { width: 24px; height: 24px; display: grid; place-items: center; transition: transform 300ms var(--ease-out-quart); }
+.tab-item .tab-label { font-size: 11px; font-weight: 500; }
+.tab-item.active { color: oklch(55% 0.18 230); }
+.tab-item.active .tab-ico { transform: translateY(-2px) scale(1.1); }
+.tab-item.active::before {
+  content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 24px; height: 3px; border-radius: 0 0 3px 3px;
+  background: linear-gradient(90deg, oklch(65% 0.18 230), oklch(60% 0.20 280));
+}
+.tab-item:active .tab-ico { transform: scale(0.9); }
+
+/* ===========================
+   校园 Tab
+   =========================== */
+.campus-hero {
+  margin: 16px 20px 20px;
+  height: 200px; border-radius: var(--r-2xl); overflow: hidden;
+  position: relative;
+  background: linear-gradient(135deg, oklch(45% 0.15 230) 0%, oklch(40% 0.18 280) 50%, oklch(50% 0.15 200) 100%);
+  display: flex; align-items: flex-end; padding: 20px;
+  box-shadow: 0 20px 50px -20px oklch(50% 0.10 285 / 0.4);
+}
+.campus-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 70% 30%, oklch(80% 0.15 50 / 0.3) 0%, transparent 50%); }
+.campus-hero-text { position: relative; color: #fff; }
+.campus-hero h2 { font-family: var(--f-serif); font-size: 28px; font-weight: 900; letter-spacing: 0.1em; margin-bottom: 4px; }
+.campus-hero p { font-size: 13px; opacity: 0.85; }
+
+.campus-list { padding: 0 20px; }
+.campus-block { background: var(--bg-card); border-radius: var(--r-lg); padding: 16px; margin-bottom: 12px; border: 1px solid var(--border); transition: all 300ms var(--ease-out-quart); cursor: pointer; }
+.campus-block:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -6px oklch(50% 0.10 285 / 0.2); }
+.campus-block-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.campus-block-ico { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; font-size: 20px; }
+.campus-block-title { font-size: 16px; font-weight: 600; color: var(--c-text); }
+.campus-block-sub { font-size: 12px; color: var(--c-text-3); margin-top: 2px; }
+.campus-block-body { font-size: 13px; color: var(--c-text-2); line-height: 1.7; }
+.campus-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.campus-tag { padding: 3px 10px; font-size: 11px; border-radius: 999px; background: var(--bg-soft); color: var(--c-text-2); }
+
+/* ===========================
+   我的 Tab
+   =========================== */
+.profile-card {
+  margin: 16px 20px 20px;
+  padding: 24px 20px;
+  border-radius: var(--r-2xl);
+  background: linear-gradient(135deg, oklch(60% 0.18 230) 0%, oklch(55% 0.20 280) 100%);
+  color: #fff;
+  position: relative; overflow: hidden;
+  box-shadow: 0 20px 50px -20px oklch(50% 0.10 285 / 0.4);
+}
+.profile-card::before { content: ''; position: absolute; top: -50%; right: -20%; width: 200px; height: 200px; border-radius: 50%; background: oklch(80% 0.10 50 / 0.2); filter: blur(30px); }
+.profile-head { display: flex; align-items: center; gap: 16px; position: relative; }
+.profile-avatar { width: 64px; height: 64px; border-radius: 50%; background: oklch(95% 0.04 285); display: grid; place-items: center; font-size: 28px; border: 3px solid oklch(100% 0 0 / 0.3); }
+.profile-name { font-size: 20px; font-weight: 700; }
+.profile-meta { font-size: 12px; opacity: 0.85; margin-top: 4px; }
+.profile-stats { display: flex; gap: 24px; margin-top: 20px; position: relative; }
+.profile-stat .num { font-family: var(--f-num); font-size: 24px; font-weight: 500; }
+.profile-stat .label { font-size: 11px; opacity: 0.8; margin-top: 2px; }
+
+.setting-list { padding: 0 20px; }
+.setting-group { background: var(--bg-card); border-radius: var(--r-lg); overflow: hidden; margin-bottom: 16px; border: 1px solid var(--border); }
+.setting-item { display: flex; align-items: center; gap: 12px; padding: 14px 16px; cursor: pointer; transition: background 200ms var(--ease-out-quart); border-bottom: 1px solid var(--border); }
+.setting-item:last-child { border-bottom: none; }
+.setting-item:hover { background: var(--bg-soft); }
+.setting-item:active { background: var(--bg-soft); }
+.setting-ico { width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center; font-size: 16px; flex-shrink: 0; }
+.setting-body { flex: 1; min-width: 0; }
+.setting-name { font-size: 14px; color: var(--c-text); }
+.setting-sub { font-size: 11px; color: var(--c-text-3); margin-top: 2px; }
+.setting-arrow { color: var(--c-text-3); }
+.setting-toggle { width: 44px; height: 26px; border-radius: 999px; background: var(--bg-soft); position: relative; cursor: pointer; transition: background 250ms var(--ease-out-quart); border: none; }
+.setting-toggle::after { content: ''; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; transition: transform 250ms var(--ease-out-quart); box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+.setting-toggle.on { background: oklch(60% 0.18 230); }
+.setting-toggle.on::after { transform: translateX(18px); }
+
+/* ===========================
+   抽屉弹层
+   =========================== */
+.drawer-mask { position: absolute; inset: 0; z-index: 100; background: var(--bg-mask); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); opacity: 0; pointer-events: none; transition: opacity 400ms var(--ease-out-expo); }
+.drawer-mask.on { opacity: 1; pointer-events: auto; }
+
+.drawer { position: absolute; left: 0; right: 0; bottom: 0; background: var(--bg-card); border-radius: 28px 28px 0 0; max-height: 78%; transform: translateY(100%); transition: transform 500ms var(--ease-out-expo); z-index: 101; display: flex; flex-direction: column; color: var(--c-text); }
+.drawer.on { transform: translateY(0); }
+.drawer-handle { width: 40px; height: 4px; border-radius: 2px; background: var(--border); margin: 10px auto 0; }
+.drawer-head { padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); }
+.drawer-title { font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+.drawer-title-ico { width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center; font-size: 16px; }
+.drawer-close { width: 28px; height: 28px; border-radius: 50%; background: var(--bg-soft); border: none; cursor: pointer; display: grid; place-items: center; color: var(--c-text-2); transition: all 200ms var(--ease-out-quart); }
+.drawer-close:hover { background: var(--border); transform: rotate(90deg); }
+.drawer-body { flex: 1; overflow-y: auto; padding: 16px 20px 32px; }
+.drawer-body::-webkit-scrollbar { display: none; }
+
+/* 联系学长二维码弹窗 */
+.qr-mask { position: absolute; inset: 0; z-index: 120; background: var(--bg-mask); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); opacity: 0; pointer-events: none; transition: opacity 350ms var(--ease-out-expo); }
+.qr-mask.on { opacity: 1; pointer-events: auto; }
+
+.qr-modal { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -45%) scale(0.92); z-index: 121; width: min(300px, 78vw); background: var(--bg-card); border-radius: var(--r-xl); padding: 28px 24px 24px; box-shadow: 0 30px 60px -20px oklch(15% 0.10 285 / 0.35), 0 0 0 1px var(--border); text-align: center; opacity: 0; pointer-events: none; transition: all 400ms var(--ease-out-expo); }
+.qr-modal.on { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(1); }
+
+.qr-close { position: absolute; top: 14px; right: 14px; width: 30px; height: 30px; border-radius: 50%; background: var(--bg-soft); border: none; cursor: pointer; display: grid; place-items: center; color: var(--c-text-2); transition: all 200ms var(--ease-out-quart); }
+.qr-close:hover { background: var(--border); transform: rotate(90deg); }
+
+.qr-avatar { width: 56px; height: 56px; margin: 0 auto 12px; border-radius: 50%; background: linear-gradient(135deg, oklch(92% 0.08 150), oklch(88% 0.10 190)); display: grid; place-items: center; font-size: 28px; box-shadow: 0 8px 20px -8px oklch(50% 0.12 160 / 0.35); }
+.qr-name { font-size: 18px; font-weight: 700; color: var(--c-text); font-family: var(--f-serif); letter-spacing: 0.05em; }
+.qr-desc { font-size: 12px; color: var(--c-text-2); margin-top: 4px; line-height: 1.5; }
+
+.qr-img-wrap { margin: 18px auto 14px; width: 180px; height: 180px; border-radius: var(--r-md); overflow: hidden; background: #fff; border: 1px solid var(--border); padding: 8px; box-shadow: 0 8px 24px -10px oklch(15% 0.08 285 / 0.2); }
+.qr-img-wrap img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+.qr-wxid { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; background: var(--bg-soft); border-radius: 999px; font-size: 13px; color: var(--c-text); font-family: var(--f-num); letter-spacing: 0.04em; }
+.qr-copy { padding: 4px 10px; border-radius: 999px; border: none; background: oklch(55% 0.18 230); color: #fff; font-size: 11px; cursor: pointer; transition: all 200ms var(--ease-out-quart); font-family: var(--f-sans); }
+.qr-copy:hover { background: oklch(48% 0.18 230); transform: translateY(-1px); }
+.qr-copy:active { transform: scale(0.96); }
+.qr-copy.copied { background: oklch(55% 0.16 150); }
+
+.qr-tip { margin-top: 14px; font-size: 11px; color: var(--c-text-3); line-height: 1.5; }
+
+@media (max-width: 480px) {
+  .qr-modal { width: min(300px, 82vw); padding: 26px 22px 22px; }
+  .qr-img-wrap { width: 170px; height: 170px; }
+}
+
+/* 详情内容样式 */
+.detail-lead { font-size: 14px; color: var(--c-text-2); line-height: 1.8; padding: 12px 14px; background: var(--bg-soft); border-radius: var(--r-md); border-left: 3px solid oklch(60% 0.18 230); margin-bottom: 16px; }
+.detail-h3 { font-size: 15px; font-weight: 600; color: var(--c-text); margin: 18px 0 10px; display: flex; align-items: center; gap: 6px; }
+.detail-h3::before { content: ''; width: 4px; height: 14px; background: linear-gradient(180deg, oklch(65% 0.18 230), oklch(60% 0.20 280)); border-radius: 2px; }
+.detail-list { list-style: none; }
+.detail-list li { font-size: 13px; color: var(--c-text); padding: 10px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; line-height: 1.6; }
+.detail-list li:last-child { border-bottom: none; }
+.detail-list li .li-num { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: oklch(95% 0.04 230); color: oklch(45% 0.18 230); font-size: 11px; font-weight: 600; display: grid; place-items: center; font-family: var(--f-num); }
+.detail-tip { font-size: 12px; color: var(--c-text-3); padding: 10px 12px; background: oklch(95% 0.04 50); border-radius: var(--r-md); margin-top: 12px; display: flex; gap: 8px; line-height: 1.6; }
+[data-theme="dark"] .detail-tip { background: oklch(25% 0.04 50); }
+
+.detail-gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 12px 0 16px; }
+.detail-gallery .g-item { aspect-ratio: 4 / 3; border-radius: var(--r-md); overflow: hidden; background: var(--bg-soft); border: 1px solid var(--border); cursor: pointer; transition: transform 300ms var(--ease-out-quart), box-shadow 300ms var(--ease-out-quart); }
+.detail-gallery .g-item:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -8px oklch(50% 0.10 285 / 0.25); }
+.detail-gallery .g-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.detail-gallery.single { grid-template-columns: 1fr; }
+.detail-gallery.single .g-item { aspect-ratio: 16 / 10; }
+
+.address-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.address-table th { text-align: left; padding: 10px 8px; background: var(--bg-soft); color: var(--c-text-2); font-weight: 600; font-size: 12px; }
+.address-table th:first-child { border-radius: 8px 0 0 8px; }
+.address-table th:last-child  { border-radius: 0 8px 8px 0; }
+.address-table td { padding: 12px 8px; border-bottom: 1px solid var(--border); color: var(--c-text); vertical-align: top; }
+.address-table tr { transition: background 200ms var(--ease-out-quart); }
+.address-table tbody tr:hover { background: var(--bg-soft); }
+.address-table .copy { display: inline-block; margin-left: 6px; padding: 2px 8px; font-size: 11px; color: oklch(60% 0.15 230); background: oklch(95% 0.04 230); border-radius: 4px; cursor: pointer; transition: all 200ms var(--ease-out-quart); }
+[data-theme="dark"] .address-table .copy { background: oklch(25% 0.04 230); color: oklch(75% 0.15 230); }
+.address-table .copy:hover { background: oklch(90% 0.06 230); color: oklch(45% 0.18 230); }
+
+/* ===========================
+   搜索弹层
+   =========================== */
+.search-overlay {
+  position: absolute; inset: 0; z-index: 110;
+  background: var(--bg-app);
+  transform: translateY(-100%);
+  transition: transform 450ms var(--ease-out-expo);
+  display: flex; flex-direction: column;
+}
+.search-overlay.on { transform: translateY(0); }
+.search-overlay-head { display: flex; align-items: center; gap: 10px; padding: 16px 20px 12px; border-bottom: 1px solid var(--border); }
+.search-input-wrap { flex: 1; height: 40px; background: var(--bg-card); border-radius: 999px; display: flex; align-items: center; padding: 0 16px; gap: 8px; border: 1px solid var(--border); }
+.search-input-wrap:focus-within { border-color: oklch(60% 0.18 230); box-shadow: 0 0 0 3px oklch(60% 0.18 230 / 0.1); }
+.search-input { flex: 1; border: none; outline: none; background: transparent; font-size: 14px; color: var(--c-text); font-family: var(--f-sans); }
+.search-input::placeholder { color: var(--c-text-3); }
+.search-cancel { color: oklch(55% 0.18 230); font-size: 14px; cursor: pointer; padding: 8px; border: none; background: transparent; font-family: var(--f-sans); }
+.search-body { flex: 1; overflow-y: auto; padding: 16px 20px; }
+.search-body::-webkit-scrollbar { display: none; }
+.search-section-title { font-size: 12px; color: var(--c-text-3); margin-bottom: 10px; letter-spacing: 0.05em; }
+.search-hot { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.search-hot span { padding: 6px 14px; font-size: 12px; border-radius: 999px; background: var(--bg-card); color: var(--c-text-2); cursor: pointer; transition: all 200ms var(--ease-out-quart); border: 1px solid var(--border); }
+.search-hot span:hover { background: oklch(95% 0.04 230); color: oklch(45% 0.18 230); border-color: oklch(80% 0.06 230); }
+[data-theme="dark"] .search-hot span:hover { background: oklch(25% 0.04 230); }
+.search-result { display: flex; flex-direction: column; gap: 8px; }
+.search-result-item { display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--bg-card); border-radius: var(--r-md); cursor: pointer; transition: all 200ms var(--ease-out-quart); border: 1px solid var(--border); }
+.search-result-item:hover { transform: translateX(4px); background: var(--bg-soft); }
+.search-result-ico { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; font-size: 18px; flex-shrink: 0; }
+.search-result-body { flex: 1; }
+.search-result-name { font-size: 14px; color: var(--c-text); font-weight: 500; }
+.search-result-name mark { background: oklch(90% 0.10 80); color: oklch(30% 0.10 60); padding: 0 2px; border-radius: 2px; }
+[data-theme="dark"] .search-result-name mark { background: oklch(40% 0.10 80); color: oklch(90% 0.08 80); }
+.search-result-sub { font-size: 11px; color: var(--c-text-3); margin-top: 2px; }
+.search-empty { text-align: center; padding: 40px 20px; color: var(--c-text-3); font-size: 14px; }
+
+/* ===========================
+   Toast
+   =========================== */
+.toast { position: absolute; left: 50%; top: 80px; transform: translateX(-50%) translateY(-30px); padding: 10px 20px; background: oklch(20% 0.04 260); color: #fff; border-radius: 999px; font-size: 13px; opacity: 0; transition: all 400ms var(--ease-out-expo); z-index: 200; pointer-events: none; box-shadow: 0 10px 30px -10px rgba(0,0,0,0.4); }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+@media (max-width: 380px) {
+  .cd-cell { width: 64px; height: 90px; }
+  .cd-num { font-size: 38px; }
+  .menu-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="phone">
+    <div class="statusbar">
+      <div class="dot"></div>
+      <div class="bar"></div>
+      <div class="ico"></div>
+    </div>
+
+    <!-- ================== 启动/倒计时页 ================== -->
+    <section class="screen" id="screen-splash">
+      <canvas id="splash-canvas"></canvas>
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+      <div class="aura"></div>
+
+      <div class="school-tag">成都东软学院</div>
+      <h1 class="splash-title">距 离 开 学 还 有</h1>
+
+      <div class="countdown" id="countdown">
+        <div class="cd-cell"><div class="cd-num" data-cd="d">33</div><div class="cd-label">天</div></div>
+        <div class="cd-cell"><div class="cd-num" data-cd="h">18</div><div class="cd-label">时</div></div>
+        <div class="cd-cell"><div class="cd-num" data-cd="m">12</div><div class="cd-label">分</div></div>
+        <div class="cd-cell"><div class="cd-num" data-cd="s">57</div><div class="cd-label">秒</div></div>
+      </div>
+
+      <p class="open-date"><span class="date">2026年8月30日 06:00</span> 开学</p>
+
+      <div class="loading-card">
+        <div class="lc-ico"><div class="lc-dots"><span></span><span></span><span></span></div></div>
+        <div class="lc-body">
+          <div class="lc-title">生活指南加载中</div>
+          <div class="lc-sub">正在准备校园生活内容，请稍候</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <button class="enter-btn" id="enter-btn">
+        <span>进入主页</span>
+        <span class="arrow">→</span>
+      </button>
+
+      <div class="signature">新 的 旅 程  即 将 开 始</div>
+    </section>
+
+    <!-- ================== 主应用 ================== -->
+    <section class="screen is-hidden" id="screen-app">
+      <div class="app-top">
+        <div>
+          <span class="app-title" id="app-title">成都东软学院</span>
+          <span class="app-sub" id="app-sub">· 欢迎26级新生</span>
+        </div>
+        <div class="right">
+          <button class="icon-btn" id="theme-toggle" title="切换主题">
+            <svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </button>
+          <button class="icon-btn" id="msg-btn" title="消息">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="tab-panels">
+        <!-- ===== 首页 Tab ===== -->
+        <div class="tab-panel active" data-tab="home">
+          <div class="carousel" id="carousel">
+            <div class="carousel-track" id="carousel-track">
+              <div class="carousel-slide" data-idx="0">
+                <img class="slide-bg" src="images/slide1.jpg" alt="校园风光" />
+                <div class="slide-content">
+                  <div><div class="slide-title">软 · 韵</div><div class="slide-sub">山水校园 · 启程之地</div></div>
+                  <div class="slide-foot">NEW BEGINNING</div>
+                </div>
+              </div>
+              <div class="carousel-slide" data-idx="1">
+                <img class="slide-bg" src="images/slide2.jpg" alt="校门夜景" />
+                <div class="slide-content">
+                  <div><div class="slide-title">何学长</div><div class="slide-sub">新学期 · 新起点 · 新未来</div></div>
+                  <div class="slide-foot">EXPLORE · GROW</div>
+                </div>
+              </div>
+              <div class="carousel-slide" data-idx="2">
+                <img class="slide-bg" src="images/slide3.jpg" alt="湖畔竹影" />
+                <div class="slide-content">
+                  <div><div class="slide-title">启 · 行</div><div class="slide-sub">在东软，开启无限可能</div></div>
+                  <div class="slide-foot">YOUR FUTURE</div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-dots" id="carousel-dots"><span class="on"></span><span></span><span></span></div>
+          </div>
+
+          <div class="search-box" id="search-trigger">
+            <div class="search-ico" style="color:oklch(55% 0.18 150);"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.5,13.5A1.5,1.5 0 1,1 10,12A1.5,1.5 0 0,1 8.5,13.5M14.5,13.5A1.5,1.5 0 1,1 16,12A1.5,1.5 0 0,1 14.5,13.5M12,2C6.5,2 2,6 2,11C2,13.5 3.5,15.5 5.5,17V22L9.5,19.5C10.3,19.8 11.1,20 12,20C17.5,20 22,16 22,11C22,6 17.5,2 12,2Z"/></svg></div>
+            <div class="search-text">联系学长</div>
+            <div class="search-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+          </div>
+
+          <div class="section-head count-anim" style="margin-top:8px;">
+            <h2>新生必看</h2><span class="count">15 项</span>
+          </div>
+          <div class="menu-grid" id="menu-grid">
+            <div class="menu-item" data-action="checklist"><div class="menu-ico" style="background: oklch(90% 0.06 220); color: oklch(45% 0.18 220);">✓</div><div class="menu-name">必备清单</div></div>
+            <div class="menu-item" data-action="dormlife"><div class="menu-ico" style="background: oklch(90% 0.08 160); color: oklch(45% 0.16 160);">🛏</div><div class="menu-name">宿舍生活</div></div>
+            <div class="menu-item" data-action="traffic"><div class="menu-ico" style="background: oklch(90% 0.08 30); color: oklch(45% 0.18 30);">🚇</div><div class="menu-name">交通出行</div></div>
+            <div class="menu-item" data-action="network"><div class="menu-ico" style="background: oklch(90% 0.08 280); color: oklch(45% 0.18 280);">📡</div><div class="menu-name">校园网络</div></div>
+            <div class="menu-item" data-action="food"><div class="menu-ico" style="background: oklch(90% 0.08 0); color: oklch(50% 0.20 0);">🍴</div><div class="menu-name">餐饮美食</div></div>
+            <div class="menu-item" data-action="report"><div class="menu-ico" style="background: oklch(92% 0.06 250); color: oklch(45% 0.18 250);">📅</div><div class="menu-name">报道流程</div></div>
+            <div class="menu-item" data-action="qa"><div class="menu-ico" style="background: oklch(92% 0.06 160); color: oklch(45% 0.18 160);">?</div><div class="menu-name">常见问题</div></div>
+            <div class="menu-item" data-action="phone"><div class="menu-ico" style="background: oklch(90% 0.08 20); color: oklch(50% 0.20 20);">📞</div><div class="menu-name">联系电话</div></div>
+            <div class="menu-item" data-action="express"><div class="menu-ico" style="background: oklch(90% 0.08 220); color: oklch(50% 0.18 220);">📦</div><div class="menu-name">快递地址</div></div>
+            <div class="menu-item" data-action="takeout"><div class="menu-ico" style="background: oklch(90% 0.08 350); color: oklch(50% 0.20 350);">🛵</div><div class="menu-name">外卖地址</div></div>
+            <div class="menu-item" data-action="choosedorm"><div class="menu-ico" style="background: oklch(92% 0.06 50); color: oklch(45% 0.18 50);">💡</div><div class="menu-name">选宿舍</div></div>
+            <div class="menu-item" data-action="dormsize"><div class="menu-ico" style="background: oklch(92% 0.06 80); color: oklch(45% 0.16 80);">📐</div><div class="menu-name">寝室尺寸</div></div>
+            <div class="menu-item" data-action="major"><div class="menu-ico" style="background: oklch(92% 0.06 250); color: oklch(45% 0.18 250);">🔄</div><div class="menu-name">转专业</div></div>
+            <div class="menu-item" data-action="dormpic"><div class="menu-ico" style="background: oklch(92% 0.06 200); color: oklch(45% 0.16 200);">🖼</div><div class="menu-name">寝室图片</div></div>
+            <div class="menu-item" data-action="foodpic"><div class="menu-ico" style="background: oklch(92% 0.06 30); color: oklch(45% 0.18 30);">🍱</div><div class="menu-name">食堂图片</div></div>
+          </div>
+
+          <div class="section-head more-anim" style="margin-top:8px;">
+            <h2>校园介绍</h2><span class="count">2 项</span>
+          </div>
+          <div class="campus-row">
+            <div class="campus-card" data-campus="scenery">
+              <div class="campus-img" style="background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.25) 100%), url('images/campus1.jpg') center/cover no-repeat;"></div>
+              <div class="campus-body"><div class="campus-title">校园风光</div><div class="campus-sub">遇见校园</div></div>
+            </div>
+            <div class="campus-card" data-campus="major">
+              <div class="campus-img" style="background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.25) 100%), url('images/campus2.jpg') center/cover no-repeat;"></div>
+              <div class="campus-body"><div class="campus-title">学院/专业/校区</div><div class="campus-sub">探索专业世界</div></div>
+            </div>
+          </div>
+
+          <div class="section-head more-anim" style="margin-top:24px;">
+            <h2>更多服务</h2><span class="count">5 项</span>
+          </div>
+          <div class="more-grid anim" id="more-grid">
+            <div class="more-item" data-more="scholarship"><div class="more-ico" style="background: oklch(95% 0.06 50); color: oklch(55% 0.18 50);">🏆</div><div class="more-body"><div class="more-name">奖学金政策</div><div class="more-sub">资助政策及时了解</div></div></div>
+            <div class="more-item" data-more="phone"><div class="more-ico" style="background: oklch(95% 0.06 20); color: oklch(55% 0.20 20);">📞</div><div class="more-body"><div class="more-name">部门电话</div><div class="more-sub">常用部门联系方式</div></div></div>
+            <div class="more-item" data-more="calendar"><div class="more-ico" style="background: oklch(95% 0.06 160); color: oklch(45% 0.18 160);">📅</div><div class="more-body"><div class="more-name">校历查询</div><div class="more-sub">重要日期一目了然</div></div></div>
+            <div class="more-item" data-more="feedback"><div class="more-ico" style="background: oklch(95% 0.06 280); color: oklch(45% 0.18 280);">✉</div><div class="more-body"><div class="more-name">意见反馈</div><div class="more-sub">提交你的建议</div></div></div>
+            <div class="more-item" data-more="bedding"><div class="more-ico" style="background: oklch(95% 0.06 30); color: oklch(55% 0.20 30);">🛒</div><div class="more-body"><div class="more-name">床上用品六件套</div><div class="more-sub">开学可送到寝室</div></div></div>
+          </div>
+          <div style="height:30px;"></div>
+        </div>
+
+        <!-- ===== 校园 Tab ===== -->
+        <div class="tab-panel" data-tab="campus">
+          <div class="campus-hero">
+            <div class="campus-hero-text">
+              <h2>校园一览</h2>
+              <p>一座学府 · 青城山下 · 无限可能</p>
+            </div>
+          </div>
+          <div class="campus-list">
+            <div class="campus-block" data-campus="scenery">
+              <div class="campus-block-head">
+                <div class="campus-block-ico" style="background: oklch(90% 0.08 220); color: oklch(45% 0.18 220);">🏛</div>
+                <div><div class="campus-block-title">校园风光</div><div class="campus-block-sub">山水校园 · 启程之地</div></div>
+              </div>
+              <div class="campus-block-body">成都东软学院坐落于都江堰青城山 5A 级景区，校园依山傍水，环境幽雅。学校拥有现代化的教学楼、图书馆、实验室和体育设施，为学子提供一流的学习生活环境。</div>
+              <div class="campus-tags"><span class="campus-tag">教学楼</span><span class="campus-tag">图书馆</span><span class="campus-tag">体育馆</span><span class="campus-tag">湖心亭</span></div>
+            </div>
+            <div class="campus-block" data-campus="major">
+              <div class="campus-block-head">
+                <div class="campus-block-ico" style="background: oklch(90% 0.08 30); color: oklch(45% 0.18 30);">🎓</div>
+                <div><div class="campus-block-title">学院 / 专业 / 校区</div><div class="campus-block-sub">探索专业世界</div></div>
+              </div>
+              <div class="campus-block-body">学校设有计算机与软件学院、信息与商务管理学院、智能科学与工程学院、数字艺术与设计学院、外国语学院、健康医疗科技学院等，覆盖软件工程、计算机科学、人工智能、数字媒体等热门方向。</div>
+              <div class="campus-tags"><span class="campus-tag">软件工程</span><span class="campus-tag">人工智能</span><span class="campus-tag">数字媒体</span><span class="campus-tag">物联网</span><span class="campus-tag">大数据</span></div>
+            </div>
+            <div class="campus-block" data-campus="landmark">
+              <div class="campus-block-head">
+                <div class="campus-block-ico" style="background: oklch(90% 0.08 160); color: oklch(45% 0.16 160);">🏟</div>
+                <div><div class="campus-block-title">校园地标</div><div class="campus-block-sub">标志性建筑</div></div>
+              </div>
+              <div class="campus-block-body">校园位于青城山景区内，钟楼、湖心亭、樱花大道、图书馆中庭……每一处都值得打卡留念。周边更有青城山、都江堰、熊猫谷等世界级景点。</div>
+              <div class="campus-tags"><span class="campus-tag">钟楼</span><span class="campus-tag">湖心亭</span><span class="campus-tag">樱花大道</span><span class="campus-tag">图书馆</span></div>
+            </div>
+          </div>
+          <div style="height:30px;"></div>
+        </div>
+
+        <!-- ===== 我的 Tab ===== -->
+        <div class="tab-panel" data-tab="me">
+          <div class="profile-card">
+            <div class="profile-head">
+              <div class="profile-avatar">🐻</div>
+              <div>
+                <div class="profile-name">2026 级新生</div>
+                <div class="profile-meta">成都东软学院 · 软件工程</div>
+              </div>
+            </div>
+            <div class="profile-stats">
+              <div class="profile-stat"><div class="num">15</div><div class="label">已收藏</div></div>
+              <div class="profile-stat"><div class="num">08</div><div class="label">已浏览</div></div>
+              <div class="profile-stat"><div class="num">02</div><div class="label">待办</div></div>
+            </div>
+          </div>
+
+          <div class="setting-list">
+            <div class="setting-group">
+              <div class="setting-item" data-setting="theme">
+                <div class="setting-ico" style="background: oklch(95% 0.06 250); color: oklch(45% 0.18 250);">🌙</div>
+                <div class="setting-body"><div class="setting-name">深色模式</div><div class="setting-sub">护眼夜间阅读</div></div>
+                <button class="setting-toggle" id="setting-toggle"></button>
+              </div>
+              <div class="setting-item" data-setting="font">
+                <div class="setting-ico" style="background: oklch(95% 0.06 30); color: oklch(55% 0.18 30);">🔤</div>
+                <div class="setting-body"><div class="setting-name">字体大小</div><div class="setting-sub">标准</div></div>
+                <div class="setting-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+              </div>
+              <div class="setting-item" data-setting="cache">
+                <div class="setting-ico" style="background: oklch(95% 0.06 160); color: oklch(45% 0.18 160);">🗑</div>
+                <div class="setting-body"><div class="setting-name">清除缓存</div><div class="setting-sub">12.4 MB</div></div>
+                <div class="setting-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+              </div>
+            </div>
+            <div class="setting-group">
+              <div class="setting-item" data-setting="about">
+                <div class="setting-ico" style="background: oklch(95% 0.06 280); color: oklch(45% 0.18 280);">ℹ</div>
+                <div class="setting-body"><div class="setting-name">关于何学长</div><div class="setting-sub">版本 v1.0.0</div></div>
+                <div class="setting-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+              </div>
+              <div class="setting-item" data-setting="share">
+                <div class="setting-ico" style="background: oklch(95% 0.06 50); color: oklch(55% 0.18 50);">🔗</div>
+                <div class="setting-body"><div class="setting-name">分享给同学</div><div class="setting-sub">一起开启大学生活</div></div>
+                <div class="setting-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+              </div>
+              <div class="setting-item" data-setting="feedback">
+                <div class="setting-ico" style="background: oklch(95% 0.06 20); color: oklch(55% 0.20 20);">✉</div>
+                <div class="setting-body"><div class="setting-name">意见反馈</div><div class="setting-sub">告诉我们如何改进</div></div>
+                <div class="setting-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+              </div>
+            </div>
+          </div>
+          <div style="height:30px;"></div>
+        </div>
+      </div>
+
+      <!-- 底部 Tab 栏 -->
+      <nav class="tabbar" id="tabbar">
+        <div class="tab-item active" data-tab="home">
+          <div class="tab-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+          <div class="tab-label">首页</div>
+        </div>
+        <div class="tab-item" data-tab="campus">
+          <div class="tab-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+          <div class="tab-label">校园</div>
+        </div>
+        <div class="tab-item" data-tab="me">
+          <div class="tab-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div class="tab-label">我的</div>
+        </div>
+      </nav>
+    </section>
+
+    <!-- 抽屉 -->
+    <div class="drawer-mask" id="drawer-mask"></div>
+    <div class="drawer" id="drawer">
+      <div class="drawer-handle"></div>
+      <div class="drawer-head">
+        <div class="drawer-title" id="drawer-title"><span class="drawer-title-ico" id="drawer-title-ico">📦</span><span id="drawer-title-text">快递地址</span></div>
+        <button class="drawer-close" id="drawer-close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      </div>
+      <div class="drawer-body" id="drawer-body"></div>
+    </div>
+
+    <!-- 联系学长二维码弹窗 -->
+    <div class="qr-mask" id="qr-mask"></div>
+    <div class="qr-modal" id="qr-modal">
+      <button class="qr-close" id="qr-close" aria-label="关闭"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      <div class="qr-avatar">👋</div>
+      <div class="qr-name">何学长</div>
+      <div class="qr-desc">成都东软学院新生指南 · 有问题随时问</div>
+      <div class="qr-img-wrap">
+        <img src="images/qrcode.jpg" alt="学长微信二维码" loading="lazy" />
+      </div>
+      <div class="qr-wxid">
+        <span id="qr-wxid-text">HEYINGHAI-0717</span>
+        <button class="qr-copy" id="qr-copy" aria-label="复制微信号">复制</button>
+      </div>
+      <div class="qr-tip">长按二维码识别，或复制微信号添加好友</div>
+    </div>
+
+    <!-- 搜索弹层 -->
+    <div class="search-overlay" id="search-overlay">
+      <div class="search-overlay-head">
+        <div class="search-input-wrap">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--c-text-3)"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" class="search-input" id="search-input" placeholder="搜索新生指南内容…" />
+        </div>
+        <button class="search-cancel" id="search-cancel">取消</button>
+      </div>
+      <div class="search-body" id="search-body">
+        <div class="search-section-title">热门搜索</div>
+        <div class="search-hot" id="search-hot">
+          <span>宿舍</span><span>快递</span><span>选宿舍</span><span>转专业</span><span>食堂</span><span>校园网</span>
+        </div>
+        <div class="search-section-title">全部功能</div>
+        <div class="search-result" id="search-result"></div>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+  </div>
+</div>
+
+<script>
+/* ===========================
+   菜单数据（详情内容）
+   =========================== */
+const MENU_DATA = {
+  checklist: { ico: '✓', icoBg: 'oklch(90% 0.06 220)', icoColor: 'oklch(45% 0.18 220)', title: '必备清单',
+    lead: '开学前请对照清单准备好以下物品，分"证件类""生活类""学习类"三大块。',
+    sections: [
+      { h: '证件类', items: ['录取通知书（原件）', '身份证及正反面复印件 5 份', '户口本迁移证（如需迁户口）', '党团组织关系介绍信', '近期免冠一寸/二寸照片各 8 张'] },
+      { h: '生活类', items: ['床上用品（可找学长预定六件套，送到寝室里面）', '洗漱用品：牙刷牙膏毛巾浴巾', '换洗衣物（都江堰 9 月早晚偏凉）', '雨伞、水杯、晾衣架', '常用药品：感冒药、肠胃药、创可贴'] },
+      { h: '学习类', items: ['笔记本电脑（建议 16GB+ 内存）', 'U 盘 / 移动硬盘', '文具：笔、笔记本、文件夹', '计算器（部分专业需要）'] }
+    ],
+    tip: '💡 提示：贵重物品请随身携带，大件行李可提前快递到校区驿站。'
+  },
+  dormlife: { ico: '🛏', icoBg: 'oklch(90% 0.08 160)', icoColor: 'oklch(45% 0.16 160)', title: '宿舍生活',
+    lead: '宿舍是大学生活的重要场景，了解规则才能住得舒心。',
+    sections: [
+      { h: '宿舍类型', items: ['多为 4 人间，上床下桌', '少量 6/8 人间（女生公寓大转角）', '每间配备空调、宽带接口，部分独立卫浴'] },
+      { h: '作息与门禁', items: ['周日至周四 23:00 门禁熄灯', '周五周六及节假日 23:30 门禁', '门禁后登记方可回宿舍'] },
+      { h: '生活贴士', items: ['公共洗衣机扫码使用，建议错峰', '每层楼每个寝室配备饮水机50押金（冷热）', '宿管阿姨处可借用针线包、打气筒'] }
+    ],
+    tip: '💡 室友相处之道：提前约定作息、卫生轮值、噪音边界。'
+  },
+  traffic: { ico: '🚇', icoBg: 'oklch(90% 0.08 30)', icoColor: 'oklch(45% 0.18 30)', title: '交通出行',
+    lead: '学校位于都江堰青城山景区，成都方向可乘高铁/大巴直达。',
+    sections: [
+      { h: '抵达学校', items: ['成都双流机场 → 校区：打车约 1 小时，约 150 元', '成都天府机场 → 校区：打车约 1.5 小时，约 200 元', '成都东站（高铁）→ 学校设有新生接站班车', '犀浦站乘成灌快铁 → 青城山站，打车 5 分钟到校'] },
+      { h: '周边出行', items: ['青城山站：步行约 15 分钟到校', '都江堰市区：公交 101 路 / 打车约 20 分钟', '成都市区：成灌快铁约 30 分钟到犀浦', '春熙路：犀浦转地铁约 1 小时'] },
+      { h: '出行方式', items: ['快铁：天府通 / 12306 购票乘车', '公交：支付宝/微信乘车码', '共享单车：校区门口有哈啰、美团', '打车：滴滴/高德地图'] }
+    ],
+    tip: '🚌 新生报到当天学校在成都东客站、青城山站设有接站点，请注意辨认学校工作人员。'
+  },
+  network: { ico: '📡', icoBg: 'oklch(90% 0.08 280)', icoColor: 'oklch(45% 0.18 280)', title: '校园网络',
+    lead: '校园网全校覆盖，宿舍、图书馆、教学楼均可接入。',
+    sections: [
+      { h: '账号开通', items: ['账号：学号', '初始密码：身份证后 6 位', '新生报到时在线领取账号'] },
+      { h: '套餐资费', items: ['69 元 / 月 · 580G 全国流量', '支持支付宝/微信缴费', '三大运营商（移动/联通/电信）均可办理', '支持联通数据流量，全国流量较多']  },
+      { h: '使用须知', items: ['Wi-Fi：NSU-Student', '有线网：宿舍网口直连', '每个账号同时仅 1 台设备在线'] }
+    ],
+    tip: '📶 宿舍网络信号稳定，推荐办理 69 元套餐满足日常学习娱乐。'
+  },
+  food: { ico: '🍴', icoBg: 'oklch(90% 0.08 0)', icoColor: 'oklch(50% 0.20 0)', title: '餐饮美食',
+    lead: '校内食堂菜品丰富、价格亲民，校外美食街更是宝藏。',
+    sections: [
+      { h: '校内食堂', items: ['A9 食堂：川菜、石锅拌饭、米线人气旺', 'B1 新食堂：煲仔饭、粥品、面食为主', '清真餐厅：拉面、盖饭、轻食', '人均：10-15 元 / 餐'] },
+      { h: '校外美食', items: ['青城山镇：老腊肉、白果炖鸡、青城四绝', '都江堰市区：火锅、串串、麻辣烫', '推荐：钵钵鸡、冒菜、甜水面'] },
+      { h: '外卖要点', items: ['外卖仅送至校门口外卖柜', '高峰期（11:30-12:30）建议提前下单', '推荐平台：美团、饿了么'] }
+    ],
+    tip: '🍚食堂消费，日均餐费约 50 元。'
+  },
+  report: { ico: '📅', icoBg: 'oklch(92% 0.06 250)', icoColor: 'oklch(45% 0.18 250)', title: '报道流程',
+    lead: '新生报到分"线上预报到"和"线下现场报到"两步。',
+    sections: [
+      { h: '线上预报到', items: ['登录学校迎新系统（8 月 20 日左右开放）', '填写个人信息、军训服装尺码', '在线选宿舍（按录取顺序）', '上传照片制作校园卡'] },
+      { h: '现场报到（8 月 30 日）', items: ['1. 到达寝室楼下领取钥匙办理入住', '2. 办理校园卡', '3. 排队领取军训服装', '4. 购买生活用品床上用品整理', '5. 入住宿舍，熟悉环境完成报到'] }
+    ],
+    tip: '📋 建议提前完成线上预报到，现场排队时间可缩短一半。'
+  },
+  qa: { ico: '?', icoBg: 'oklch(92% 0.06 160)', icoColor: 'oklch(45% 0.18 160)', title: '常见问题',
+    lead: '汇总新生最关心的 10 个问题，快速答疑。',
+    sections: [
+      { h: '入学准备', items: ['Q：军训多久？ A：约 2 周，8 月 31 日开始', 'Q：可以不迁户口吗？ A：可以，自愿原则', 'Q：床多大？ A：90cm × 200cm 标准学生床'] },
+      { h: '学习生活', items: ['Q：早操吗？ A：大一有晨跑，大二取消', 'Q：晚自习？ A：大一统一晚自习 19:00-21:00', 'Q：挂科怎么办？ A：下学期初补考，补考不过重修'] }
+    ],
+    tip: '❓ 更多问题可在"意见反馈"中提交，何学长 24 小时内回复。'
+  },
+  phone: { ico: '📞', icoBg: 'oklch(90% 0.08 20)', icoColor: 'oklch(50% 0.20 20)', title: '联系电话',
+    lead: '常用部门联系电话，建议保存到通讯录。',
+    sections: [
+      { h: '迎新相关', items: ['招生办：028-64888001', '学生处：028-64888002', '财务处（缴费）：028-64888003'] },
+      { h: '生活服务', items: ['宿管中心：028-64888010', '校园卡中心：028-64888012', '校医院：028-64888015', '保卫处：028-64888011'] }
+    ],
+    tip: '☎ 紧急情况请优先拨打 110 / 120，再联系学校保卫处。'
+  },
+  express: { ico: '📦', icoBg: 'oklch(90% 0.08 220)', icoColor: 'oklch(50% 0.18 220)', title: '快递地址',
+    lead: '校内各快递驿站地址汇总，建议收藏备用。',
+    table: {
+      heads: ['宿舍片区', '快递驿站名称', '完整邮寄地址'],
+      rows: [
+        ['男生公寓片区', 'D1-D3 菜鸟驿站', '四川省成都市都江堰市青城山镇东软大道1号 成都东软学院男生公寓'],
+        ['女生公寓片区', 'D5-D9 菜鸟驿站', '四川省成都市都江堰市青城山镇东软大道1号 成都东软学院女生公寓'],
+        ['综合片区', 'A 区快递服务中心', '四川省成都市都江堰市青城山镇东软大道1号 成都东软学院']
+      ]
+    },
+    tip: '📦 大件行李建议发德邦/京东物流，可送至宿舍楼下。'
+  },
+  takeout: { ico: '🛵', icoBg: 'oklch(90% 0.08 350)', icoColor: 'oklch(50% 0.20 350)', title: '外卖地址',
+    lead: '外卖配送地址填写指引，避免送错门岗。',
+    sections: [
+      { h: '地址模板', items: ['学校地址：四川省成都市都江堰市青城山镇东软大道1号 成都东软学院 X 号门', '男生公寓：东软大道1号 成都东软学院 D1-D3 楼下', '女生公寓：东软大道1号 成都东软学院 D5-D9 楼下'] },
+      { h: '取餐地点', items: ['外卖统一存放校门口外卖柜', '高峰期请 30 分钟内取餐', '超大件（蛋糕等）需门口签收'] }
+    ],
+    tip: '🛵 建议备注"放 X 号门外卖柜，到取餐码通知"，避免丢失。'
+  },
+  choosedorm: { ico: '💡', icoBg: 'oklch(92% 0.06 50)', icoColor: 'oklch(45% 0.18 50)', title: '选宿舍',
+    lead: '宿舍在线选择指南，先到先得按录取顺序选房。',
+    sections: [
+      { h: '选房时间', items: ['8 月 25 日 10:00 开放系统'] },
+      { h: '选房规则', items: ['可选床位号（上床下桌）', '同专业同班优先同宿舍', '提交后不可更改'] },
+      { h: '选房技巧', items: ['提前登录，避免系统拥堵', '准备好 2-3 个备选宿舍'] }
+    ],
+    tip: '💡 选房系统支持预览宿舍平面图，建议提前研究。'
+  },
+  dormsize: { ico: '📐', icoBg: 'oklch(92% 0.06 80)', icoColor: 'oklch(45% 0.16 80)', title: '寝室尺寸',
+    lead: '标准宿舍尺寸参考，采购物品前请核对。',
+    sections: [
+      { h: '床铺', items: ['床体：90cm × 200cm', '上铺高度：180cm（可放收纳）'] },
+      { h: '衣柜', items: ['尺寸：50cm × 50cm × 180cm', '挂衣杆高度：150cm', '抽屉 3 个，建议用收纳盒'] },
+      { h: '其他', items: ['窗户：150cm × 120cm', '阳台：300cm × 100cm', '空调位：已预装 1.5 匹'] }
+    ],
+    tip: '📐 床帘建议买 90cm × 200cm × 110cm 的款式。'
+  },
+  major: { ico: '🔄', icoBg: 'oklch(92% 0.06 250)', icoColor: 'oklch(45% 0.18 250)', title: '转专业',
+    lead: '大一结束可申请转专业，名额有限择优录取。',
+    sections: [
+      { h: '申请条件', items: ['大一学年无挂科', 'GPA 排名专业前 30%', '目标专业有接收名额', '艺术类专业需参加专业测试'] },
+      { h: '申请流程', items: ['5 月：关注教务处转专业通知', '5 月底：提交申请表', '6 月：参加目标专业笔试/面试', '7 月初：公示结果并办理手续'] },
+      { h: '热门专业竞争', items: ['软件工程：国家级特色专业，竞争最激烈', '人工智能：热门方向，GPA 前 10% 有望', '数字媒体技术：艺术+技术交叉，需作品集', '供应链管理：全国排名第 10'] }
+    ],
+    tip: '🔄 转专业机会只有一次，建议提前了解目标专业培养方案，做好充分准备。'
+  },
+  dormpic: { ico: '🖼', icoBg: 'oklch(92% 0.06 200)', icoColor: 'oklch(45% 0.16 200)', title: '寝室图片',
+    lead: '校内各宿舍楼栋实拍，提前看看你的家。',
+    images: ['images/dorm1.jpg'],
+    sections: [
+      { h: '男生公寓 D1-D3', items: ['4 人间，1/4 床位靠门', '楼层独立浴室、独立厕所', '配宽带接口、空调'] },
+      { h: '女生公寓 D5-D9', items: ['4 人间为主，少量 8 人间', '寝室独立浴室、独立厕所', '配宽带接口、空调'] },
+      { h: '混住公寓 D11', items: ['4 人间，按楼层分男女', '寝室独立浴室、独立厕所', '公寓式管理'] }
+    ],
+    tip: '🖼 完整图片库请在"校园介绍"中查看。'
+  },
+  foodpic: { ico: '🍱', icoBg: 'oklch(92% 0.06 30)', icoColor: 'oklch(45% 0.18 30)', title: '食堂图片',
+    lead: '两大食堂菜品实拍，先睹为快。',
+    images: ['images/food1.jpg', 'images/food2.jpg', 'images/food3.jpg'],
+    sections: [
+      { h: 'A9 食堂', items: ['招牌：石锅拌饭、米线、麻辣香锅', '人均：12 元', '高峰：11:30-12:15'] },
+      { h: 'B1 新食堂', items: ['招牌：煲仔饭、粥品、面食', '人均：10 元', '早餐丰富，6:30 开餐'] },
+      { h: '清真餐厅', items: ['招牌：兰州拉面、盖饭', '人均：13 元', '环境清静，可自习'] }
+    ],
+    tip: '🍱 消费，日均餐费约 50 元。'
+  }
+};
+
+const MORE_DATA = {
+  scholarship: { ico: '🏆', icoBg: 'oklch(95% 0.06 50)', icoColor: 'oklch(55% 0.18 50)', title: '奖学金政策',
+    lead: '学校设有完善的奖学金体系，覆盖学业、科创、社会服务等多维度，年度奖学金总额超 500 万元。',
+    sections: [
+      { h: '国家奖学金', items: ['金额：8000 元 / 年', '条件：GPA 专业前 5%', '名额：每专业 1-2 人', '要求：综合素质全面发展'] },
+      { h: '国家励志奖学金', items: ['金额：5000 元 / 年', '条件：家庭困难 + GPA 前 15%', '需提交家庭经济情况证明', '名额：每专业 2-3 人'] },
+      { h: '校级奖学金', items: ['一等奖：3000 元（前 3%）', '二等奖：2000 元（前 10%）', '三等奖：1000 元（前 20%）', '单项奖：500 元（科创/文体/社工）'] },
+      { h: '企业/社会奖学金', items: ['东软奖学金：10000 元 / 年', '校友奖学金：5000 元 / 年', 'SOVO 创业奖学金：项目资助', '校级创业大赛奖金：1-5 万元'] }
+    ],
+    tip: '🏆 大一即可参评校级奖学金，国家奖学金需大二起申请。建议开学就重视 GPA。'
+  },
+  phone: { ico: '📞', icoBg: 'oklch(95% 0.06 20)', icoColor: 'oklch(55% 0.20 20)', title: '部门电话',
+    lead: '学校各部门联系电话，建议收藏备用。',
+    sections: [
+      { h: '教学相关', items: ['教务处：028-64888020', '各学院办公室：详见官网', '教材科：028-64888021'] },
+      { h: '学生服务', items: ['学生处：028-64888002', '心理咨询中心：028-64888030', '就业指导中心：028-64888016'] }
+    ],
+    tip: '☎ 工作时间：周一至周五 8:30-17:00。'
+  },
+  calendar: { ico: '📅', icoBg: 'oklch(95% 0.06 160)', icoColor: 'oklch(45% 0.18 160)', title: '校历查询',
+    lead: '2026-2027 学年重要时间节点。',
+    sections: [
+      { h: '第一学期', items: ['开学：8 月 30 日', '军训：8 月 31 日 - 9 月 14 日', '国庆放假：10 月 1 日 - 10 月 7 日', '期末考试：1 月 5 日 - 1 月 16 日', '寒假：1 月 18 日 - 2 月 28 日'] },
+      { h: '第二学期', items: ['开学：3 月 1 日', '清明：4 月 4 日 - 4 月 6 日', '五一：5 月 1 日 - 5 月 5 日', '期末：6 月 20 日 - 7 月 1 日', '暑假：7 月 5 日 - 8 月 31 日'] }
+    ],
+    tip: '📅 具体日期以教务处通知为准。'
+  },
+  feedback: { ico: '✉', icoBg: 'oklch(95% 0.06 280)', icoColor: 'oklch(45% 0.18 280)', title: '意见反馈',
+    lead: '你的建议是我们进步的动力。',
+    sections: [
+      { h: '反馈渠道', items: ['本应用"意见反馈"入口', '校长信箱：president@nsu.edu.cn', '学生代表座谈会（每月一次）'] },
+      { h: '处理时效', items: ['一般问题：3 个工作日', '紧急问题：24 小时内', '复杂问题：7 个工作日内回复'] }
+    ],
+    tip: '✉ 反馈时请留下学号，方便我们跟进。'
+  },
+ 
+  bedding: { ico: '🛒', icoBg: 'oklch(95% 0.06 30)', icoColor: 'oklch(55% 0.20 30)', title: '床上用品六件套',
+    lead: '学校统一定制的床上用品，开学可送到寝室。',
+    sections: [
+      { h: '六件套清单', items: ['棉被 1 床（6kg）', '床单 1 条', '被套 1 条', '枕芯 1 个', '枕套 1 个', '床垫 1 个'] },
+      { h: '购买方式', items: ['线上预订：微信联系学长，报到当天宿舍楼下', '价格：488 元 / 套'] }
+    ],
+    tip: '🛒 可自带，但建议购买校方套装，尺寸更适配。'
+  }
+};
+
+const CAMPUS_DATA = {
+  scenery: { ico: '🏛', icoBg: 'oklch(90% 0.08 220)', icoColor: 'oklch(45% 0.18 220)', title: '校园风光',
+    lead: '成都东软学院坐落于都江堰青城山 5A 级景区，依山傍水，环境幽雅，占地近 53 万平方米。',
+    sections: [
+      { h: '标志性建筑', items: ['钟楼：校园地标，整点报时', '图书馆：现代风格，藏书 120 万册', '湖心亭：晨读热门地点，湖光倒影', '樱花大道：4 月樱花盛开', '国际交流中心：欧式建筑群'] },
+      { h: '运动设施', items: ['标准 400 米跑道田径场', '室内体育馆：篮球、羽毛球、乒乓球', '足球场、排球场、网球场 4 片', '学生活动中心：可容 2000 人'] },
+      { h: '校园特色', items: ['古树名木：校园内有百年古树', '书法长廊：展示师生书画作品', 'SOVO 创业中心：国家级众创空间', '东软 IT 云学堂：在线学习平台'] }
+    ],
+    tip: '🏛 校园导览可在"校园"Tab 查看完整图集，每年 4 月樱花季最美。'
+  },
+  major: { ico: '🎓', icoBg: 'oklch(90% 0.08 30)', icoColor: 'oklch(45% 0.18 30)', title: '学院 / 专业 / 校区',
+    lead: '学校下设 13 个教学机构，7 个二级学院开设本科专业，覆盖工学、管理学、艺术学、文学、医学 5 大学科门类。',
+    sections: [
+      { h: '计算机与软件学院', items: ['计算机科学与技术（国家级一流本科）', '软件工程（国家级特色专业）', '网络工程', '物联网工程', '网络空间安全', '计算机科学与技术（本硕连读国际班）'] },
+      { h: '智能科学与工程学院', items: ['人工智能（省级一流本科）', '智能科学与技术', '数据科学与大数据技术', '信息工程', '大数据管理与应用'] },
+      { h: '信息与商务管理学院', items: ['信息管理与信息系统（省级一流本科）', '电子商务（省级一流本科）', '财务管理', '人力资源管理', '市场营销', '物流管理', '供应链管理（全国第10）', '大数据管理与应用'] },
+      { h: '数字艺术与设计学院', items: ['数字媒体技术', '数字媒体艺术', '动画', '视觉传达设计', '虚拟现实技术', '艺术与科技', '工业设计'] },
+      { h: '外国语学院', items: ['英语', '日语', '商务英语'] },
+      { h: '健康医疗科技学院', items: ['医学信息工程', '医学影像技术', '智能医学工程', '健康服务与管理'] },
+      { h: '高等职业技术学院', items: ['软件工程技术（高本）', '电子商务（高本）', '数字动画（高本）', '软件技术（专）', '影视动画（专）'] }
+    ],
+    tip: '🎓 另有国际教育学院、基础教学学院、马克思主义学院、退役军人教育学院等教学机构。2025 年共 30 个本科专业面向全国招生。'
+  },
+  landmark: { ico: '🏟', icoBg: 'oklch(90% 0.08 160)', icoColor: 'oklch(45% 0.16 160)', title: '校园地标',
+    lead: '校园位于青城山景区内，依山而建，层叠错落，处处值得打卡。',
+    sections: [
+      { h: '校内景观', items: ['地址：都江堰市青城山镇东软大道 1 号', '地标：钟楼、湖心亭、樱花大道', '国际交流中心：欧式建筑群', '南门：校名石墙 + 大型"N"雕塑'] },
+      { h: '周边景点', items: ['青城山：步行可达，道教名山，门票 80 元', '都江堰：世界文化遗产，约 15 分钟车程', '熊猫谷：约 20 分钟车程，近距离看熊猫'] },
+      { h: '生活配套', items: ['校内超市、医务所、洗衣房', '浴室、理发店、奶茶店一应俱全', '平价超市无需出校'] },
+      { h: '交通出行', items: ['校门口公交 101 路可达都江堰市区', '成灌快铁青城山站 → 犀浦站 30 分钟', '成都东站有新生接站班车'] }
+    ],
+    tip: '🏟 校门口有公交可直达青城山景区与都江堰市区，周边游玩方便。'
+  }
+};
+
+/* ===========================
+   启动页 — 粒子星空
+   =========================== */
+(function() {
+  const canvas = document.getElementById('splash-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, stars = [], orbs = [];
+  const STAR_COUNT = 80, ORB_COUNT = 4;
+
+  function resize() {
+    const rect = canvas.parentElement.getBoundingClientRect();
+    W = canvas.width = rect.width * devicePixelRatio;
+    H = canvas.height = rect.height * devicePixelRatio;
+    canvas.style.width = rect.width + 'px';
+    canvas.style.height = rect.height + 'px';
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  for (let i = 0; i < STAR_COUNT; i++) {
+    stars.push({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.5 + 0.3, a: Math.random() * 0.8 + 0.2, v: Math.random() * 0.0008 + 0.0002, ph: Math.random() * Math.PI * 2 });
+  }
+  for (let i = 0; i < ORB_COUNT; i++) {
+    orbs.push({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 80 + 40, c: `oklch(${50 + Math.random()*20}% ${0.15 + Math.random()*0.15} ${Math.random()*360})`, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3 });
+  }
+
+  function frame(t) {
+    ctx.clearRect(0, 0, W, H);
+    for (const o of orbs) {
+      o.x += o.vx; o.y += o.vy;
+      if (o.x < 0 || o.x > W) o.vx *= -1;
+      if (o.y < 0 || o.y > H) o.vy *= -1;
+      const g = ctx.createRadialGradient(o.x, o.y, 0, o.x, o.y, o.r);
+      g.addColorStop(0, o.c.replace(')', ' / 0.4)'));
+      g.addColorStop(1, 'transparent');
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(o.x, o.y, o.r, 0, Math.PI * 2); ctx.fill();
+    }
+    for (const s of stars) {
+      const a = s.a * (0.5 + 0.5 * Math.sin(t * s.v + s.ph));
+      ctx.fillStyle = `rgba(255, 255, 255, ${a})`;
+      ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2); ctx.fill();
+      if (s.r > 1.2) {
+        ctx.lineWidth = 0.5; ctx.strokeStyle = `rgba(180, 210, 255, ${a*0.3})`;
+        ctx.beginPath();
+        ctx.moveTo(s.x - s.r*3, s.y); ctx.lineTo(s.x + s.r*3, s.y);
+        ctx.moveTo(s.x, s.y - s.r*3); ctx.lineTo(s.x, s.y + s.r*3);
+        ctx.stroke();
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+
+/* ===========================
+   倒计时
+   =========================== */
+(function() {
+  const target = new Date('2026-08-30T06:00:00+08:00').getTime();
+  const els = { d: document.querySelector('[data-cd="d"]'), h: document.querySelector('[data-cd="h"]'), m: document.querySelector('[data-cd="m"]'), s: document.querySelector('[data-cd="s"]') };
+  let prev = { d: 0, h: 0, m: 0, s: 0 };
+  const pad = n => String(n).padStart(2, '0');
+  function tick() {
+    const now = Date.now();
+    let diff = Math.max(0, target - now);
+    const d = Math.floor(diff / 86400000); diff -= d * 86400000;
+    const h = Math.floor(diff / 3600000);  diff -= h * 3600000;
+    const m = Math.floor(diff / 60000);    diff -= m * 60000;
+    const s = Math.floor(diff / 1000);
+    if (els.d && prev.d !== d) { flipNum(els.d, pad(d)); prev.d = d; }
+    if (els.h && prev.h !== h) { flipNum(els.h, pad(h)); prev.h = h; }
+    if (els.m && prev.m !== m) { flipNum(els.m, pad(m)); prev.m = m; }
+    if (els.s && prev.s !== s) { flipNum(els.s, pad(s)); prev.s = s; }
+  }
+  function flipNum(el, val) { el.classList.remove('flip'); void el.offsetWidth; el.classList.add('flip'); el.textContent = val; }
+  tick(); setInterval(tick, 1000);
+})();
+
+/* ===========================
+   主页切换 + Tab栏显示
+   =========================== */
+const splash = document.getElementById('screen-splash');
+const app = document.getElementById('screen-app');
+const tabbar = document.getElementById('tabbar');
+document.getElementById('enter-btn').addEventListener('click', () => {
+  splash.classList.add('is-hidden');
+  app.classList.remove('is-hidden');
+  setTimeout(() => tabbar.classList.add('show'), 300);
+  /* 宫格错位弹入 */
+  document.querySelectorAll('.menu-item').forEach((el, i) => {
+    el.style.opacity = '0'; el.style.transform = 'translateY(10px)';
+    el.style.transition = `opacity 500ms var(--ease-out-quart) ${i * 35}ms, transform 500ms var(--ease-out-quart) ${i * 35}ms`;
+    requestAnimationFrame(() => { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; });
+  });
+});
+
+/* ===========================
+   Tab 切换
+   =========================== */
+const tabItems = document.querySelectorAll('.tab-item');
+const tabPanels = document.querySelectorAll('.tab-panel');
+const appTitle = document.getElementById('app-title');
+const appSub = document.getElementById('app-sub');
+const TAB_META = {
+  home:   { title: '成都东软学院', sub: '· 欢迎26级新生' },
+  campus: { title: '校园一览', sub: '· 青城山下' },
+  me:     { title: '我的', sub: '· 个人中心' }
+};
+tabItems.forEach(item => {
+  item.addEventListener('click', () => {
+    const tab = item.dataset.tab;
+    tabItems.forEach(t => t.classList.toggle('active', t === item));
+    tabPanels.forEach(p => p.classList.toggle('active', p.dataset.tab === tab));
+    const meta = TAB_META[tab];
+    appTitle.textContent = meta.title;
+    appSub.textContent = meta.sub;
+  });
+});
+
+/* ===========================
+   轮播
+   =========================== */
+(function() {
+  const track = document.getElementById('carousel-track');
+  const dots  = document.getElementById('carousel-dots').querySelectorAll('span');
+  const slides = track.querySelectorAll('.carousel-slide');
+  let cur = 0, timer = null, startX = 0, isDown = false, startTx = 0;
+  function go(i) {
+    cur = (i + slides.length) % slides.length;
+    track.style.transform = `translateX(-${cur * 100}%)`;
+    dots.forEach((d, k) => d.classList.toggle('on', k === cur));
+  }
+  function autoplay() { timer = setInterval(() => go(cur + 1), 3500); }
+  function pause() { clearInterval(timer); }
+  autoplay();
+  const wrap = document.getElementById('carousel');
+  wrap.addEventListener('mouseenter', pause);
+  wrap.addEventListener('mouseleave', autoplay);
+  wrap.addEventListener('pointerdown', (e) => { isDown = true; startX = e.clientX; startTx = -cur * wrap.clientWidth; pause(); track.style.transition = 'none'; });
+  wrap.addEventListener('pointermove', (e) => { if (!isDown) return; const dx = e.clientX - startX; track.style.transform = `translateX(${startTx + dx}px)`; });
+  wrap.addEventListener('pointerup', (e) => { if (!isDown) return; isDown = false; const dx = e.clientX - startX; track.style.transition = ''; if (Math.abs(dx) > wrap.clientWidth * 0.18) go(cur + (dx < 0 ? 1 : -1)); else go(cur); autoplay(); });
+  wrap.addEventListener('pointercancel', () => { isDown = false; go(cur); autoplay(); });
+  dots.forEach((d, k) => d.addEventListener('click', () => { go(k); pause(); autoplay(); }));
+})();
+
+/* ===========================
+   抽屉
+   =========================== */
+const drawerMask = document.getElementById('drawer-mask');
+const drawer = document.getElementById('drawer');
+const drawerTitle = document.getElementById('drawer-title-text');
+const drawerTitleIco = document.getElementById('drawer-title-ico');
+const drawerBody = document.getElementById('drawer-body');
+const drawerClose = document.getElementById('drawer-close');
+
+function renderDetail(data) {
+  let html = '';
+  if (data.lead) html += `<div class="detail-lead">${data.lead}</div>`;
+  if (data.images && data.images.length) {
+    const singleClass = data.images.length === 1 ? ' single' : '';
+    html += `<div class="detail-gallery${singleClass}">`;
+    data.images.forEach(src => {
+      html += `<div class="g-item"><img src="${src}" alt="${data.title}" loading="lazy" /></div>`;
+    });
+    html += `</div>`;
+  }
+  if (data.sections) {
+    data.sections.forEach(sec => {
+      html += `<h3 class="detail-h3">${sec.h}</h3><ul class="detail-list">`;
+      sec.items.forEach((it, i) => {
+        html += `<li><span class="li-num">${i+1}</span><span>${it}</span></li>`;
+      });
+      html += `</ul>`;
+    });
+  }
+  if (data.table) {
+    html += `<h3 class="detail-h3">地址汇总</h3><table class="address-table"><thead><tr>`;
+    data.table.heads.forEach(h => html += `<th>${h}</th>`);
+    html += `</tr></thead><tbody>`;
+    data.table.rows.forEach(row => {
+      html += `<tr>`;
+      row.forEach((cell, ci) => {
+        const copyBtn = ci === 2 ? ` <span class="copy" data-copy="${cell}">复制</span>` : '';
+        html += `<td>${cell}${copyBtn}</td>`;
+      });
+      html += `</tr>`;
+    });
+    html += `</tbody></table>`;
+  }
+  if (data.tip) html += `<div class="detail-tip">${data.tip}</div>`;
+  return html;
+}
+
+function openDrawer(data) {
+  drawerTitle.textContent = data.title;
+  drawerTitleIco.textContent = data.ico;
+  drawerTitleIco.style.background = data.icoBg;
+  drawerTitleIco.style.color = data.icoColor;
+  drawerBody.innerHTML = renderDetail(data);
+  drawerMask.classList.add('on');
+  drawer.classList.add('on');
+  /* 绑定复制按钮 */
+  drawerBody.querySelectorAll('.copy').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(btn.dataset.copy); showToast('已复制到剪贴板'); }
+      catch { showToast('复制失败，请手动选择'); }
+    });
+  });
+}
+function closeDrawer() {
+  drawerMask.classList.remove('on');
+  drawer.classList.remove('on');
+}
+drawerMask.addEventListener('click', closeDrawer);
+drawerClose.addEventListener('click', closeDrawer);
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeDrawer(); closeSearch(); } });
+
+/* 菜单点击 */
+document.querySelectorAll('.menu-item').forEach(item => {
+  item.addEventListener('click', () => {
+    const action = item.dataset.action;
+    const data = MENU_DATA[action];
+    if (data) openDrawer(data);
+  });
+});
+/* 更多服务点击 */
+document.querySelectorAll('.more-item').forEach(item => {
+  item.addEventListener('click', () => {
+    const action = item.dataset.more;
+    const data = MORE_DATA[action];
+    if (data) openDrawer(data);
+  });
+});
+/* 校园卡片点击 */
+document.querySelectorAll('.campus-card, .campus-block').forEach(item => {
+  item.addEventListener('click', () => {
+    const key = item.dataset.campus;
+    const data = CAMPUS_DATA[key];
+    if (data) openDrawer(data);
+  });
+});
+
+/* ===========================
+   搜索弹层
+   =========================== */
+const searchOverlay = document.getElementById('search-overlay');
+const searchInput = document.getElementById('search-input');
+const searchResult = document.getElementById('search-result');
+const searchCancel = document.getElementById('search-cancel');
+const searchTrigger = document.getElementById('search-trigger');
+
+const ALL_ITEMS = [
+  ...Object.entries(MENU_DATA).map(([k, v]) => ({ key: k, name: v.title, sub: v.lead.slice(0, 20) + '…', ico: v.ico, bg: v.icoBg, color: v.icoColor, type: 'menu' })),
+  ...Object.entries(MORE_DATA).map(([k, v]) => ({ key: k, name: v.title, sub: v.lead.slice(0, 20) + '…', ico: v.ico, bg: v.icoBg, color: v.icoColor, type: 'more' })),
+  ...Object.entries(CAMPUS_DATA).map(([k, v]) => ({ key: k, name: v.title, sub: v.lead.slice(0, 20) + '…', ico: v.ico, bg: v.icoBg, color: v.icoColor, type: 'campus' }))
+];
+
+function renderSearchResult(q = '') {
+  const list = q ? ALL_ITEMS.filter(it => it.name.includes(q) || it.sub.includes(q)) : ALL_ITEMS;
+  if (list.length === 0) {
+    searchResult.innerHTML = `<div class="search-empty">没有找到「${q}」相关内容</div>`;
+    return;
+  }
+  searchResult.innerHTML = list.map(it => {
+    const name = q ? it.name.replace(new RegExp(q, 'g'), `<mark>${q}</mark>`) : it.name;
+    return `<div class="search-result-item" data-type="${it.type}" data-key="${it.key}">
+      <div class="search-result-ico" style="background:${it.bg};color:${it.color};">${it.ico}</div>
+      <div class="search-result-body"><div class="search-result-name">${name}</div><div class="search-result-sub">${it.sub}</div></div>
+    </div>`;
+  }).join('');
+  searchResult.querySelectorAll('.search-result-item').forEach(el => {
+    el.addEventListener('click', () => {
+      const type = el.dataset.type, key = el.dataset.key;
+      const data = type === 'menu' ? MENU_DATA[key] : type === 'more' ? MORE_DATA[key] : CAMPUS_DATA[key];
+      closeSearch();
+      setTimeout(() => openDrawer(data), 300);
+    });
+  });
+}
+renderSearchResult();
+
+function openSearch() {
+  searchOverlay.classList.add('on');
+  setTimeout(() => searchInput.focus(), 300);
+}
+function closeSearch() {
+  searchOverlay.classList.remove('on');
+  searchInput.value = '';
+  renderSearchResult();
+}
+searchTrigger.addEventListener('click', openQR);
+searchCancel.addEventListener('click', closeSearch);
+
+/* ===========================
+   联系学长二维码弹窗
+   =========================== */
+const qrMask = document.getElementById('qr-mask');
+const qrModal = document.getElementById('qr-modal');
+const qrClose = document.getElementById('qr-close');
+const qrCopy = document.getElementById('qr-copy');
+const qrWxidText = document.getElementById('qr-wxid-text');
+
+function openQR() {
+  qrMask.classList.add('on');
+  qrModal.classList.add('on');
+}
+function closeQR() {
+  qrMask.classList.remove('on');
+  qrModal.classList.remove('on');
+  setTimeout(() => {
+    qrCopy.textContent = '复制';
+    qrCopy.classList.remove('copied');
+  }, 300);
+}
+qrMask.addEventListener('click', closeQR);
+qrClose.addEventListener('click', closeQR);
+qrCopy.addEventListener('click', async () => {
+  const wxid = qrWxidText.textContent.trim();
+  try {
+    await navigator.clipboard.writeText(wxid);
+    qrCopy.textContent = '已复制';
+    qrCopy.classList.add('copied');
+    setTimeout(() => { qrCopy.textContent = '复制'; qrCopy.classList.remove('copied'); }, 1800);
+  } catch (err) {
+    const ta = document.createElement('textarea');
+    ta.value = wxid; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); qrCopy.textContent = '已复制'; qrCopy.classList.add('copied'); setTimeout(() => { qrCopy.textContent = '复制'; qrCopy.classList.remove('copied'); }, 1800); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+});
+searchInput.addEventListener('input', (e) => renderSearchResult(e.target.value.trim()));
+document.getElementById('search-hot').querySelectorAll('span').forEach(s => {
+  s.addEventListener('click', () => { searchInput.value = s.textContent; renderSearchResult(s.textContent); searchInput.focus(); });
+});
+
+/* ===========================
+   主题切换
+   =========================== */
+const themeToggle = document.getElementById('theme-toggle');
+const themeIcon = document.getElementById('theme-icon');
+const settingToggle = document.getElementById('setting-toggle');
+const SUN_PATH = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+const MOON_PATH = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+
+function setTheme(dark) {
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+  themeIcon.innerHTML = dark ? SUN_PATH : MOON_PATH;
+  settingToggle.classList.toggle('on', dark);
+}
+let isDark = false;
+function toggleTheme() { isDark = !isDark; setTheme(isDark); }
+themeToggle.addEventListener('click', toggleTheme);
+settingToggle.addEventListener('click', (e) => { e.stopPropagation(); toggleTheme(); });
+
+/* 设置项点击 */
+document.querySelectorAll('.setting-item').forEach(item => {
+  item.addEventListener('click', (e) => {
+    if (item.dataset.setting === 'theme') return; /* 主题由 toggle 处理 */
+    const name = item.querySelector('.setting-name').textContent;
+    showToast(`「${name}」功能开发中`);
+  });
+});
+
+/* 消息按钮 */
+document.getElementById('msg-btn').addEventListener('click', () => showToast('暂无新消息'));
+
+/* ===========================
+   Toast
+   =========================== */
+const toast = document.getElementById('toast');
+let toastTimer = null;
+function showToast(msg) {
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2000);
+}
+
+/* ===========================
+   主页鼠标视差
+   =========================== */
+document.querySelector('[data-tab="home"]').addEventListener('mousemove', (e) => {
+  const rect = e.currentTarget.getBoundingClientRect();
+  const x = (e.clientX - rect.left) / rect.width - 0.5;
+  const y = (e.clientY - rect.top) / rect.height - 0.5;
+  document.querySelectorAll('.more-item').forEach((el, i) => {
+    el.style.transform = `translateY(-2px) translate(${x * (2 + (i%2)*2)}px, ${y * (2 + (i%2)*2)}px)`;
+  });
+});
+</script>
+</body>
+</html>
