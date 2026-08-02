@@ -555,7 +555,7 @@ body { overscroll-behavior: none; transition: background 400ms var(--ease-out-qu
 .detail-gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 12px 0 16px; }
 .detail-gallery .g-item { aspect-ratio: 4 / 3; border-radius: var(--r-md); overflow: hidden; background: var(--bg-soft); border: 1px solid var(--border); cursor: pointer; transition: transform 300ms var(--ease-out-quart), box-shadow 300ms var(--ease-out-quart); }
 .detail-gallery .g-item:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -8px oklch(50% 0.10 285 / 0.25); }
-.detail-gallery .g-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.detail-gallery .g-item img { width: 100%; height: 100%; object-fit: contain; display: block; }
 .detail-gallery.single { grid-template-columns: 1fr; }
 .detail-gallery.single .g-item { aspect-ratio: auto; }
 .detail-gallery.single .g-item img { object-fit: contain; height: auto; max-height: 55vh; }
@@ -1185,6 +1185,7 @@ const MORE_DATA = {
  
   bedding: { ico: '🛒', icoBg: 'oklch(95% 0.06 30)', icoColor: 'oklch(55% 0.20 30)', title: '床上用品六件套',
     lead: '学校统一定制的床上用品，开学可送到寝室。',
+    images: ['images/bedding1.jpg', 'images/bedding2.jpg', 'images/bedding3.jpg', 'images/bedding4.jpg'],
     sections: [
       { h: '六件套清单', items: ['棉被 1 床（6kg）', '床单 1 条', '被套 1 条', '枕芯 1 个', '枕套 1 个', '床垫 1 个'] },
       { h: '购买方式', items: ['线上预订：微信联系学长，报到当天宿舍楼下', '价格：488 元 / 套'] }
