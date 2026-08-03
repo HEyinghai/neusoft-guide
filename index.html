@@ -368,7 +368,7 @@ body { overscroll-behavior: none; transition: background 400ms var(--ease-out-qu
 .menu-name { font-size: clamp(10px, 2.8vw, 12px); color: var(--c-text-2); font-weight: 500; text-align: center; line-height: 1.2; }
 
 /* 校园介绍横向卡片 */
-.campus-card { flex: 0 0 clamp(160px, 48vw, 200px); border-radius: var(--r-lg); overflow: hidden; background: var(--bg-card); box-shadow: 0 8px 24px -10px oklch(50% 0.10 285 / 0.2); cursor: pointer; transition: transform 300ms var(--ease-out-quart); position: relative; border: 1px solid var(--border); }
+.campus-card { flex: 0 0 clamp(160px, 48vw, 200px); border-radius: var(--r-lg); overflow: hidden; background: var(--bg-card); box-shadow: 0 8px 24px -10px oklch(50% 0.10 285 / 0.2); cursor: pointer; transition: transform 300ms var(--ease-out-quart); position: relative; border: 1px solid var(--border); scroll-snap-align: start; }
 .campus-card:hover { transform: translateY(-4px); }
 .campus-img { height: clamp(100px, 30vw, 120px); position: relative; overflow: hidden; }
 .campus-body { padding: 10px 12px; }
@@ -376,7 +376,6 @@ body { overscroll-behavior: none; transition: background 400ms var(--ease-out-qu
 .campus-sub { font-size: 11px; color: var(--c-text-3); margin-top: 2px; }
 .campus-row { display: flex; gap: 12px; padding: 0 16px 20px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
 .campus-row::-webkit-scrollbar { display: none; }
-.campus-card { scroll-snap-align: start; }
 
 /* 更多服务 */
 .more-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 16px 28px; opacity: 0; transform: translateY(20px); }
@@ -846,11 +845,10 @@ body { overscroll-behavior: none; transition: background 400ms var(--ease-out-qu
           </div>
 
           <div class="section-head more-anim" style="margin-top:24px;">
-            <h2>更多服务</h2><span class="count">6 项</span>
+            <h2>更多服务</h2><span class="count">5 项</span>
           </div>
           <div class="more-grid anim" id="more-grid">
             <div class="more-item" data-more="scholarship"><div class="more-ico" style="background: oklch(95% 0.06 50); color: oklch(55% 0.18 50);">🏆</div><div class="more-body"><div class="more-name">奖学金政策</div><div class="more-sub">资助政策及时了解</div></div></div>
-            <div class="more-item" data-more="phone"><div class="more-ico" style="background: oklch(95% 0.06 20); color: oklch(55% 0.20 20);">📞</div><div class="more-body"><div class="more-name">部门电话</div><div class="more-sub">常用部门联系方式</div></div></div>
             <div class="more-item" data-more="calendar"><div class="more-ico" style="background: oklch(95% 0.06 160); color: oklch(45% 0.18 160);">📅</div><div class="more-body"><div class="more-name">校历查询</div><div class="more-sub">重要日期一目了然</div></div></div>
             <div class="more-item" data-more="feedback"><div class="more-ico" style="background: oklch(95% 0.06 280); color: oklch(45% 0.18 280);">✉</div><div class="more-body"><div class="more-name">意见反馈</div><div class="more-sub">提交你的建议</div></div></div>
             <div class="more-item" data-more="bedding"><div class="more-ico" style="background: oklch(95% 0.06 30); color: oklch(55% 0.20 30);">🛒</div><div class="more-body"><div class="more-name">床上用品六件套</div><div class="more-sub">开学可送到寝室</div></div></div>
@@ -1104,12 +1102,13 @@ const MENU_DATA = {
     tip: '❓ 更多问题可在"意见反馈"中提交，何学长 24 小时内回复。'
   },
   phone: { ico: '📞', icoBg: 'oklch(90% 0.08 20)', icoColor: 'oklch(50% 0.20 20)', title: '联系电话',
-    lead: '常用部门联系电话，建议保存到通讯录。',
+    lead: '学校各部门联系电话汇总，建议保存到通讯录。',
     sections: [
-      { h: '迎新相关', items: ['招生办：028-64888001', '学生处：028-64888002', '财务处（缴费）：028-64888003'] },
-      { h: '生活服务', items: ['宿管中心：028-64888010', '校园卡中心：028-64888012', '校医院：028-64888015', '保卫处：028-64888011'] }
+      { h: '迎新与招生', items: ['招生办：028-64888001', '学生处：028-64888002', '财务处（缴费）：028-64888003'] },
+      { h: '教学相关', items: ['教务处：028-64888020', '教材科：028-64888021', '就业指导中心：028-64888016'] },
+      { h: '生活服务', items: ['宿管中心：028-64888010', '校园卡中心：028-64888012', '校医院：028-64888015', '保卫处：028-64888011', '心理咨询中心：028-64888030'] }
     ],
-    tip: '☎ 紧急情况请优先拨打 110 / 120，再联系学校保卫处。'
+    tip: '☎ 工作时间：周一至周五 8:30-17:00。紧急情况请优先拨打 110 / 120，再联系学校保卫处。'
   },
   express: { ico: '📦', icoBg: 'oklch(90% 0.08 220)', icoColor: 'oklch(50% 0.18 220)', title: '快递地址',
     lead: '校内各快递驿站地址汇总，建议收藏备用。',
@@ -1184,22 +1183,16 @@ const MENU_DATA = {
 
 const MORE_DATA = {
   scholarship: { ico: '🏆', icoBg: 'oklch(95% 0.06 50)', icoColor: 'oklch(55% 0.18 50)', title: '奖学金政策',
-    lead: '学校设有完善的奖学金体系，覆盖学业、科创、社会服务等多维度，年度奖学金总额超 500 万元。',
+    lead: '学校建有"奖、助、贷、勤、补、减"多元资助体系，每年约 30% 的学生获得各类奖助学金。以下为 2025 年最新标准。',
     sections: [
-      { h: '国家奖学金', items: ['金额：8000 元 / 年', '条件：GPA 专业前 5%', '名额：每专业 1-2 人', '要求：综合素质全面发展'] },
-      { h: '国家励志奖学金', items: ['金额：5000 元 / 年', '条件：家庭困难 + GPA 前 15%', '需提交家庭经济情况证明', '名额：每专业 2-3 人'] },
-      { h: '校级奖学金', items: ['一等奖：3000 元（前 3%）', '二等奖：2000 元（前 10%）', '三等奖：1000 元（前 20%）', '单项奖：500 元（科创/文体/社工）'] },
-      { h: '企业/社会奖学金', items: ['东软奖学金：10000 元 / 年', '校友奖学金：5000 元 / 年', 'SOVO 创业奖学金：项目资助', '校级创业大赛奖金：1-5 万元'] }
+      { h: '国家奖学金', items: ['金额：10000 元 / 人·年（2024 年起提高）', '全国每年奖励 12 万名', '条件：二年级及以上，成绩特别优异，综合素质突出', '颁发国家统一印制的荣誉证书'] },
+      { h: '国家励志奖学金', items: ['金额：6000 元 / 人·年（2024 年起提高）', '条件：二年级及以上，品学兼优且家庭经济困难', '资助范围约在校生 3%', '需认定为家庭经济困难学生'] },
+      { h: '国家助学金', items: ['平均标准：3700 元 / 人·年（2024 年秋季起提高）', '学校分三档发放：2500-4900 元/年', '退役士兵学生全部享受：3700 元/年', '资助范围约在校生 20%'] },
+      { h: '华天奖学金（校级最高荣誉）', items: ['金额：10000 元 / 人·年', '由李华天教授 2004 年设立', '面向东软大连、南海、成都三地学院', '每年选拔最优秀学生，东软学生奖学金最高荣誉'] },
+      { h: '东软睿新奖学金', items: ['一等奖：5000 元 / 人·年', '二等奖：2000 元 / 人·年', '三等奖：1000 元 / 人·年', '每学年评选一次，激励综合素质优秀学生'] },
+      { h: '国家助学贷款', items: ['最高额度：20000 元 / 年（2024 年秋季起提高）', '生源地信用助学贷款：户籍所在地办理', '校园地国家助学贷款：入校后向学校申请', '在校期间利息由国家承担，优先用于学费和住宿费'] }
     ],
-    tip: '🏆 大一即可参评校级奖学金，国家奖学金需大二起申请。建议开学就重视 GPA。'
-  },
-  phone: { ico: '📞', icoBg: 'oklch(95% 0.06 20)', icoColor: 'oklch(55% 0.20 20)', title: '部门电话',
-    lead: '学校各部门联系电话，建议收藏备用。',
-    sections: [
-      { h: '教学相关', items: ['教务处：028-64888020', '各学院办公室：详见官网', '教材科：028-64888021'] },
-      { h: '学生服务', items: ['学生处：028-64888002', '心理咨询中心：028-64888030', '就业指导中心：028-64888016'] }
-    ],
-    tip: '☎ 工作时间：周一至周五 8:30-17:00。'
+    tip: '🏆 国家奖学金、国家励志奖学金需大二起申请；华天奖学金、东软睿新奖学金大一即可参评。建议开学即重视 GPA，关注学生资助管理中心通知。'
   },
   calendar: { ico: '📅', icoBg: 'oklch(95% 0.06 160)', icoColor: 'oklch(45% 0.18 160)', title: '校历查询',
     lead: '2026-2027 学年重要时间节点。',
@@ -1762,6 +1755,12 @@ settingToggle.addEventListener('click', (e) => { e.stopPropagation(); toggleThem
 document.querySelectorAll('.setting-item').forEach(item => {
   item.addEventListener('click', (e) => {
     if (item.dataset.setting === 'theme') return; /* 主题由 toggle 处理 */
+    if (item.dataset.setting === 'feedback') { openDrawer(MORE_DATA.feedback); return; }
+    if (item.dataset.setting === 'share') {
+      if (navigator.share) { navigator.share({ title: '何学长 · 成都东软学院新生指南', url: location.href }).catch(() => {}); }
+      else { showToast('已复制链接，快去分享给同学吧'); navigator.clipboard?.writeText(location.href).catch(() => {}); }
+      return;
+    }
     const name = item.querySelector('.setting-name').textContent;
     showToast(`「${name}」功能开发中`);
   });
