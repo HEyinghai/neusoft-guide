@@ -821,7 +821,7 @@ body { overscroll-behavior: none; transition: background 400ms var(--ease-out-qu
           </div>
 
           <div class="section-head more-anim" style="margin-top:24px;">
-            <h2>更多服务</h2><span class="count">5 项</span>
+            <h2>更多服务</h2><span class="count">6 项</span>
           </div>
           <div class="more-grid anim" id="more-grid">
             <div class="more-item" data-more="scholarship"><div class="more-ico" style="background: oklch(95% 0.06 50); color: oklch(55% 0.18 50);">🏆</div><div class="more-body"><div class="more-name">奖学金政策</div><div class="more-sub">资助政策及时了解</div></div></div>
@@ -829,6 +829,7 @@ body { overscroll-behavior: none; transition: background 400ms var(--ease-out-qu
             <div class="more-item" data-more="calendar"><div class="more-ico" style="background: oklch(95% 0.06 160); color: oklch(45% 0.18 160);">📅</div><div class="more-body"><div class="more-name">校历查询</div><div class="more-sub">重要日期一目了然</div></div></div>
             <div class="more-item" data-more="feedback"><div class="more-ico" style="background: oklch(95% 0.06 280); color: oklch(45% 0.18 280);">✉</div><div class="more-body"><div class="more-name">意见反馈</div><div class="more-sub">提交你的建议</div></div></div>
             <div class="more-item" data-more="bedding"><div class="more-ico" style="background: oklch(95% 0.06 30); color: oklch(55% 0.20 30);">🛒</div><div class="more-body"><div class="more-name">床上用品六件套</div><div class="more-sub">开学可送到寝室</div></div></div>
+            <div class="more-item" data-more="campusmap"><div class="more-ico" style="background: oklch(95% 0.06 200); color: oklch(45% 0.18 200);">🗺</div><div class="more-body"><div class="more-name">校园地图</div><div class="more-sub">主校区与新校区分布</div></div></div>
           </div>
           <div style="height:30px;"></div>
         </div>
@@ -1190,6 +1191,15 @@ const MORE_DATA = {
       { h: '购买方式', items: ['线上预订：微信联系学长，报到当天宿舍楼下', '价格：488 元 / 套'] }
     ],
     tip: '🛒 可自带，但建议购买校方套装，尺寸更适配。'
+  },
+  campusmap: { ico: '🗺', icoBg: 'oklch(95% 0.06 200)', icoColor: 'oklch(45% 0.18 200)', title: '校园地图',
+    lead: '学校分为主校区和新校区，点击下方地图可放大查看建筑分布与功能区域。',
+    images: ['images/map_old.jpg', 'images/map_new.jpg'],
+    sections: [
+      { h: '主校区地图', items: ['A 区：教学区（图书馆、各学院教学楼）', 'B 区：生活区（食堂、学生活动中心）', 'C 区：学生公寓与后勤服务', 'D 区：实训楼与实验中心', 'E 区：体育场馆与运动设施'] },
+      { h: '新校区地图', items: ['F1-F5：产业区建筑', 'F6：食堂', 'F7-F9：教师公寓', 'F10：后勤宿舍', 'F12：学生活动中心', 'F15-F18：学生公寓'] }
+    ],
+    tip: '🗺 建议保存地图到手机相册，报到当天方便找宿舍、食堂和教学楼。'
   }
 };
 
