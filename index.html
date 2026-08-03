@@ -549,24 +549,15 @@ body { overscroll-behavior: none; transition: background 400ms var(--ease-out-qu
 .detail-list li { font-size: 13px; color: var(--c-text); padding: 10px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 10px; line-height: 1.6; }
 .detail-list li:last-child { border-bottom: none; }
 .detail-list li .li-num { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: oklch(95% 0.04 230); color: oklch(45% 0.18 230); font-size: 11px; font-weight: 600; display: grid; place-items: center; font-family: var(--f-num); }
-.rich-item { display: flex; flex-direction: column; gap: 6px; }
-.rich-item-title { font-weight: 600; color: var(--c-text); font-size: 13.5px; }
-.rich-item-title .tag { display: inline-block; margin-left: 6px; padding: 1px 6px; background: oklch(90% 0.12 30); color: oklch(45% 0.18 30); border-radius: 4px; font-size: 10px; font-weight: 600; }
-.rich-item-row { display: flex; gap: 6px; line-height: 1.6; }
-.rich-item-label { flex-shrink: 0; color: oklch(50% 0.14 230); font-weight: 500; font-size: 12px; }
-.rich-item-text { color: var(--c-text-2); font-size: 12.5px; }
-.detail-list li.rich { align-items: flex-start; padding: 14px 0; }
-.detail-list li.rich .li-num { margin-top: 1px; }
 .detail-tip { font-size: 12px; color: var(--c-text-3); padding: 10px 12px; background: oklch(95% 0.04 50); border-radius: var(--r-md); margin-top: 12px; display: flex; gap: 8px; line-height: 1.6; }
 [data-theme="dark"] .detail-tip { background: oklch(25% 0.04 50); }
 
 .detail-gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 12px 0 16px; }
 .detail-gallery .g-item { aspect-ratio: 4 / 3; border-radius: var(--r-md); overflow: hidden; background: var(--bg-soft); border: 1px solid var(--border); cursor: pointer; transition: transform 300ms var(--ease-out-quart), box-shadow 300ms var(--ease-out-quart); }
 .detail-gallery .g-item:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -8px oklch(50% 0.10 285 / 0.25); }
-.detail-gallery .g-item img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.detail-gallery .g-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .detail-gallery.single { grid-template-columns: 1fr; }
-.detail-gallery.single .g-item { aspect-ratio: auto; }
-.detail-gallery.single .g-item img { object-fit: contain; height: auto; max-height: 55vh; }
+.detail-gallery.single .g-item { aspect-ratio: 16 / 10; }
 
 .address-table { width: 100%; border-collapse: collapse; font-size: 13px; display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .address-table::-webkit-scrollbar { display: none; }
@@ -620,26 +611,6 @@ body { overscroll-behavior: none; transition: background 400ms var(--ease-out-qu
    =========================== */
 .toast { position: absolute; left: 50%; top: calc(80px + env(safe-area-inset-top)); transform: translateX(-50%) translateY(-30px); padding: 10px 20px; background: oklch(20% 0.04 260); color: #fff; border-radius: 999px; font-size: 13px; opacity: 0; transition: all 400ms var(--ease-out-expo); z-index: 200; pointer-events: none; box-shadow: 0 10px 30px -10px rgba(0,0,0,0.4); max-width: 90vw; text-align: center; }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-/* ===========================
-   Lightbox 图片放大查看
-   =========================== */
-.lightbox { position: fixed; inset: 0; z-index: 300; background: oklch(8% 0.02 260 / 0.96); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); opacity: 0; pointer-events: none; transition: opacity 300ms var(--ease-out-expo); display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.lightbox.on { opacity: 1; pointer-events: auto; }
-.lightbox-img { max-width: 92vw; max-height: 85vh; object-fit: contain; border-radius: var(--r-md); box-shadow: 0 20px 60px -20px rgba(0,0,0,0.6); transform: scale(0.92); transition: transform 300ms var(--ease-out-expo); -webkit-user-select: none; user-select: none; -webkit-user-drag: none; }
-.lightbox.on .lightbox-img { transform: scale(1); }
-.lightbox-close { position: absolute; top: calc(16px + env(safe-area-inset-top)); right: calc(16px + env(safe-area-inset-right)); width: 40px; height: 40px; border-radius: 50%; background: oklch(20% 0.04 260 / 0.8); border: 1px solid oklch(40% 0.04 260 / 0.5); color: #fff; cursor: pointer; display: grid; place-items: center; transition: all 200ms var(--ease-out-quart); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
-.lightbox-close:hover { background: oklch(30% 0.06 260 / 0.9); transform: rotate(90deg) scale(1.08); }
-.lightbox-counter { position: absolute; bottom: calc(20px + env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); padding: 6px 16px; background: oklch(20% 0.04 260 / 0.7); color: oklch(90% 0.02 260); border-radius: 999px; font-size: 13px; font-weight: 500; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); opacity: 0; transition: opacity 300ms ease; pointer-events: none; }
-.lightbox.on .lightbox-counter { opacity: 1; }
-.lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; background: oklch(20% 0.04 260 / 0.7); border: 1px solid oklch(40% 0.04 260 / 0.4); color: #fff; cursor: pointer; display: grid; place-items: center; transition: all 200ms var(--ease-out-quart); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
-.lightbox-nav:hover { background: oklch(30% 0.06 260 / 0.9); }
-.lightbox-nav.prev { left: calc(12px + env(safe-area-inset-left)); }
-.lightbox-nav.next { right: calc(12px + env(safe-area-inset-right)); }
-.lightbox-nav:disabled { opacity: 0.3; pointer-events: none; }
-@media (max-width: 380px) {
-  .lightbox-nav { width: 38px; height: 38px; }
-}
 
 @media (max-width: 380px) {
   .menu-grid { grid-template-columns: repeat(4, 1fr); }
@@ -850,7 +821,7 @@ body { overscroll-behavior: none; transition: background 400ms var(--ease-out-qu
           </div>
 
           <div class="section-head more-anim" style="margin-top:24px;">
-            <h2>更多服务</h2><span class="count">6 项</span>
+            <h2>更多服务</h2><span class="count">5 项</span>
           </div>
           <div class="more-grid anim" id="more-grid">
             <div class="more-item" data-more="scholarship"><div class="more-ico" style="background: oklch(95% 0.06 50); color: oklch(55% 0.18 50);">🏆</div><div class="more-body"><div class="more-name">奖学金政策</div><div class="more-sub">资助政策及时了解</div></div></div>
@@ -858,7 +829,6 @@ body { overscroll-behavior: none; transition: background 400ms var(--ease-out-qu
             <div class="more-item" data-more="calendar"><div class="more-ico" style="background: oklch(95% 0.06 160); color: oklch(45% 0.18 160);">📅</div><div class="more-body"><div class="more-name">校历查询</div><div class="more-sub">重要日期一目了然</div></div></div>
             <div class="more-item" data-more="feedback"><div class="more-ico" style="background: oklch(95% 0.06 280); color: oklch(45% 0.18 280);">✉</div><div class="more-body"><div class="more-name">意见反馈</div><div class="more-sub">提交你的建议</div></div></div>
             <div class="more-item" data-more="bedding"><div class="more-ico" style="background: oklch(95% 0.06 30); color: oklch(55% 0.20 30);">🛒</div><div class="more-body"><div class="more-name">床上用品六件套</div><div class="more-sub">开学可送到寝室</div></div></div>
-            <div class="more-item" data-more="campusmap"><div class="more-ico" style="background: oklch(95% 0.06 200); color: oklch(45% 0.18 200);">🗺</div><div class="more-body"><div class="more-name">校园地图</div><div class="more-sub">主校区与新校区分布</div></div></div>
           </div>
           <div style="height:30px;"></div>
         </div>
@@ -1027,15 +997,6 @@ body { overscroll-behavior: none; transition: background 400ms var(--ease-out-qu
 
     <!-- Toast -->
     <div class="toast" id="toast"></div>
-
-    <!-- Lightbox 图片放大 -->
-    <div class="lightbox" id="lightbox">
-      <button class="lightbox-nav prev" id="lb-prev" aria-label="上一张"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
-      <img class="lightbox-img" id="lightbox-img" src="" alt="" />
-      <button class="lightbox-nav next" id="lb-next" aria-label="下一张"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
-      <button class="lightbox-close" id="lightbox-close" aria-label="关闭"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-      <div class="lightbox-counter" id="lightbox-counter"></div>
-    </div>
   </div>
 </div>
 
@@ -1136,7 +1097,7 @@ const MENU_DATA = {
     tip: '🛵 建议备注"放 X 号门外卖柜，到取餐码通知"，避免丢失。'
   },
   choosedorm: { ico: '💡', icoBg: 'oklch(92% 0.06 50)', icoColor: 'oklch(45% 0.18 50)', title: '选宿舍',
-    lead: '宿舍在线选择指南，先到先得按录取顺序选房。',
+    lead: '宿舍在线选择指南，先到先得按先后顺序选房。',
     images: ['images/dormtable1.jpg'],
     sections: [
       { h: '选房时间', items: ['8 月 25 日 10:00 开放系统'] },
@@ -1165,13 +1126,14 @@ const MENU_DATA = {
   },
   dormpic: { ico: '🖼', icoBg: 'oklch(92% 0.06 200)', icoColor: 'oklch(45% 0.16 200)', title: '寝室图片',
     lead: '校内各宿舍楼栋实拍，提前看看你的家。',
-    images: ['images/dorm1.jpg'],
+    images: ['images/dorm1.jpg', 'images/dorm2.jpg', 'images/dorm3.jpg', 'images/dorm4.jpg', 'images/dorm5.jpg'],
     sections: [
-      { h: '男生公寓 D1-D3', items: ['4 人间，1/4 床位靠门', '楼层独立浴室、独立厕所', '配宽带接口、空调'] },
-      { h: '女生公寓 D5-D9', items: ['4 人间为主，少量 8 人间', '寝室独立浴室、独立厕所', '配宽带接口、空调'] },
-      { h: '混住公寓 D11', items: ['4 人间，按楼层分男女', '寝室独立浴室、独立厕所', '公寓式管理'] }
+      { h: 'D1 宿舍', items: ['4 人间，上床下桌', '衣柜 + 书桌组合，空间规整', '配空调、宽带接口'] },
+      { h: 'D2 / D3 宿舍', items: ['4 人间，上床下桌', '独立储物柜，采光良好', '楼层公共卫浴或寝室独立卫浴以实际楼栋为准'] },
+      { h: 'E1 / E2 / E3 宿舍', items: ['4 人间，上床下桌', '书桌、衣柜、置物架齐全', '独立卫浴、洗手台，生活便利'] },
+      { h: 'D11 宿舍', items: ['4 人间，上床下桌', '独立卫浴、洗手台', '公寓式管理，按楼层分男女'] }
     ],
-    tip: '🖼 完整图片库请在"校园介绍"中查看。'
+    tip: '🖼 不同年份装修的宿舍内部会有差异，最终以实际入住房间为准。'
   },
   foodpic: { ico: '🍱', icoBg: 'oklch(92% 0.06 30)', icoColor: 'oklch(45% 0.18 30)', title: '食堂图片',
     lead: '两大食堂菜品实拍，先睹为快。',
@@ -1187,14 +1149,14 @@ const MENU_DATA = {
 
 const MORE_DATA = {
   scholarship: { ico: '🏆', icoBg: 'oklch(95% 0.06 50)', icoColor: 'oklch(55% 0.18 50)', title: '奖学金政策',
-    lead: '根据成都东软学院 2025 年官方资助政策整理，涵盖国家、学校及助学项目，金额与条件以学校当年文件为准。',
+    lead: '学校设有完善的奖学金体系，覆盖学业、科创、社会服务等多维度，年度奖学金总额超 500 万元。',
     sections: [
-      { h: '国家奖学金', items: ['金额：10000 元 / 人·年（2024 年起国家标准上调）', '对象：全日制本科二年级及以上（含专升本第 2 年及以上）', '成绩：学习成绩与综合考评排名均位于前 10%，无不及格科目', '放宽：排名位于前 30% 的，须在学术、竞赛、创新、实践等方面表现非常突出'] },
-      { h: '国家励志奖学金', items: ['金额：6000 元 / 人·年（2024 年起国家标准上调）', '对象：二年级及以上品学兼优的家庭经济困难学生', '成绩：学习成绩与综合考评原则上位于前 10%，无不及格课程', '要求：参评学年须认定为家庭经济困难学生，生活简朴'] },
-      { h: '校级奖学金', items: ['华天奖学金：10000 元 / 人·年', '东软睿新奖学金一等奖：5000 元 / 人·年', '东软睿新奖学金二等奖：2000 元 / 人·年', '东软睿新奖学金三等奖：1000 元 / 人·年'] },
-      { h: '助学金与助学贷款', items: ['国家助学金：2500–4900 元 / 人·年（分档资助）', '生源地信用助学贷款：家庭经济困难学生可申请，用于学费和住宿费', '绿色通道：家庭经济困难新生可先办理入学，再按规定申请资助'] }
+      { h: '国家奖学金', items: ['金额：8000 元 / 年', '条件：GPA 专业前 5%', '名额：每专业 1-2 人', '要求：综合素质全面发展'] },
+      { h: '国家励志奖学金', items: ['金额：5000 元 / 年', '条件：家庭困难 + GPA 前 15%', '需提交家庭经济情况证明', '名额：每专业 2-3 人'] },
+      { h: '校级奖学金', items: ['一等奖：3000 元（前 3%）', '二等奖：2000 元（前 10%）', '三等奖：1000 元（前 20%）', '单项奖：500 元（科创/文体/社工）'] },
+      { h: '企业/社会奖学金', items: ['东软奖学金：10000 元 / 年', '校友奖学金：5000 元 / 年', 'SOVO 创业奖学金：项目资助', '校级创业大赛奖金：1-5 万元'] }
     ],
-    tip: '🏆 国家奖学金、国家励志奖学金均须二年级起申请，且两者不可兼得；助学金可与奖学金同时申请。建议从大一就重视 GPA 与综合素质。'
+    tip: '🏆 大一即可参评校级奖学金，国家奖学金需大二起申请。建议开学就重视 GPA。'
   },
   phone: { ico: '📞', icoBg: 'oklch(95% 0.06 20)', icoColor: 'oklch(55% 0.20 20)', title: '部门电话',
     lead: '学校各部门联系电话，建议收藏备用。',
@@ -1223,21 +1185,11 @@ const MORE_DATA = {
  
   bedding: { ico: '🛒', icoBg: 'oklch(95% 0.06 30)', icoColor: 'oklch(55% 0.20 30)', title: '床上用品六件套',
     lead: '学校统一定制的床上用品，开学可送到寝室。',
-    images: ['images/bedding1.jpg', 'images/bedding2.jpg', 'images/bedding3.jpg', 'images/bedding4.jpg'],
     sections: [
       { h: '六件套清单', items: ['棉被 1 床（6kg）', '床单 1 条', '被套 1 条', '枕芯 1 个', '枕套 1 个', '床垫 1 个'] },
       { h: '购买方式', items: ['线上预订：微信联系学长，报到当天宿舍楼下', '价格：488 元 / 套'] }
     ],
     tip: '🛒 可自带，但建议购买校方套装，尺寸更适配。'
-  },
-  campusmap: { ico: '🗺', icoBg: 'oklch(95% 0.06 200)', icoColor: 'oklch(45% 0.18 200)', title: '校园地图',
-    lead: '学校分为主校区和新校区，点击下方地图可放大查看建筑分布与功能区域。',
-    images: ['images/map_old.jpg', 'images/map_new.jpg'],
-    sections: [
-      { h: '主校区地图', items: ['A 区：教学区（图书馆、各学院教学楼）', 'B 区：生活区（食堂、学生活动中心）', 'C 区：学生公寓与后勤服务', 'D 区：实训楼与实验中心', 'E 区：体育场馆与运动设施'] },
-      { h: '新校区地图', items: ['F1-F5：产业区建筑', 'F6：食堂', 'F7-F9：教师公寓', 'F10：后勤宿舍', 'F12：学生活动中心', 'F15-F18：学生公寓'] }
-    ],
-    tip: '🗺 建议保存地图到手机相册，报到当天方便找宿舍、食堂和教学楼。'
   }
 };
 
@@ -1252,62 +1204,17 @@ const CAMPUS_DATA = {
     tip: '🏛 校园导览可在"校园"Tab 查看完整图集，每年 4 月樱花季最美。'
   },
   major: { ico: '🎓', icoBg: 'oklch(90% 0.08 30)', icoColor: 'oklch(45% 0.18 30)', title: '学院 / 专业 / 校区',
-    lead: '学校下设 13 个教学机构，7 个二级学院开设本科专业，覆盖工学、管理学、艺术学、文学、医学 5 大学科门类。下面按学院列出主要本科专业的核心学习内容与就业方向，供新生参考。',
+    lead: '学校下设 13 个教学机构，7 个二级学院开设本科专业，覆盖工学、管理学、艺术学、文学、医学 5 大学科门类。',
     sections: [
-      { h: '计算机与软件学院', richItems: [
-        { title: '计算机科学与技术 <span class="tag">国家级一流本科</span>', learn: '系统学习数据结构、操作系统、计算机组成原理、计算机网络、数据库原理、算法设计与分析等核心课程，培养扎实的计算机理论与软硬件综合开发能力。', career: '可从事软件开发、系统架构、算法研发、云计算、技术运维等工作，也可继续深造读研或进入科研院所。' },
-        { title: '软件工程 <span class="tag">国家级特色专业</span>', learn: '聚焦软件系统设计、开发、测试与项目管理，课程涵盖 Java/Python 开发、Web/移动应用、数据库、软件工程、DevOps 等，强调工程实践能力。', career: '主要面向互联网、软件企业从事后端/前端/全栈开发、测试工程师、项目经理、产品经理等岗位，就业面广。' },
-        { title: '网络工程', learn: '学习计算机网络、路由交换、网络安全、Linux 系统、网络协议分析、数据中心与云计算网络，培养企业级网络规划与运维能力。', career: '可担任网络工程师、运维工程师、云计算网络工程师、系统集成工程师，也可考取华为/思科等厂商认证。' },
-        { title: '物联网工程', learn: '融合嵌入式开发、传感器技术、无线通信、物联网平台与大数据应用，学习智能硬件、边缘计算、MQTT/LoRa 等物联网技术栈。', career: '适合智能硬件、工业互联网、智慧城市、车联网等领域，岗位包括嵌入式工程师、物联网开发工程师、解决方案工程师。' },
-        { title: '网络空间安全', learn: '学习密码学、网络攻防、Web 安全、操作系统安全、逆向工程、安全审计与应急响应，培养攻防实战与安全运维能力。', career: '可从事网络安全工程师、渗透测试、安全运维、安全研究员、等保测评等岗位，人才缺口大、薪资较高。' },
-        { title: '计算机科学与技术（本硕连读国际班）', learn: '在前述计算机核心课程基础上，强化英语教学与海外升学衔接，部分课程采用双语/全英文授课，注重科研素养与国际视野。', career: '优先推荐赴海外合作高校继续攻读硕士/博士，也可进入外企、跨国科技公司或国内大厂从事研发工作。' }
-      ]},
-      { h: '智能科学与工程学院', richItems: [
-        { title: '人工智能 <span class="tag">省级一流本科</span>', learn: '系统学习机器学习、深度学习、计算机视觉、自然语言处理、Python 科学计算、TensorFlow/PyTorch 框架，培养 AI 模型开发与落地能力。', career: '可从事算法工程师、AI 应用开发、数据建模、计算机视觉/语音识别等岗位，主要面向互联网、AI 企业、研究院所。' },
-        { title: '智能科学与技术', learn: '融合人工智能、模式识别、智能机器人、智能系统开发，课程覆盖机器学习、图像处理、智能硬件与机器人控制。', career: '适合智能机器人、智能制造、自动驾驶、智能设备等领域，可担任算法工程师、嵌入式 AI 工程师、系统开发工程师。' },
-        { title: '数据科学与大数据技术', learn: '学习大数据采集、存储、处理与分析技术，掌握 Hadoop/Spark/Flink 等生态，结合统计学与机器学习进行数据挖掘。', career: '可从事大数据开发工程师、数据分析师、数据挖掘工程师、商业智能（BI）分析师等岗位。' },
-        { title: '信息工程', learn: '侧重信号处理、通信原理、嵌入式系统、电子电路与信息系统设计，培养通信与电子信息系统开发能力。', career: '可在通信、电子、物联网、智能硬件等行业从事通信工程师、嵌入式开发、硬件测试、系统集成等工作。' },
-        { title: '大数据管理与应用', learn: '交叉学科，既学 Python/SQL 等数据分析工具，也学管理学、商业分析、数据治理，培养“懂业务+懂数据”的复合能力。', career: '适合企业数字化转型、运营分析、商业数据分析、数据产品管理等岗位，可在互联网、金融、咨询行业发展。' }
-      ]},
-      { h: '信息与商务管理学院', richItems: [
-        { title: '信息管理与信息系统 <span class="tag">省级一流本科</span>', learn: '融合管理学与信息技术，学习 ERP、数据库、系统分析与设计、电子商务、项目管理，培养企业信息系统规划与管理能力。', career: '可从事 ERP 实施顾问、系统分析师、IT 项目经理、信息化管理、企业数字化运营等岗位。' },
-        { title: '电子商务 <span class="tag">省级一流本科</span>', learn: '学习电商运营、网络营销、供应链管理、数据分析、跨境电商、直播电商等内容，注重实操与商业思维。', career: '可进入电商企业、互联网公司、传统品牌电商部门，从事运营、推广、数据分析、跨境电商、电商创业等。' },
-        { title: '财务管理', learn: '系统学习财务会计、管理会计、审计、税法、财务分析、成本管理，掌握企业财务管理与资本运作基础。', career: '可从事会计、审计、财务分析、税务筹划、投融资助理等工作，也可考取 CPA、ACCA、初级/中级会计职称。' },
-        { title: '人力资源管理', learn: '学习招聘与配置、绩效管理、薪酬设计、劳动法规、组织行为学、培训开发，培养企业 HR 全流程管理能力。', career: '可从事招聘专员、HRBP、培训专员、薪酬绩效专员、猎头顾问等，适合各类企业人力资源部门。' },
-        { title: '市场营销', learn: '学习市场调研、消费者行为、品牌管理、数字营销、营销策划、新媒体运营，强调市场洞察与实战策划能力。', career: '可从事市场推广、品牌运营、销售管理、新媒体运营、市场研究、营销策划等岗位。' },
-        { title: '物流管理', learn: '学习供应链管理、仓储与配送、采购管理、物流信息技术、国际货运与报关，培养现代物流运作与优化能力。', career: '可在电商物流、第三方物流、制造企业、贸易公司从事物流运营、仓储管理、供应链协调等工作。' },
-        { title: '供应链管理 <span class="tag">全国第10</span>', learn: '聚焦供应链战略规划、采购与供应商管理、库存优化、物流网络设计、供应链金融，培养端到端供应链协同能力。', career: '可进入制造业、零售业、电商平台、物流企业从事供应链计划、采购、运营分析、供应链咨询等高薪岗位。' },
-        { title: '大数据管理与应用', learn: '与管理学院其他专业相比更偏数据分析技术，学习商业数据分析、数据可视化、机器学习基础、数据治理与决策支持。', career: '可担任商业分析师、数据分析师、数据产品经理、运营分析专员，服务于金融、零售、互联网等行业。' }
-      ]},
-      { h: '数字艺术与设计学院', richItems: [
-        { title: '数字媒体技术', learn: '技术与艺术交叉，学习计算机图形学、游戏开发、交互设计、三维建模、音视频处理、前端开发等，培养数字产品开发能力。', career: '可从事游戏开发、前端开发、交互设计、VR/AR 开发、音视频制作、技术美术（TA）等岗位。' },
-        { title: '数字媒体艺术', learn: '侧重创意与设计，学习影视后期、动画制作、视觉设计、交互媒体、数字影像、概念设计，强调艺术表达与软件操作。', career: '可从事 UI/UX 设计、影视后期、动画制作、广告设计、新媒体艺术、游戏美术等工作。' },
-        { title: '动画', learn: '系统学习原画、角色设计、二维/三维动画、分镜、绑定与渲染、影视动画制作流程，培养动画创作能力。', career: '可在动画公司、游戏公司、影视传媒、广告公司从事原画师、动画师、分镜师、模型师、特效师等。' },
-        { title: '视觉传达设计', learn: '学习平面设计、品牌视觉、包装设计、版式设计、信息可视化、新媒体视觉设计，培养视觉创意与传播能力。', career: '可从事平面设计师、品牌设计师、UI 设计师、包装设计师、视觉策划、文创设计等工作。' },
-        { title: '虚拟现实技术', learn: '学习 VR/AR 原理、三维建模、交互设计、Unity/Unreal 引擎开发、传感器与人机交互，培养虚拟现实内容开发能力。', career: '可从事 VR/AR 开发工程师、交互设计师、三维场景美术、虚拟仿真工程师，应用于游戏、教育、文旅、工业等领域。' },
-        { title: '艺术与科技', learn: '融合艺术创作与数字技术，学习互动装置、数字展演、创意编程、空间设计、新媒体艺术，培养创新型艺术科技人才。', career: '可从事新媒体艺术、展览展示设计、互动装置创作、文化创意产业、科技艺术策划等工作。' },
-        { title: '工业设计', learn: '学习产品设计、人机工程学、材料工艺、CAD/CMF、模型制作、设计思维，培养产品外观与结构设计能力。', career: '可从事工业设计师、产品设计师、CMF 设计师、家具设计、文创产品设计、设计管理等岗位。' }
-      ]},
-      { h: '外国语学院', richItems: [
-        { title: '英语', learn: '系统训练英语听、说、读、写、译，学习英美文学、语言学、跨文化交际、商务英语、翻译理论与实践。', career: '可从事翻译、外贸业务、英语教师、涉外文秘、跨境电商运营、外企行政/市场等岗位，也可考研深造。' },
-        { title: '日语', learn: '学习日语语言基础、日本文化、商务日语、口笔译、日本社会与经济，培养日语应用与跨文化沟通能力。', career: '可进入日企、对日外包、跨境电商、旅游、翻译、教育等行业，从事日语翻译、对日业务、日语教师等工作。' },
-        { title: '商务英语', learn: '在英语语言基础上强化商务场景应用，学习国际贸易、商务谈判、外贸函电、跨境电商英语、商务翻译。', career: '可从事外贸业务员、跨境电商运营、商务翻译、涉外客服、国际商务助理、外企销售支持等工作。' }
-      ]},
-      { h: '健康医疗科技学院', richItems: [
-        { title: '医学信息工程', learn: '交叉医学与信息技术，学习医院信息系统、医学数据标准、医学图像处理、电子病历、生物信息学、医疗软件开发。', career: '可在医院信息科、医疗信息化企业、健康科技公司从事医疗软件工程师、HIS 实施、医学数据分析、健康信息管理。' },
-        { title: '医学影像技术', learn: '学习医学影像设备原理、X 线/CT/MRI/超声技术、医学影像诊断基础、影像后处理与质量控制。', career: '可在医院放射科、影像中心、医疗器械企业从事医学影像技师、设备维护、影像产品销售/培训等工作。' },
-        { title: '智能医学工程', learn: '融合 AI 与医学，学习医学信号处理、智能诊断、医学影像 AI、可穿戴健康设备、医疗机器人与远程医疗。', career: '可在医疗 AI 企业、医院科研部门、医疗器械公司从事智能诊断算法、医学 AI 产品、健康管理技术开发。' },
-        { title: '健康服务与管理', learn: '学习健康管理学、预防医学、营养学、健康评估、健康大数据、社区卫生服务，培养健康服务运营与管理能力。', career: '可在体检中心、健康管理公司、养老机构、保险公司、社区医疗机构从事健康评估、健康顾问、慢病管理、运营策划。' }
-      ]},
-      { h: '高等职业技术学院（专/高本）', richItems: [
-        { title: '软件工程技术（高本）', learn: '面向职业本科，学习 Java/Python 开发、Web 前端、数据库、软件测试、项目管理，强调应用型软件开发技能。', career: '可从事软件开发、Web 前端/后端开发、软件测试、技术支持等岗位，也可继续升本或考公。' },
-        { title: '电子商务（高本）', learn: '学习电商运营、网络营销、直播电商、数据分析、网店运营、跨境电商实务，培养电商全链路运营能力。', career: '可从事电商运营、直播运营、网店店长、新媒体营销、跨境电商专员、自主创业等。' },
-        { title: '数字动画（高本）', learn: '学习动画制作、三维建模、角色设计、影视后期、游戏美术、数字媒体项目制作，强调项目实战能力。', career: '可从事动画制作、三维建模、游戏美术、影视后期、短视频制作、广告设计等工作。' },
-        { title: '软件技术（专）', learn: '专科层次，学习程序设计、数据库应用、Web 开发、软件测试基础、移动应用开发，培养一线软件开发技能。', career: '可从事初级软件开发、软件测试、网站维护、技术支持、IT 运维等岗位，或专升本继续提升学历。' },
-        { title: '影视动画（专）', learn: '专科层次，学习动画基础、二维/三维动画制作、影视剪辑、特效合成、分镜设计，培养影视动画制作技能。', career: '可从事动画制作、视频剪辑、短视频制作、游戏美术助理、影视后期助理等工作，也可专升本。' }
-      ]}
+      { h: '计算机与软件学院', items: ['计算机科学与技术（国家级一流本科）', '软件工程（国家级特色专业）', '网络工程', '物联网工程', '网络空间安全', '计算机科学与技术（本硕连读国际班）'] },
+      { h: '智能科学与工程学院', items: ['人工智能（省级一流本科）', '智能科学与技术', '数据科学与大数据技术', '信息工程', '大数据管理与应用'] },
+      { h: '信息与商务管理学院', items: ['信息管理与信息系统（省级一流本科）', '电子商务（省级一流本科）', '财务管理', '人力资源管理', '市场营销', '物流管理', '供应链管理（全国第10）', '大数据管理与应用'] },
+      { h: '数字艺术与设计学院', items: ['数字媒体技术', '数字媒体艺术', '动画', '视觉传达设计', '虚拟现实技术', '艺术与科技', '工业设计'] },
+      { h: '外国语学院', items: ['英语', '日语', '商务英语'] },
+      { h: '健康医疗科技学院', items: ['医学信息工程', '医学影像技术', '智能医学工程', '健康服务与管理'] },
+      { h: '高等职业技术学院', items: ['软件工程技术（高本）', '电子商务（高本）', '数字动画（高本）', '软件技术（专）', '影视动画（专）'] }
     ],
-    tip: '🎓 另有国际教育学院、基础教学学院、马克思主义学院、退役军人教育学院等教学机构。2025 年共 30 个本科专业面向全国招生。选专业建议结合自身兴趣、就业趋势与学校优势学科综合考虑。'
+    tip: '🎓 另有国际教育学院、基础教学学院、马克思主义学院、退役军人教育学院等教学机构。2025 年共 30 个本科专业面向全国招生。'
   },
   landmark: { ico: '🏟', icoBg: 'oklch(90% 0.08 160)', icoColor: 'oklch(45% 0.16 160)', title: '校园地标',
     lead: '校园位于青城山景区内，依山而建，层叠错落，处处值得打卡。',
@@ -1492,19 +1399,9 @@ function renderDetail(data) {
   if (data.sections) {
     data.sections.forEach(sec => {
       html += `<h3 class="detail-h3">${sec.h}</h3><ul class="detail-list">`;
-      if (sec.richItems) {
-        sec.richItems.forEach((it, i) => {
-          html += `<li class="rich"><span class="li-num">${i+1}</span><div class="rich-item">
-            <div class="rich-item-title">${it.title}</div>
-            <div class="rich-item-row"><span class="rich-item-label">学什么：</span><span class="rich-item-text">${it.learn}</span></div>
-            <div class="rich-item-row"><span class="rich-item-label">就业方向：</span><span class="rich-item-text">${it.career}</span></div>
-          </div></li>`;
-        });
-      } else if (sec.items) {
-        sec.items.forEach((it, i) => {
-          html += `<li><span class="li-num">${i+1}</span><span>${it}</span></li>`;
-        });
-      }
+      sec.items.forEach((it, i) => {
+        html += `<li><span class="li-num">${i+1}</span><span>${it}</span></li>`;
+      });
       html += `</ul>`;
     });
   }
@@ -1541,8 +1438,6 @@ function openDrawer(data) {
       catch { showToast('复制失败，请手动选择'); }
     });
   });
-  /* 绑定画廊图片点击 → 放大 */
-  bindGalleryLightbox(drawerBody);
 }
 function closeDrawer() {
   drawerMask.classList.remove('on');
@@ -1550,80 +1445,7 @@ function closeDrawer() {
 }
 drawerMask.addEventListener('click', closeDrawer);
 drawerClose.addEventListener('click', closeDrawer);
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') { closeDrawer(); closeSearch(); closeLightbox(); }
-  if (lightbox.classList.contains('on')) {
-    if (e.key === 'ArrowLeft') lbPrev.click();
-    if (e.key === 'ArrowRight') lbNext.click();
-  }
-});
-
-/* ===========================
-   Lightbox 图片放大逻辑
-   =========================== */
-const lightbox = document.getElementById('lightbox');
-const lbImg = document.getElementById('lightbox-img');
-const lbClose = document.getElementById('lightbox-close');
-const lbPrev = document.getElementById('lb-prev');
-const lbNext = document.getElementById('lb-next');
-const lbCounter = document.getElementById('lightbox-counter');
-let lbImages = [];
-let lbIndex = 0;
-
-function openLightbox(srcs, startIdx) {
-  lbImages = srcs;
-  lbIndex = startIdx;
-  updateLightbox();
-  lightbox.classList.add('on');
-}
-
-function updateLightbox() {
-  if (!lbImages.length) return;
-  lbImg.src = lbImages[lbIndex];
-  lbCounter.textContent = `${lbIndex + 1} / ${lbImages.length}`;
-  lbPrev.disabled = lbImages.length <= 1;
-  lbNext.disabled = lbImages.length <= 1;
-}
-
-function closeLightbox() {
-  lightbox.classList.remove('on');
-}
-
-function bindGalleryLightbox(container) {
-  const items = container.querySelectorAll('.detail-gallery .g-item img');
-  if (!items.length) return;
-  const srcs = Array.from(items).map(img => img.src);
-  items.forEach((img, i) => {
-    img.addEventListener('click', () => openLightbox(srcs, i));
-  });
-}
-
-lbClose.addEventListener('click', closeLightbox);
-lightbox.addEventListener('click', (e) => {
-  if (e.target === lightbox || e.target === lbImg) closeLightbox();
-});
-lbPrev.addEventListener('click', (e) => {
-  e.stopPropagation();
-  lbIndex = (lbIndex - 1 + lbImages.length) % lbImages.length;
-  updateLightbox();
-});
-lbNext.addEventListener('click', (e) => {
-  e.stopPropagation();
-  lbIndex = (lbIndex + 1) % lbImages.length;
-  updateLightbox();
-});
-
-/* 触摸滑动切换 */
-let lbTouchX = 0;
-lightbox.addEventListener('touchstart', (e) => { lbTouchX = e.touches[0].clientX; }, { passive: true });
-lightbox.addEventListener('touchend', (e) => {
-  if (lbImages.length <= 1) return;
-  const dx = e.changedTouches[0].clientX - lbTouchX;
-  if (Math.abs(dx) > 50) {
-    if (dx > 0) lbPrev.click();
-    else lbNext.click();
-  }
-}, { passive: true });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeDrawer(); closeSearch(); } });
 
 /* 菜单点击 */
 document.querySelectorAll('.menu-item').forEach(item => {
