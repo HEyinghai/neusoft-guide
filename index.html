@@ -636,6 +636,30 @@ body { overscroll-behavior: none; transition: background 400ms var(--ease-out-qu
 .lightbox-nav.next { right: calc(12px + env(safe-area-inset-right)); }
 .lightbox-nav:disabled { opacity: 0.3; pointer-events: none; }
 
+/* ===========================
+   公告弹窗（东软通表白墙推广）
+   =========================== */
+.announce-overlay { position: fixed; inset: 0; z-index: 280; background: oklch(8% 0.02 260 / 0.78); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; pointer-events: none; transition: opacity 320ms var(--ease-out-quart); }
+.announce-overlay.on { opacity: 1; pointer-events: auto; }
+.announce-card { position: relative; width: 100%; max-width: 360px; background: oklch(99% 0.005 280); border-radius: 18px; box-shadow: 0 24px 60px -12px rgba(0,0,0,0.45), 0 0 0 1px oklch(90% 0.01 280 / 0.6); overflow: hidden; transform: translateY(20px) scale(0.96); transition: transform 360ms var(--ease-out-expo); display: flex; flex-direction: column; }
+.announce-overlay.on .announce-card { transform: translateY(0) scale(1); }
+[data-theme="dark"] .announce-card { background: oklch(22% 0.02 260); box-shadow: 0 24px 60px -12px rgba(0,0,0,0.7), 0 0 0 1px oklch(35% 0.03 260 / 0.6); }
+.announce-img { display: block; width: 100%; height: auto; max-height: 70vh; object-fit: contain; background: oklch(96% 0.01 280); -webkit-user-select: none; user-select: none; -webkit-user-drag: none; }
+.announce-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border-top: 1px solid oklch(92% 0.01 280); }
+[data-theme="dark"] .announce-foot { border-top-color: oklch(32% 0.02 260); }
+.announce-hint { font-size: 12px; color: oklch(55% 0.02 260); line-height: 1.4; }
+[data-theme="dark"] .announce-hint { color: oklch(70% 0.02 260); }
+.announce-foot-btns { display: flex; gap: 8px; flex-shrink: 0; }
+.announce-btn { appearance: none; border: none; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 500; padding: 7px 14px; border-radius: 999px; transition: all 180ms var(--ease-out-quart); }
+.announce-btn.secondary { background: oklch(95% 0.01 280); color: oklch(35% 0.02 260); }
+.announce-btn.secondary:hover { background: oklch(92% 0.01 280); }
+[data-theme="dark"] .announce-btn.secondary { background: oklch(30% 0.02 260); color: oklch(85% 0.01 260); }
+[data-theme="dark"] .announce-btn.secondary:hover { background: oklch(35% 0.03 260); }
+.announce-btn.primary { background: oklch(58% 0.22 350); color: #fff; }
+.announce-btn.primary:hover { background: oklch(52% 0.24 350); transform: translateY(-1px); }
+.announce-close { position: absolute; top: 10px; right: 10px; width: 32px; height: 32px; border-radius: 50%; background: oklch(15% 0.02 260 / 0.55); border: 1px solid oklch(50% 0.02 260 / 0.35); color: #fff; cursor: pointer; display: grid; place-items: center; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); transition: all 200ms var(--ease-out-quart); z-index: 2; }
+.announce-close:hover { background: oklch(25% 0.04 260 / 0.75); transform: rotate(90deg) scale(1.08); }
+
 @media (max-width: 380px) {
   .menu-grid { grid-template-columns: repeat(4, 1fr); }
   .carousel { height: 150px; margin: 12px 14px 16px; }
@@ -1030,6 +1054,21 @@ body { overscroll-behavior: none; transition: background 400ms var(--ease-out-qu
       <button class="lightbox-close" id="lightbox-close" aria-label="关闭"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
       <div class="lightbox-counter" id="lightbox-counter"></div>
     </div>
+
+    <!-- 公告弹窗：东软通表白墙推广 -->
+    <div class="announce-overlay" id="announce" aria-hidden="true">
+      <div class="announce-card" role="dialog" aria-label="东软通表白墙推广">
+        <button class="announce-close" id="announce-close" aria-label="关闭"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        <img class="announce-img" id="announce-img" src="images/dongruantong_promo.png" alt="东软通 · 表白墙校园生活服务平台" />
+        <div class="announce-foot">
+          <div class="announce-hint">扫码加入东软通 · 表白墙期待你的参与</div>
+          <div class="announce-foot-btns">
+            <button class="announce-btn secondary" id="announce-no-show">不再提示</button>
+            <button class="announce-btn primary" id="announce-ok">我知道了</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1406,6 +1445,56 @@ document.getElementById('enter-btn').addEventListener('click', () => {
     el.style.transition = `opacity 500ms var(--ease-out-quart) ${i * 35}ms, transform 500ms var(--ease-out-quart) ${i * 35}ms`;
     requestAnimationFrame(() => { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; });
   });
+  /* 进入主页后弹出公告（东软通表白墙推广） */
+  setTimeout(showAnnouncement, 900);
+});
+
+/* ===========================
+   公告弹窗逻辑（东软通表白墙推广）
+   =========================== */
+const ANNOUNCE_KEY = 'neusoft_announce_dongruantong_v1';
+const announceEl = document.getElementById('announce');
+const announceImg = document.getElementById('announce-img');
+const announceClose = document.getElementById('announce-close');
+const announceOk = document.getElementById('announce-ok');
+const announceNoShow = document.getElementById('announce-no-show');
+
+function isAnnounceDismissed() {
+  try { return localStorage.getItem(ANNOUNCE_KEY) === '1'; } catch (e) { return false; }
+}
+function setAnnounceDismissed() {
+  try { localStorage.setItem(ANNOUNCE_KEY, '1'); } catch (e) { /* ignore */ }
+}
+function showAnnouncement() {
+  if (!announceEl) return;
+  if (isAnnounceDismissed()) return;
+  if (!announceImg.complete || announceImg.naturalWidth === 0) {
+    /* 图片未加载完成时延后触发，最多等 2 秒 */
+    let waited = 0;
+    const wait = setInterval(() => {
+      waited += 200;
+      if (announceImg.complete && announceImg.naturalWidth > 0) {
+        clearInterval(wait); announceEl.classList.add('on'); announceEl.setAttribute('aria-hidden', 'false');
+      } else if (waited >= 2000) {
+        clearInterval(wait); announceEl.classList.add('on'); announceEl.setAttribute('aria-hidden', 'false');
+      }
+    }, 200);
+  } else {
+    announceEl.classList.add('on');
+    announceEl.setAttribute('aria-hidden', 'false');
+  }
+}
+function hideAnnouncement() {
+  if (!announceEl) return;
+  announceEl.classList.remove('on');
+  announceEl.setAttribute('aria-hidden', 'true');
+}
+if (announceClose) announceClose.addEventListener('click', hideAnnouncement);
+if (announceOk) announceOk.addEventListener('click', hideAnnouncement);
+if (announceNoShow) announceNoShow.addEventListener('click', () => { setAnnounceDismissed(); hideAnnouncement(); });
+if (announceEl) announceEl.addEventListener('click', (e) => { if (e.target === announceEl) hideAnnouncement(); });
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && announceEl && announceEl.classList.contains('on')) hideAnnouncement();
 });
 
 /* ===========================
