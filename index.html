@@ -559,6 +559,22 @@ body { overscroll-behavior: none; transition: background 400ms var(--ease-out-qu
 .detail-tip { font-size: 12px; color: var(--c-text-3); padding: 10px 12px; background: oklch(95% 0.04 50); border-radius: var(--r-md); margin-top: 12px; display: flex; gap: 8px; line-height: 1.6; }
 [data-theme="dark"] .detail-tip { background: oklch(25% 0.04 50); }
 
+/* 必备清单打卡 */
+.checklist-progress { margin-bottom: 16px; padding: 14px 16px; background: var(--bg-card); border-radius: var(--r-md); border: 1px solid var(--border); }
+.checklist-progress-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.checklist-progress-label { font-size: 13px; font-weight: 600; color: var(--c-text); }
+.checklist-progress-count { font-size: 14px; font-weight: 600; color: oklch(55% 0.18 220); font-family: var(--f-num); }
+.checklist-bar-bg { height: 8px; background: var(--bg-soft); border-radius: 4px; overflow: hidden; }
+.checklist-bar-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, oklch(65% 0.18 220), oklch(60% 0.16 280)); transition: width 400ms var(--ease-out-quart); width: 0%; }
+.check-item { cursor: pointer; transition: opacity 200ms var(--ease-out-quart); }
+.check-item .check-box { flex-shrink: 0; width: 22px; height: 22px; border-radius: 6px; border: 2px solid var(--border); display: grid; place-items: center; transition: all 200ms var(--ease-out-quart); }
+.check-item .check-box::after { content: '✓'; font-size: 13px; font-weight: 700; color: #fff; opacity: 0; transform: scale(0.5); transition: all 200ms var(--ease-out-quart); }
+.check-item.checked .check-box { background: oklch(65% 0.18 220); border-color: oklch(65% 0.18 220); }
+.check-item.checked .check-box::after { opacity: 1; transform: scale(1); }
+.check-item.checked > span:last-child { text-decoration: line-through; color: var(--c-text-3); }
+.check-item:hover .check-box { border-color: oklch(65% 0.18 220); }
+[data-theme="dark"] .check-item.checked .check-box { background: oklch(60% 0.18 220); border-color: oklch(60% 0.18 220); }
+
 .detail-gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 12px 0 16px; }
 .detail-gallery .g-item { aspect-ratio: 4 / 3; border-radius: var(--r-md); overflow: hidden; background: var(--bg-soft); border: 1px solid var(--border); cursor: pointer; transition: transform 300ms var(--ease-out-quart), box-shadow 300ms var(--ease-out-quart); }
 .detail-gallery .g-item:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -8px oklch(50% 0.10 285 / 0.25); }
@@ -725,6 +741,167 @@ body { overscroll-behavior: none; transition: background 400ms var(--ease-out-qu
   opacity: 0.8;
 }
 .copyright-footer .cp-year { font-family: var(--f-num); font-size: 12px; }
+
+/* ===========================
+   数据统计看板
+   =========================== */
+.analytics-overlay { position: absolute; inset: 0; z-index: 260; background: var(--bg-mask); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); opacity: 0; pointer-events: none; transition: opacity 350ms var(--ease-out-quart); display: flex; align-items: flex-end; justify-content: center; }
+.analytics-overlay.on { opacity: 1; pointer-events: auto; }
+.analytics-panel { width: 100%; max-height: 85%; background: var(--bg-card); border-radius: 24px 24px 0 0; display: flex; flex-direction: column; transform: translateY(100%); transition: transform 450ms var(--ease-out-expo); box-shadow: 0 -10px 40px -10px rgba(0,0,0,0.2); }
+.analytics-overlay.on .analytics-panel { transform: translateY(0); }
+.analytics-handle { width: 40px; height: 4px; border-radius: 2px; background: var(--border); margin: 10px auto 0; }
+.analytics-head { padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); }
+.analytics-title { font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px; color: var(--c-text); }
+.analytics-title-ico { font-size: 18px; }
+.analytics-close { width: 28px; height: 28px; border-radius: 50%; background: var(--bg-soft); border: none; cursor: pointer; display: grid; place-items: center; color: var(--c-text-2); transition: all 200ms var(--ease-out-quart); }
+.analytics-close:hover { background: var(--border); transform: rotate(90deg); }
+.analytics-body { flex: 1; overflow-y: auto; padding: 16px 20px calc(24px + env(safe-area-inset-bottom)); -webkit-overflow-scrolling: touch; }
+.analytics-body::-webkit-scrollbar { display: none; }
+
+.analytics-summary { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+.analytics-stat-card { background: var(--bg-soft); border-radius: var(--r-md); padding: 14px 10px; text-align: center; border: 1px solid var(--border); }
+.analytics-stat-num { font-family: var(--f-num); font-size: clamp(20px, 6vw, 26px); font-weight: 600; color: oklch(55% 0.18 230); line-height: 1; }
+.analytics-stat-label { font-size: 11px; color: var(--c-text-3); margin-top: 6px; }
+
+.analytics-section-title { font-size: 13px; font-weight: 600; color: var(--c-text); margin: 18px 0 10px; display: flex; align-items: center; gap: 6px; }
+.analytics-section-title::before { content: ''; width: 4px; height: 13px; background: linear-gradient(180deg, oklch(65% 0.18 230), oklch(60% 0.20 280)); border-radius: 2px; }
+
+.analytics-bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.analytics-bar-label { flex-shrink: 0; width: 72px; font-size: 12px; color: var(--c-text-2); text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.analytics-bar-track { flex: 1; height: 24px; background: var(--bg-soft); border-radius: 6px; overflow: hidden; position: relative; }
+.analytics-bar-fill { height: 100%; border-radius: 6px; background: linear-gradient(90deg, oklch(65% 0.18 230), oklch(60% 0.16 280)); transition: width 600ms var(--ease-out-quart); display: flex; align-items: center; padding-left: 8px; min-width: 2px; }
+.analytics-bar-count { font-family: var(--f-num); font-size: 11px; font-weight: 600; color: #fff; white-space: nowrap; }
+.analytics-bar-count.outside { position: absolute; left: 8px; top: 50%; transform: translateY(-50%); color: var(--c-text-2); }
+
+.analytics-meta-row { display: flex; justify-content: space-between; font-size: 12px; color: var(--c-text-3); padding: 8px 0; border-bottom: 1px dashed var(--border); }
+.analytics-meta-row:last-child { border-bottom: none; }
+.analytics-meta-row .val { color: var(--c-text); font-family: var(--f-num); font-weight: 500; }
+
+.analytics-actions { display: flex; gap: 10px; margin-top: 20px; }
+.analytics-btn { flex: 1; padding: 10px; border-radius: var(--r-md); border: 1px solid var(--border); background: var(--bg-soft); color: var(--c-text); font-size: 13px; font-weight: 500; cursor: pointer; transition: all 200ms var(--ease-out-quart); font-family: var(--f-sans); }
+.analytics-btn:hover { background: var(--bg-card); transform: translateY(-1px); box-shadow: 0 4px 12px -4px oklch(50% 0.10 285 / 0.2); }
+.analytics-btn:active { transform: scale(0.97); }
+.analytics-btn.danger { color: oklch(50% 0.20 20); border-color: oklch(80% 0.06 20); }
+.analytics-btn.danger:hover { background: oklch(95% 0.06 20); }
+.analytics-empty { text-align: center; color: var(--c-text-3); font-size: 13px; padding: 20px 0; }
+
+[data-theme="dark"] .analytics-bar-fill { background: linear-gradient(90deg, oklch(60% 0.18 230), oklch(55% 0.16 280)); }
+[data-theme="dark"] .analytics-stat-num { color: oklch(70% 0.18 230); }
+
+/* ===========================
+   分享卡片
+   =========================== */
+.sharecard-overlay { position: absolute; inset: 0; z-index: 270; background: rgba(0,0,0,0.65); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); opacity: 0; pointer-events: none; transition: opacity 350ms var(--ease-out-quart); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 20px; }
+.sharecard-overlay.on { opacity: 1; pointer-events: auto; }
+.sharecard-panel { width: 100%; max-width: 320px; display: flex; flex-direction: column; align-items: center; transform: scale(0.92) translateY(10px); transition: transform 450ms var(--ease-out-expo); }
+.sharecard-overlay.on .sharecard-panel { transform: scale(1) translateY(0); }
+.sharecard-canvas-wrap { width: 100%; border-radius: var(--r-xl); overflow: hidden; box-shadow: 0 24px 64px -16px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06); background: #fff; min-height: 200px; display: flex; align-items: center; justify-content: center; }
+.sharecard-canvas-wrap img { width: 100%; display: block; }
+.sharecard-loading { padding: 80px 20px; text-align: center; color: #999; font-size: 14px; }
+.sharecard-loading .spinner { width: 28px; height: 28px; border: 3px solid #e0e0e0; border-top-color: oklch(60% 0.18 230); border-radius: 50%; margin: 0 auto 12px; animation: sc-spin 0.7s linear infinite; }
+@keyframes sc-spin { to { transform: rotate(360deg); } }
+.sharecard-hint { margin-top: 14px; font-size: 12px; color: rgba(255,255,255,0.7); text-align: center; letter-spacing: 0.02em; }
+.sharecard-actions { display: flex; gap: 10px; margin-top: 16px; width: 100%; }
+.sharecard-btn { flex: 1; padding: 12px; border-radius: var(--r-md); border: none; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 200ms var(--ease-out-quart); font-family: var(--f-sans); display: flex; align-items: center; justify-content: center; gap: 6px; }
+.sharecard-btn:active { transform: scale(0.97); }
+.sharecard-btn.primary { background: rgba(255,255,255,0.95); color: oklch(20% 0.06 250); }
+.sharecard-btn.primary:hover { background: #fff; }
+.sharecard-btn.secondary { background: rgba(255,255,255,0.12); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
+.sharecard-btn.secondary:hover { background: rgba(255,255,255,0.2); }
+.sharecard-btn:disabled, .sharecard-btn.loading { opacity: 0.5; pointer-events: none; }
+
+/* ===========================
+   字体大小缩放
+   =========================== */
+html[data-fontsize="small"] .app { zoom: 0.9; }
+html[data-fontsize="large"] .app { zoom: 1.1; }
+
+/* ===========================
+   字体选择器 弹层
+   =========================== */
+.font-overlay { position: absolute; inset: 0; z-index: 260; background: var(--bg-mask); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); opacity: 0; pointer-events: none; transition: opacity 350ms var(--ease-out-quart); display: flex; align-items: flex-end; justify-content: center; }
+.font-overlay.on { opacity: 1; pointer-events: auto; }
+.font-panel { width: 100%; background: var(--bg-card); border-radius: 24px 24px 0 0; transform: translateY(100%); transition: transform 450ms var(--ease-out-expo); box-shadow: 0 -10px 40px -10px rgba(0,0,0,0.2); }
+.font-overlay.on .font-panel { transform: translateY(0); }
+.font-handle { width: 40px; height: 4px; border-radius: 2px; background: var(--border); margin: 10px auto 0; }
+.font-head { padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); }
+.font-head-title { font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.font-head-close { width: 28px; height: 28px; border-radius: 50%; background: var(--bg-soft); border: none; cursor: pointer; display: grid; place-items: center; color: var(--c-text-2); transition: all 200ms var(--ease-out-quart); }
+.font-head-close:hover { background: var(--border); transform: rotate(90deg); }
+.font-body { padding: 12px 20px calc(24px + env(safe-area-inset-bottom)); }
+.font-option { display: flex; align-items: center; justify-content: space-between; padding: 16px 16px; border-radius: var(--r-md); cursor: pointer; transition: all 200ms var(--ease-out-quart); margin-bottom: 8px; border: 2px solid var(--border); }
+.font-option:hover { background: var(--bg-soft); }
+.font-option.active { border-color: oklch(65% 0.18 230); background: oklch(96% 0.04 230); }
+.font-option-label { font-weight: 500; }
+.font-option-preview { color: var(--c-text-3); }
+.font-option.active .font-option-check { display: flex; }
+.font-option-check { display: none; width: 24px; height: 24px; border-radius: 50%; background: oklch(65% 0.18 230); color: #fff; align-items: center; justify-content: center; }
+[data-theme="dark"] .font-option.active { border-color: oklch(60% 0.18 230); background: oklch(25% 0.06 230); }
+
+/* ===========================
+   关于页面
+   =========================== */
+.about-logo { width: 72px; height: 72px; border-radius: 20px; background: linear-gradient(135deg, oklch(70% 0.18 35), oklch(65% 0.18 230)); display: grid; place-items: center; font-size: 36px; margin: 8px auto 12px; box-shadow: 0 8px 24px -8px oklch(50% 0.18 230 / 0.4); }
+.about-name { text-align: center; font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.about-version { text-align: center; font-size: 12px; color: var(--c-text-3); margin-bottom: 16px; }
+.about-desc { text-align: center; font-size: 13px; color: var(--c-text-2); line-height: 1.7; padding: 12px 16px; background: var(--bg-soft); border-radius: var(--r-md); margin-bottom: 16px; }
+.about-tech { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 16px; }
+.about-tech span { padding: 4px 10px; border-radius: 999px; font-size: 11px; background: var(--bg-soft); color: var(--c-text-2); border: 1px solid var(--border); }
+
+/* ===========================
+   消息中心
+   =========================== */
+.msg-overlay { position: absolute; inset: 0; z-index: 260; background: var(--bg-mask); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); opacity: 0; pointer-events: none; transition: opacity 350ms var(--ease-out-quart); display: flex; align-items: flex-end; justify-content: center; }
+.msg-overlay.on { opacity: 1; pointer-events: auto; }
+.msg-panel { width: 100%; max-height: 85%; background: var(--bg-card); border-radius: 24px 24px 0 0; display: flex; flex-direction: column; transform: translateY(100%); transition: transform 450ms var(--ease-out-expo); box-shadow: 0 -10px 40px -10px rgba(0,0,0,0.2); }
+.msg-overlay.on .msg-panel { transform: translateY(0); }
+.msg-handle { width: 40px; height: 4px; border-radius: 2px; background: var(--border); margin: 10px auto 0; }
+.msg-head { padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); }
+.msg-head-title { font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.msg-head-close { width: 28px; height: 28px; border-radius: 50%; background: var(--bg-soft); border: none; cursor: pointer; display: grid; place-items: center; color: var(--c-text-2); transition: all 200ms var(--ease-out-quart); }
+.msg-head-close:hover { background: var(--border); transform: rotate(90deg); }
+.msg-body { flex: 1; overflow-y: auto; padding: 12px 20px calc(24px + env(safe-area-inset-bottom)); -webkit-overflow-scrolling: touch; }
+.msg-body::-webkit-scrollbar { display: none; }
+.msg-item { display: flex; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--border); }
+.msg-item:last-child { border-bottom: none; }
+.msg-item-ico { flex-shrink: 0; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; font-size: 18px; }
+.msg-item-body { flex: 1; min-width: 0; }
+.msg-item-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+.msg-item-title .msg-badge { width: 8px; height: 8px; border-radius: 50%; background: oklch(60% 0.22 20); }
+.msg-item-text { font-size: 13px; color: var(--c-text-2); line-height: 1.6; }
+.msg-item-time { font-size: 11px; color: var(--c-text-3); margin-top: 4px; font-family: var(--f-num); }
+.msg-empty { text-align: center; padding: 40px 20px; color: var(--c-text-3); font-size: 14px; }
+
+/* ===========================
+   收藏按钮
+   =========================== */
+.fav-btn { width: 32px; height: 32px; border-radius: 50%; background: var(--bg-soft); border: none; cursor: pointer; display: grid; place-items: center; color: var(--c-text-2); transition: all 200ms var(--ease-out-quart); margin-right: 6px; }
+.fav-btn:hover { background: var(--border); }
+.fav-btn.active { color: oklch(60% 0.20 50); }
+.fav-btn.active svg { fill: oklch(60% 0.20 50); }
+
+/* ===========================
+   反馈表单
+   =========================== */
+.feedback-form { margin-top: 16px; }
+.feedback-field { margin-bottom: 14px; }
+.feedback-label { font-size: 13px; font-weight: 600; color: var(--c-text); margin-bottom: 6px; display: block; }
+.feedback-type-group { display: flex; flex-wrap: wrap; gap: 8px; }
+.feedback-type { padding: 6px 14px; border-radius: 999px; font-size: 12px; border: 2px solid var(--border); background: var(--bg-card); color: var(--c-text-2); cursor: pointer; transition: all 200ms var(--ease-out-quart); font-family: var(--f-sans); }
+.feedback-type:hover { background: var(--bg-soft); }
+.feedback-type.active { border-color: oklch(65% 0.18 280); background: oklch(96% 0.04 280); color: oklch(45% 0.18 280); }
+[data-theme="dark"] .feedback-type.active { border-color: oklch(60% 0.18 280); background: oklch(25% 0.06 280); color: oklch(70% 0.16 280); }
+.feedback-textarea { width: 100%; min-height: 100px; padding: 12px 14px; border-radius: var(--r-md); border: 2px solid var(--border); background: var(--bg-card); color: var(--c-text); font-size: 14px; font-family: var(--f-sans); resize: vertical; transition: border-color 200ms var(--ease-out-quart); box-sizing: border-box; }
+.feedback-textarea:focus { outline: none; border-color: oklch(65% 0.18 280); }
+.feedback-input { width: 100%; padding: 10px 14px; border-radius: var(--r-md); border: 2px solid var(--border); background: var(--bg-card); color: var(--c-text); font-size: 14px; font-family: var(--f-sans); transition: border-color 200ms var(--ease-out-quart); box-sizing: border-box; }
+.feedback-input:focus { outline: none; border-color: oklch(65% 0.18 280); }
+.feedback-submit { width: 100%; padding: 13px; border-radius: var(--r-md); border: none; background: linear-gradient(135deg, oklch(65% 0.18 280), oklch(60% 0.16 230)); color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 200ms var(--ease-out-quart); font-family: var(--f-sans); margin-top: 4px; }
+.feedback-submit:hover { transform: translateY(-1px); box-shadow: 0 6px 20px -6px oklch(50% 0.18 280 / 0.4); }
+.feedback-submit:active { transform: scale(0.98); }
+.feedback-success { text-align: center; padding: 24px 16px; }
+.feedback-success-ico { font-size: 48px; margin-bottom: 12px; }
+.feedback-success-text { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+.feedback-success-sub { font-size: 13px; color: var(--c-text-3); }
 </style>
 </head>
 <body>
@@ -788,6 +965,9 @@ body { overscroll-behavior: none; transition: background 400ms var(--ease-out-qu
           <span class="app-sub" id="app-sub">· 欢迎26级新生</span>
         </div>
         <div class="right">
+          <button class="icon-btn" id="share-btn" title="分享">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          </button>
           <button class="icon-btn" id="theme-toggle" title="切换主题">
             <svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
           </button>
@@ -803,21 +983,21 @@ body { overscroll-behavior: none; transition: background 400ms var(--ease-out-qu
           <div class="carousel" id="carousel">
             <div class="carousel-track" id="carousel-track">
               <div class="carousel-slide" data-idx="0">
-                <img class="slide-bg" src="images/slide1.jpg" alt="校园风光" />
+                <img class="slide-bg" src="images/slide1.jpg" alt="校园风光" loading="lazy" />
                 <div class="slide-content">
                   <div><div class="slide-title">软 · 韵</div><div class="slide-sub">山水校园 · 启程之地</div></div>
                   <div class="slide-foot">NEW BEGINNING</div>
                 </div>
               </div>
               <div class="carousel-slide" data-idx="1">
-                <img class="slide-bg" src="images/slide2.jpg" alt="校门夜景" />
+                <img class="slide-bg" src="images/slide2.jpg" alt="校门夜景" loading="lazy" />
                 <div class="slide-content">
                   <div><div class="slide-title">何学长</div><div class="slide-sub">新学期 · 新起点 · 新未来</div></div>
                   <div class="slide-foot">EXPLORE · GROW</div>
                 </div>
               </div>
               <div class="carousel-slide" data-idx="2">
-                <img class="slide-bg" src="images/slide3.jpg" alt="湖畔竹影" />
+                <img class="slide-bg" src="images/slide3.jpg" alt="湖畔竹影" loading="lazy" />
                 <div class="slide-content">
                   <div><div class="slide-title">启 · 行</div><div class="slide-sub">在东软，开启无限可能</div></div>
                   <div class="slide-foot">YOUR FUTURE</div>
@@ -929,9 +1109,9 @@ body { overscroll-behavior: none; transition: background 400ms var(--ease-out-qu
               </div>
             </div>
             <div class="profile-stats">
-              <div class="profile-stat"><div class="num">15</div><div class="label">已收藏</div></div>
-              <div class="profile-stat"><div class="num">08</div><div class="label">已浏览</div></div>
-              <div class="profile-stat"><div class="num">02</div><div class="label">待办</div></div>
+              <div class="profile-stat"><div class="num" id="stat-fav">0</div><div class="label">已收藏</div></div>
+              <div class="profile-stat"><div class="num" id="stat-view">0</div><div class="label">已浏览</div></div>
+              <div class="profile-stat"><div class="num" id="stat-todo">0</div><div class="label">待办</div></div>
             </div>
           </div>
 
@@ -1002,7 +1182,10 @@ body { overscroll-behavior: none; transition: background 400ms var(--ease-out-qu
       <div class="drawer-handle"></div>
       <div class="drawer-head">
         <div class="drawer-title" id="drawer-title"><span class="drawer-title-ico" id="drawer-title-ico">📦</span><span id="drawer-title-text">快递地址</span></div>
-        <button class="drawer-close" id="drawer-close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        <div style="display:flex;align-items:center;">
+          <button class="fav-btn" id="fav-btn" aria-label="收藏" style="display:none;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
+          <button class="drawer-close" id="drawer-close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        </div>
       </div>
       <div class="drawer-body" id="drawer-body"></div>
     </div>
@@ -1059,7 +1242,7 @@ body { overscroll-behavior: none; transition: background 400ms var(--ease-out-qu
     <div class="announce-overlay" id="announce" aria-hidden="true">
       <div class="announce-card" role="dialog" aria-label="东软通表白墙推广">
         <button class="announce-close" id="announce-close" aria-label="关闭"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-        <img class="announce-img" id="announce-img" src="images/dongruantong_promo.png" alt="东软通 · 表白墙校园生活服务平台" />
+        <img class="announce-img" id="announce-img" src="images/dongruantong_promo.png" alt="东软通 · 表白墙校园生活服务平台" loading="lazy" />
         <div class="announce-foot">
           <div class="announce-hint">扫码加入东软通 · 表白墙期待你的参与</div>
           <div class="announce-foot-btns">
@@ -1069,9 +1252,76 @@ body { overscroll-behavior: none; transition: background 400ms var(--ease-out-qu
         </div>
       </div>
     </div>
+
+    <!-- 数据统计看板 -->
+    <div class="analytics-overlay" id="analytics-overlay">
+      <div class="analytics-panel">
+        <div class="analytics-handle"></div>
+        <div class="analytics-head">
+          <div class="analytics-title"><span class="analytics-title-ico">📊</span>数据统计看板</div>
+          <button class="analytics-close" id="analytics-close" aria-label="关闭"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        </div>
+        <div class="analytics-body" id="analytics-body"></div>
+      </div>
+    </div>
+
+    <!-- 分享卡片 -->
+    <div class="sharecard-overlay" id="sharecard-overlay">
+      <div class="sharecard-panel">
+        <div class="sharecard-canvas-wrap" id="sharecard-canvas-wrap">
+          <div class="sharecard-loading" id="sharecard-loading"><div class="spinner"></div>正在生成精美卡片…</div>
+        </div>
+        <div class="sharecard-hint">长按图片保存到相册，发朋友圈分享给同学</div>
+        <div class="sharecard-actions">
+          <button class="sharecard-btn primary" id="sharecard-save">保存图片</button>
+          <button class="sharecard-btn secondary" id="sharecard-close">关闭</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 字体大小选择器 -->
+    <div class="font-overlay" id="font-overlay">
+      <div class="font-panel">
+        <div class="font-handle"></div>
+        <div class="font-head">
+          <div class="font-head-title">🔤 字体大小</div>
+          <button class="font-head-close" id="font-close" aria-label="关闭"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        </div>
+        <div class="font-body">
+          <div class="font-option" data-size="small">
+            <span class="font-option-label">小</span>
+            <span class="font-option-preview" style="font-size:12px">示例文字 Aa</span>
+            <span class="font-option-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+          </div>
+          <div class="font-option active" data-size="normal">
+            <span class="font-option-label">标准</span>
+            <span class="font-option-preview" style="font-size:14px">示例文字 Aa</span>
+            <span class="font-option-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+          </div>
+          <div class="font-option" data-size="large">
+            <span class="font-option-label">大</span>
+            <span class="font-option-preview" style="font-size:16px">示例文字 Aa</span>
+            <span class="font-option-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 消息中心 -->
+    <div class="msg-overlay" id="msg-overlay">
+      <div class="msg-panel">
+        <div class="msg-handle"></div>
+        <div class="msg-head">
+          <div class="msg-head-title">🔔 消息中心</div>
+          <button class="msg-head-close" id="msg-close" aria-label="关闭"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        </div>
+        <div class="msg-body" id="msg-body"></div>
+      </div>
+    </div>
   </div>
 </div>
 
+<script src="vendor/qrcode-generator.js"></script>
 <script>
 /* ===========================
    菜单数据（详情内容）
@@ -1080,17 +1330,17 @@ const MENU_DATA = {
   checklist: { ico: '✓', icoBg: 'oklch(90% 0.06 220)', icoColor: 'oklch(45% 0.18 220)', title: '必备清单',
     lead: '开学前请对照清单准备好以下物品，分"证件类""生活类""学习类"三大块。',
     sections: [
-      { h: '证件类', items: ['录取通知书（原件）', '身份证及正反面复印件 5 份', '户口本迁移证（如需迁户口）', '党团组织关系介绍信', '近期免冠一寸/二寸照片各 8 张'] },
-      { h: '生活类', items: ['床上用品（可找学长预定六件套，送到寝室里面）', '洗漱用品：牙刷牙膏毛巾浴巾', '换洗衣物（都江堰 9 月早晚偏凉）', '雨伞、水杯、晾衣架', '常用药品：感冒药、肠胃药、创可贴'] },
-      { h: '学习类', items: ['笔记本电脑（建议 16GB+ 内存）', 'U 盘 / 移动硬盘', '文具：笔、笔记本、文件夹', '计算器（部分专业需要）'] }
+      { h: '证件类', items: ['录取通知书（原件）', '身份证及正反面复印件 5 份，不是刚需', '户口本迁移证（如需迁户口）', '党团组织关系介绍信', '近期免冠一寸/二寸照片各 8 张，不是刚需'] },
+      { h: '生活类', items: ['床上用品（可找学长预定六件套，送到寝室里面）被子开学一定要准备好', '洗漱用品：牙刷牙膏毛巾浴巾', '换洗衣物（都江堰 9 月早晚偏凉）', '雨伞、水杯、晾衣架', '常用药品：感冒药、肠胃药、创可贴'] },
+      { h: '学习类', items: ['笔记本电脑（建议 16GB+ 内存）军训结束后开始使用', 'U 盘 / 移动硬盘', '文具：笔、笔记本、文件夹', '计算器（部分专业需要）'] }
     ],
     tip: '💡 提示：贵重物品请随身携带，大件行李可提前快递到校区驿站。'
   },
   dormlife: { ico: '🛏', icoBg: 'oklch(90% 0.08 160)', icoColor: 'oklch(45% 0.16 160)', title: '宿舍生活',
     lead: '宿舍是大学生活的重要场景，了解规则才能住得舒心。',
     sections: [
-      { h: '宿舍类型', items: ['多为 4 人间，上床下桌', '少量 6/8 人间（女生公寓大转角）', '每间配备空调、宽带接口，部分独立卫浴'] },
-      { h: '作息与门禁', items: ['周日至周四 23:00 门禁熄灯', '周五周六及节假日 23:30 门禁', '门禁后登记方可回宿舍'] },
+      { h: '宿舍类型', items: ['多为 4 人间，上床下桌', '少量 6 人间（女生公寓大转角）', '每间配备空调、宽带接口（有线/无线均需要办理校园卡套餐才可使用），部分独立卫浴'] },
+      { h: '作息与门禁', items: ['周日至周四 23:00 门禁熄灯', '周五周六及节假日 23:30 门禁', '门禁后登记方可回宿舍', '门禁就是断电时间'] },
       { h: '生活贴士', items: ['公共洗衣机扫码使用，建议错峰', '每层楼每个寝室配备饮水机50押金（冷热）', '宿管阿姨处可借用针线包、打气筒'] }
     ],
     tip: '💡 室友相处之道：提前约定作息、卫生轮值、噪音边界。'
@@ -1120,14 +1370,14 @@ const MENU_DATA = {
     sections: [
       { h: '校内食堂', items: ['A9 食堂：川菜、石锅拌饭、米线人气旺', 'B1 新食堂：煲仔饭、粥品、面食为主', '清真餐厅：拉面、盖饭、轻食', '人均：10-15 元 / 餐'] },
       { h: '校外美食', items: ['青城山镇：老腊肉、白果炖鸡、青城四绝', '都江堰市区：火锅、串串、麻辣烫', '推荐：钵钵鸡、冒菜、甜水面'] },
-      { h: '外卖要点', items: ['外卖仅送至校门口外卖柜', '高峰期（11:30-12:30）建议提前下单', '推荐平台：美团、饿了么'] }
+      { h: '外卖要点', items: ['外卖仅送至校门口外卖柜，部分可送至寝室门口', '高峰期（11:30-12:30）建议提前下单', '推荐平台：美团、饿了么'] }
     ],
     tip: '🍚 食堂消费，日均餐费约 50 元。更多环境实拍见首页「食堂图片」。'
   },
   report: { ico: '📅', icoBg: 'oklch(92% 0.06 250)', icoColor: 'oklch(45% 0.18 250)', title: '报道流程',
     lead: '新生报到分"线上预报到"和"线下现场报到"两步。',
     sections: [
-      { h: '线上预报到', items: ['登录学校迎新系统（8 月 20 日左右开放）', '填写个人信息、军训服装尺码', '在线选宿舍（按录取顺序）', '上传照片制作校园卡'] },
+      { h: '线上预报到', items: ['登录学校迎新系统（8 月 20 日左右开放）', '填写个人信息、军训服装尺码', '在线选宿舍', '上传照片制作校园卡'] },
       { h: '现场报到（8 月 30 日）', items: ['1. 到达寝室楼下领取钥匙办理入住', '2. 办理校园卡', '3. 排队领取军训服装', '4. 购买生活用品床上用品整理', '5. 入住宿舍，熟悉环境完成报到'] }
     ],
     tip: '📋 建议提前完成线上预报到，现场排队时间可缩短一半。'
@@ -1136,7 +1386,7 @@ const MENU_DATA = {
     lead: '汇总新生最关心的 10 个问题，快速答疑。',
     sections: [
       { h: '入学准备', items: ['Q：军训多久？ A：约 2 周，8 月 31 日开始', 'Q：可以不迁户口吗？ A：可以，自愿原则', 'Q：床多大？ A：90cm × 200cm 标准学生床'] },
-      { h: '学习生活', items: ['Q：早操吗？ A：大一有晨跑，大二取消', 'Q：晚自习？ A：大一统一晚自习 19:00-21:00', 'Q：挂科怎么办？ A：下学期初补考，补考不过重修'] }
+      { h: '学习生活', items: ['Q：早操吗？ A：东软无早操，部分活动除外', 'Q：晚自习？ A：大一统一晚自习 19:00-21:00', 'Q：挂科怎么办？ A：下学期初补考，补考不过重修'] }
     ],
     tip: '❓ 更多问题可在"意见反馈"中提交，何学长 24 小时内回复。'
   },
@@ -1438,6 +1688,7 @@ const tabbar = document.getElementById('tabbar');
 document.getElementById('enter-btn').addEventListener('click', () => {
   splash.classList.add('is-hidden');
   app.classList.remove('is-hidden');
+  document.querySelector('.statusbar').style.display = 'none';
   setTimeout(() => tabbar.classList.add('show'), 300);
   /* 宫格错位弹入 */
   document.querySelectorAll('.menu-item').forEach((el, i) => {
@@ -1528,8 +1779,29 @@ tabItems.forEach(item => {
   const dots  = document.getElementById('carousel-dots').querySelectorAll('span');
   const slides = track.querySelectorAll('.carousel-slide');
   let cur = 0, timer = null, startX = 0, isDown = false, startTx = 0;
+  /* 轮播图按需加载：非首屏图片延迟加载 */
+  slides.forEach((s, i) => {
+    if (i === 0) return;
+    const img = s.querySelector('img');
+    if (img) {
+      const srcAttr = img.getAttribute('src');
+      if (srcAttr && !img.complete) {
+        img.dataset.lazySrc = srcAttr;
+        img.removeAttribute('src');
+      }
+    }
+  });
+  function loadSlide(i) {
+    const img = slides[i].querySelector('img');
+    if (img && img.dataset.lazySrc) {
+      img.src = img.dataset.lazySrc;
+      delete img.dataset.lazySrc;
+    }
+  }
   function go(i) {
     cur = (i + slides.length) % slides.length;
+    loadSlide(cur);
+    loadSlide((cur + 1) % slides.length);
     track.style.transform = `translateX(-${cur * 100}%)`;
     dots.forEach((d, k) => d.classList.toggle('on', k === cur));
   }
@@ -1604,6 +1876,48 @@ function renderDetail(data) {
   return html;
 }
 
+/* ===========================
+   收藏功能
+   =========================== */
+const FAVORITES_KEY = 'neusoft_favorites_v1';
+const favBtn = document.getElementById('fav-btn');
+let currentDrawerTitle = null;
+
+function getFavorites() {
+  try { return JSON.parse(localStorage.getItem(FAVORITES_KEY)) || []; } catch { return []; }
+}
+function isFavorited(title) {
+  return getFavorites().includes(title);
+}
+function toggleFavorite(title) {
+  let favs = getFavorites();
+  if (favs.includes(title)) {
+    favs = favs.filter(t => t !== title);
+    showToast('已取消收藏');
+  } else {
+    favs.push(title);
+    showToast('已添加到收藏');
+  }
+  try { localStorage.setItem(FAVORITES_KEY, JSON.stringify(favs)); } catch {}
+  updateProfileStats();
+  return favs.includes(title);
+}
+function updateFavButton() {
+  if (!currentDrawerTitle || currentDrawerTitle === '关于何学长') {
+    favBtn.style.display = 'none';
+    return;
+  }
+  favBtn.style.display = 'grid';
+  const active = isFavorited(currentDrawerTitle);
+  favBtn.classList.toggle('active', active);
+}
+favBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (!currentDrawerTitle) return;
+  const active = toggleFavorite(currentDrawerTitle);
+  favBtn.classList.toggle('active', active);
+});
+
 function openDrawer(data) {
   drawerTitle.textContent = data.title;
   drawerTitleIco.textContent = data.ico;
@@ -1612,6 +1926,13 @@ function openDrawer(data) {
   drawerBody.innerHTML = renderDetail(data);
   drawerMask.classList.add('on');
   drawer.classList.add('on');
+  /* 收藏按钮 */
+  currentDrawerTitle = data.title;
+  updateFavButton();
+  /* 必备清单打卡增强 */
+  if (data.title === '必备清单') enhanceChecklist();
+  /* 意见反馈表单增强 */
+  if (data.title === '意见反馈') enhanceFeedbackForm();
   /* 绑定复制按钮 */
   drawerBody.querySelectorAll('.copy').forEach(btn => {
     btn.addEventListener('click', async () => {
@@ -1625,6 +1946,165 @@ function openDrawer(data) {
 function closeDrawer() {
   drawerMask.classList.remove('on');
   drawer.classList.remove('on');
+}
+
+/* ===========================
+   个人中心统计数据
+   =========================== */
+function updateProfileStats() {
+  /* 已收藏：favorites 数量 */
+  const favCount = getFavorites().length;
+  const favEl = document.getElementById('stat-fav');
+  if (favEl) favEl.textContent = String(favCount).padStart(2, '0');
+
+  /* 已浏览：analytics 中 menu/more/campus 类型的点击数（去重） */
+  const analytics = getAnalytics();
+  const clicks = analytics.clicks || {};
+  let viewCount = 0;
+  Object.keys(clicks).forEach(key => {
+    if (key.startsWith('menu:') || key.startsWith('more:') || key.startsWith('campus:')) {
+      viewCount++;
+    }
+  });
+  const viewEl = document.getElementById('stat-view');
+  if (viewEl) viewEl.textContent = String(viewCount).padStart(2, '0');
+
+  /* 待办：清单总数 - 已完成数 */
+  const checklistSections = MENU_DATA.checklist.sections || [];
+  let totalItems = 0;
+  checklistSections.forEach(sec => { totalItems += (sec.items || []).length; });
+  const clState = getChecklistState();
+  let doneCount = 0;
+  checklistSections.forEach((sec, si) => {
+    (sec.items || []).forEach((_, ii) => {
+      if (clState['c' + si + '-' + ii]) doneCount++;
+    });
+  });
+  const todoCount = Math.max(0, totalItems - doneCount);
+  const todoEl = document.getElementById('stat-todo');
+  if (todoEl) todoEl.textContent = String(todoCount).padStart(2, '0');
+}
+
+/* ===========================
+   意见反馈表单
+   =========================== */
+const FEEDBACK_KEY = 'neusoft_feedback_v1';
+function getFeedbacks() {
+  try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY)) || []; } catch { return []; }
+}
+function enhanceFeedbackForm() {
+  const existing = drawerBody.querySelector('.feedback-form');
+  if (existing) return; /* 防止重复添加 */
+  const formHtml = '<div class="feedback-form">' +
+    '<div class="feedback-field">' +
+      '<label class="feedback-label">反馈类型</label>' +
+      '<div class="feedback-type-group">' +
+        '<span class="feedback-type active" data-type="功能建议">功能建议</span>' +
+        '<span class="feedback-type" data-type="内容纠错">内容纠错</span>' +
+        '<span class="feedback-type" data-type="使用问题">使用问题</span>' +
+        '<span class="feedback-type" data-type="其他">其他</span>' +
+      '</div>' +
+    '</div>' +
+    '<div class="feedback-field">' +
+      '<label class="feedback-label">详细描述</label>' +
+      '<textarea class="feedback-textarea" id="fb-text" placeholder="请输入你的反馈内容…"></textarea>' +
+    '</div>' +
+    '<div class="feedback-field">' +
+      '<label class="feedback-label">联系方式（选填）</label>' +
+      '<input type="text" class="feedback-input" id="fb-contact" placeholder="微信/QQ/邮箱，方便我们回复你" />' +
+    '</div>' +
+    '<button class="feedback-submit" id="fb-submit">提交反馈</button>' +
+  '</div>';
+  const tipEl = drawerBody.querySelector('.detail-tip');
+  if (tipEl) {
+    tipEl.insertAdjacentHTML('beforebegin', formHtml);
+  } else {
+    drawerBody.insertAdjacentHTML('beforeend', formHtml);
+  }
+
+  /* 类型切换 */
+  let selectedType = '功能建议';
+  drawerBody.querySelectorAll('.feedback-type').forEach(el => {
+    el.addEventListener('click', () => {
+      drawerBody.querySelectorAll('.feedback-type').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+      selectedType = el.dataset.type;
+    });
+  });
+
+  /* 提交 */
+  const submitBtn = document.getElementById('fb-submit');
+  submitBtn.addEventListener('click', () => {
+    const text = document.getElementById('fb-text').value.trim();
+    const contact = document.getElementById('fb-contact').value.trim();
+    if (!text) { showToast('请输入反馈内容'); return; }
+    const feedbacks = getFeedbacks();
+    feedbacks.push({ type: selectedType, text: text, contact: contact, time: new Date().toISOString() });
+    try { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(feedbacks)); } catch {}
+    /* 替换为成功提示 */
+    const form = drawerBody.querySelector('.feedback-form');
+    form.innerHTML = '<div class="feedback-success">' +
+      '<div class="feedback-success-ico">✅</div>' +
+      '<div class="feedback-success-text">反馈已提交，感谢你的支持！</div>' +
+      '<div class="feedback-success-sub">我们会在 3 个工作日内处理，请留意回复。</div>' +
+    '</div>';
+    showToast('反馈提交成功');
+  });
+}
+
+/* ===========================
+   必备清单打卡
+   =========================== */
+const CHECKLIST_KEY = 'neusoft_checklist_v1';
+function getChecklistState() {
+  try { return JSON.parse(localStorage.getItem(CHECKLIST_KEY)) || {}; } catch { return {}; }
+}
+function saveChecklistState(state) {
+  try { localStorage.setItem(CHECKLIST_KEY, JSON.stringify(state)); } catch {}
+}
+function updateChecklistProgress() {
+  const all = drawerBody.querySelectorAll('.check-item');
+  const done = drawerBody.querySelectorAll('.check-item.checked').length;
+  const total = all.length;
+  const pct = total > 0 ? (done / total * 100) : 0;
+  const checkedEl = document.getElementById('cl-checked');
+  const totalEl = document.getElementById('cl-total');
+  const barEl = document.getElementById('cl-bar');
+  if (checkedEl) checkedEl.textContent = done;
+  if (totalEl) totalEl.textContent = total;
+  if (barEl) barEl.style.width = pct + '%';
+}
+function enhanceChecklist() {
+  const state = getChecklistState();
+  const firstH3 = drawerBody.querySelector('.detail-h3');
+  /* 插入进度条 */
+  const progressEl = document.createElement('div');
+  progressEl.className = 'checklist-progress';
+  progressEl.innerHTML = '<div class="checklist-progress-head"><span class="checklist-progress-label">准备进度</span><span class="checklist-progress-count"><span id="cl-checked">0</span> / <span id="cl-total">0</span></span></div><div class="checklist-bar-bg"><div class="checklist-bar-fill" id="cl-bar"></div></div>';
+  if (firstH3) firstH3.parentNode.insertBefore(progressEl, firstH3);
+  /* 为每项添加 checkbox */
+  const lists = drawerBody.querySelectorAll('.detail-list');
+  lists.forEach((ul, si) => {
+    ul.querySelectorAll('li').forEach((li, ii) => {
+      const idx = 'c' + si + '-' + ii;
+      li.classList.add('check-item');
+      li.dataset.checkIdx = idx;
+      const checkbox = document.createElement('span');
+      checkbox.className = 'check-box';
+      li.insertBefore(checkbox, li.firstChild);
+      if (state[idx]) li.classList.add('checked');
+      li.addEventListener('click', function(e) {
+        e.stopPropagation();
+        this.classList.toggle('checked');
+        const st = getChecklistState();
+        st[idx] = this.classList.contains('checked');
+        saveChecklistState(st);
+        updateChecklistProgress();
+        updateProfileStats();
+      });
+    });
+  });
+  updateChecklistProgress();
 }
 drawerMask.addEventListener('click', closeDrawer);
 drawerClose.addEventListener('click', closeDrawer);
@@ -1840,23 +2320,174 @@ function toggleTheme() { isDark = !isDark; setTheme(isDark); }
 themeToggle.addEventListener('click', toggleTheme);
 settingToggle.addEventListener('click', (e) => { e.stopPropagation(); toggleTheme(); });
 
+/* ===========================
+   字体大小
+   =========================== */
+const FONT_KEY = 'neusoft_fontsize';
+const fontOverlay = document.getElementById('font-overlay');
+const fontClose = document.getElementById('font-close');
+const fontOptions = document.querySelectorAll('.font-option');
+const fontNames = { small: '小', normal: '标准', large: '大' };
+
+function getFontSize() {
+  try { return localStorage.getItem(FONT_KEY) || 'normal'; } catch { return 'normal'; }
+}
+function applyFontSize(size) {
+  if (size === 'normal') {
+    document.documentElement.removeAttribute('data-fontsize');
+  } else {
+    document.documentElement.setAttribute('data-fontsize', size);
+  }
+  fontOptions.forEach(opt => opt.classList.toggle('active', opt.dataset.size === size));
+  const subEl = document.querySelector('.setting-item[data-setting="font"] .setting-sub');
+  if (subEl) subEl.textContent = fontNames[size] || '标准';
+}
+function openFontPanel() { fontOverlay.classList.add('on'); }
+function closeFontPanel() { fontOverlay.classList.remove('on'); }
+fontClose.addEventListener('click', closeFontPanel);
+fontOverlay.addEventListener('click', (e) => { if (e.target === fontOverlay) closeFontPanel(); });
+fontOptions.forEach(opt => {
+  opt.addEventListener('click', () => {
+    const size = opt.dataset.size;
+    applyFontSize(size);
+    try { localStorage.setItem(FONT_KEY, size); } catch {}
+    closeFontPanel();
+    showToast('字体大小已切换为「' + (fontNames[size] || '标准') + '」');
+  });
+});
+applyFontSize(getFontSize());
+
+/* ===========================
+   关于何学长
+   =========================== */
+const ABOUT_DATA = {
+  ico: '🐻', icoBg: 'oklch(95% 0.06 35)', icoColor: 'oklch(55% 0.18 35)', title: '关于何学长',
+  lead: '成都东软学院新生指南 · 由学长用心打造',
+  sections: [
+    { h: '应用信息', items: ['版本：v1.0.0', '更新日期：2026 年 8 月', '适用对象：2026 级新生', '开发者：何学长'] },
+    { h: '功能特色', items: ['15 项新生必备功能一站搞定', '必备清单打卡，开学不遗漏', '校园地图、食堂、宿舍全景展示', '数据统计看板，记录你的探索足迹', '离线可用，无需网络也能查看'] },
+    { h: '联系我们', items: ['微信：HEYINGHAI-0717', '意见反馈：应用内「意见反馈」入口', '校长信箱：president@nsu.edu.cn'] }
+  ],
+  tip: '🐻 本应用为学长个人开发的非官方新生指南，信息仅供参考，请以学校官方通知为准。'
+};
+
+/* ===========================
+   清除缓存
+   =========================== */
+const CACHE_KEYS = ['neusoft_checklist_v1', 'neusoft_analytics_v1', 'neusoft_announce_dongruantong_v1', 'neusoft_fontsize', 'neusoft_favorites_v1', 'neusoft_feedback_v1'];
+function getCacheSize() {
+  let total = 0;
+  try {
+    for (let key in localStorage) {
+      if (key.startsWith('neusoft_')) {
+        total += (localStorage[key] || '').length;
+      }
+    }
+  } catch {}
+  return (total / 1024).toFixed(1);
+}
+function updateCacheDisplay() {
+  const subEl = document.querySelector('.setting-item[data-setting="cache"] .setting-sub');
+  if (subEl) subEl.textContent = getCacheSize() + ' MB';
+}
+function clearCache() {
+  if (!confirm('确定要清除缓存吗？\n\n将清除：打卡记录、浏览统计、字体偏好、收藏记录等本地数据。\n此操作不可撤销。')) return;
+  CACHE_KEYS.forEach(key => { try { localStorage.removeItem(key); } catch {} });
+  applyFontSize('normal');
+  updateCacheDisplay();
+  updateProfileStats();
+  showToast('缓存已清除');
+}
+
+/* ===========================
+   消息中心
+   =========================== */
+const msgOverlay = document.getElementById('msg-overlay');
+const msgClose = document.getElementById('msg-close');
+const msgBody = document.getElementById('msg-body');
+const MSG_KEY = 'neusoft_msg_read_v1';
+
+const MESSAGES = [
+  { id: 'welcome', ico: '👋', icoBg: 'oklch(95% 0.06 35)', icoColor: 'oklch(55% 0.18 35)', title: '欢迎来到何学长新生指南', text: '这里是你的大学生活起点，所有新生必备信息一站搞定。快去探索吧！', time: '2026-08-01' },
+  { id: 'checklist', ico: '✅', icoBg: 'oklch(95% 0.06 160)', icoColor: 'oklch(45% 0.18 160)', title: '必备清单已就绪', text: '点击「必备清单」开始打卡，确保开学前准备万无一失。', time: '2026-08-01' },
+  { id: 'dorm', ico: '🏠', icoBg: 'oklch(95% 0.06 230)', icoColor: 'oklch(45% 0.18 230)', title: '选宿舍攻略更新', text: '「选宿舍」功能已上线，查看各寝室楼分布与尺寸图，提前了解你的新家。', time: '2026-08-03' },
+  { id: 'calendar', ico: '📅', icoBg: 'oklch(95% 0.06 50)', icoColor: 'oklch(55% 0.18 50)', title: '校历已发布', text: '2026-2027 学年校历已更新，关注重要时间节点，合理规划学期。', time: '2026-08-05' },
+  { id: 'feedback', ico: '✉', icoBg: 'oklch(95% 0.06 280)', icoColor: 'oklch(45% 0.18 280)', title: '意见反馈通道开启', text: '有任何建议或问题？点击「意见反馈」告诉我们，你的声音很重要。', time: '2026-08-08' }
+];
+
+function getReadMsgs() {
+  try { return JSON.parse(localStorage.getItem(MSG_KEY)) || []; } catch { return []; }
+}
+function markAllMsgRead() {
+  try { localStorage.setItem(MSG_KEY, JSON.stringify(MESSAGES.map(m => m.id))); } catch {}
+}
+function getUnreadCount() {
+  const read = getReadMsgs();
+  return MESSAGES.filter(m => !read.includes(m.id)).length;
+}
+function renderMessages() {
+  const read = getReadMsgs();
+  if (MESSAGES.length === 0) {
+    msgBody.innerHTML = '<div class="msg-empty">暂无消息</div>';
+    return;
+  }
+  msgBody.innerHTML = MESSAGES.map(m => {
+    const unread = !read.includes(m.id);
+    return '<div class="msg-item">' +
+      '<div class="msg-item-ico" style="background:' + m.icoBg + ';color:' + m.icoColor + ';">' + m.ico + '</div>' +
+      '<div class="msg-item-body">' +
+        '<div class="msg-item-title">' + (unread ? '<span class="msg-badge"></span>' : '') + m.title + '</div>' +
+        '<div class="msg-item-text">' + m.text + '</div>' +
+        '<div class="msg-item-time">' + m.time + '</div>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+function openMsgCenter() {
+  renderMessages();
+  msgOverlay.classList.add('on');
+  markAllMsgRead();
+  updateMsgBadge();
+}
+function closeMsgCenter() { msgOverlay.classList.remove('on'); }
+function updateMsgBadge() {
+  const count = getUnreadCount();
+  const btn = document.getElementById('msg-btn');
+  if (!btn) return;
+  let badge = btn.querySelector('.msg-badge-dot');
+  if (count > 0) {
+    if (!badge) {
+      badge = document.createElement('span');
+      badge.className = 'msg-badge-dot';
+      badge.style.cssText = 'position:absolute;top:-2px;right:-2px;width:8px;height:8px;border-radius:50%;background:oklch(60% 0.22 20);border:2px solid var(--bg-card);';
+      btn.style.position = 'relative';
+      btn.appendChild(badge);
+    }
+  } else if (badge) {
+    badge.remove();
+  }
+}
+msgClose.addEventListener('click', closeMsgCenter);
+msgOverlay.addEventListener('click', (e) => { if (e.target === msgOverlay) closeMsgCenter(); });
+updateMsgBadge();
+
 /* 设置项点击 */
 document.querySelectorAll('.setting-item').forEach(item => {
   item.addEventListener('click', (e) => {
     if (item.dataset.setting === 'theme') return; /* 主题由 toggle 处理 */
     if (item.dataset.setting === 'feedback') { openDrawer(MORE_DATA.feedback); return; }
-    if (item.dataset.setting === 'share') {
-      if (navigator.share) { navigator.share({ title: '何学长 · 成都东软学院新生指南', url: location.href }).catch(() => {}); }
-      else { showToast('已复制链接，快去分享给同学吧'); navigator.clipboard?.writeText(location.href).catch(() => {}); }
-      return;
-    }
-    const name = item.querySelector('.setting-name').textContent;
-    showToast(`「${name}」功能开发中`);
+    if (item.dataset.setting === 'share') { openShareCard(); return; }
+    if (item.dataset.setting === 'font') { openFontPanel(); return; }
+    if (item.dataset.setting === 'cache') { clearCache(); return; }
+    if (item.dataset.setting === 'about') { openDrawer(ABOUT_DATA); return; }
   });
 });
 
 /* 消息按钮 */
-document.getElementById('msg-btn').addEventListener('click', () => showToast('暂无新消息'));
+document.getElementById('msg-btn').addEventListener('click', openMsgCenter);
+
+/* 分享按钮 */
+document.getElementById('share-btn').addEventListener('click', () => openShareCard());
 
 /* ===========================
    Toast
@@ -1881,6 +2512,364 @@ document.querySelector('[data-tab="home"]').addEventListener('mousemove', (e) =>
     el.style.transform = `translateY(-2px) translate(${x * (2 + (i%2)*2)}px, ${y * (2 + (i%2)*2)}px)`;
   });
 });
+/* ===========================
+   数据统计看板
+   =========================== */
+const ANALYTICS_KEY = 'neusoft_analytics_v1';
+function getAnalytics() {
+  try {
+    const raw = localStorage.getItem(ANALYTICS_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch {}
+  return { clicks: {}, sessions: 0, firstVisit: null, lastVisit: null };
+}
+function saveAnalytics(data) {
+  try { localStorage.setItem(ANALYTICS_KEY, JSON.stringify(data)); } catch {}
+}
+function trackEvent(category, name) {
+  const key = category + ':' + name;
+  const data = getAnalytics();
+  data.clicks[key] = (data.clicks[key] || 0) + 1;
+  saveAnalytics(data);
+}
+/* 记录会话 */
+(function() {
+  const data = getAnalytics();
+  const now = new Date().toISOString();
+  if (!data.firstVisit) data.firstVisit = now;
+  data.lastVisit = now;
+  data.sessions = (data.sessions || 0) + 1;
+  saveAnalytics(data);
+})();
+/* 全局点击追踪（事件委托，不修改现有代码） */
+document.addEventListener('click', (e) => {
+  const menuItem = e.target.closest('.menu-item');
+  if (menuItem && menuItem.dataset.action) { trackEvent('menu', menuItem.dataset.action); return; }
+  const moreItem = e.target.closest('.more-item');
+  if (moreItem && moreItem.dataset.more) { trackEvent('more', moreItem.dataset.more); return; }
+  const campusItem = e.target.closest('[data-campus]');
+  if (campusItem) { trackEvent('campus', campusItem.dataset.campus); return; }
+  const tabItem = e.target.closest('.tab-item');
+  if (tabItem && tabItem.dataset.tab) { trackEvent('tab', tabItem.dataset.tab); return; }
+  if (e.target.closest('#search-trigger')) { trackEvent('action', '联系学长'); return; }
+  if (e.target.closest('#share-btn')) { trackEvent('action', '分享'); return; }
+  if (e.target.closest('#theme-toggle') || e.target.closest('#setting-toggle')) { trackEvent('action', '主题切换'); return; }
+  const settingItem = e.target.closest('.setting-item');
+  if (settingItem && settingItem.dataset.setting) { trackEvent('setting', settingItem.dataset.setting); return; }
+  if (e.target.closest('#msg-btn')) { trackEvent('action', '消息'); return; }
+});
+
+/* 看板渲染 */
+const analyticsOverlay = document.getElementById('analytics-overlay');
+const analyticsBody = document.getElementById('analytics-body');
+const analyticsClose = document.getElementById('analytics-close');
+const FEATURE_NAMES = {
+  'menu:checklist': '必备清单', 'menu:dormlife': '宿舍生活', 'menu:traffic': '交通出行',
+  'menu:network': '校园网络', 'menu:food': '餐饮美食', 'menu:report': '报道流程',
+  'menu:qa': '常见问题', 'menu:phone': '联系电话', 'menu:express': '快递地址',
+  'menu:takeout': '外卖地址', 'menu:choosedorm': '选宿舍', 'menu:dormsize': '寝室尺寸',
+  'menu:major': '转专业', 'menu:dormpic': '寝室图片', 'menu:foodpic': '食堂图片',
+  'more:scholarship': '奖学金政策', 'more:calendar': '校历查询', 'more:feedback': '意见反馈',
+  'more:bedding': '床上用品六件套', 'more:campusmap': '校园地图',
+  'campus:scenery': '校园风光', 'campus:major': '学院专业校区', 'campus:landmark': '校园地标',
+  'tab:home': '首页Tab', 'tab:campus': '校园Tab', 'tab:me': '我的Tab',
+  'action:联系学长': '联系学长', 'action:分享': '分享卡片', 'action:主题切换': '主题切换', 'action:消息': '消息按钮',
+  'setting:theme': '深色模式设置', 'setting:font': '字体大小', 'setting:cache': '清除缓存',
+  'setting:about': '关于何学长', 'setting:share': '分享给同学', 'setting:feedback': '意见反馈设置'
+};
+function renderAnalytics() {
+  const data = getAnalytics();
+  const clicks = data.clicks || {};
+  const sorted = Object.entries(clicks).sort((a, b) => b[1] - a[1]);
+  const totalClicks = sorted.reduce((s, [, v]) => s + v, 0);
+  const maxClicks = sorted.length ? sorted[0][1] : 1;
+  const fmtDate = (iso) => {
+    if (!iso) return '—';
+    const d = new Date(iso);
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0') + ' ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+  };
+  let html = '';
+  /* 概览卡片 */
+  html += '<div class="analytics-summary">';
+  html += '<div class="analytics-stat-card"><div class="analytics-stat-num">' + (data.sessions || 0) + '</div><div class="analytics-stat-label">访问次数</div></div>';
+  html += '<div class="analytics-stat-card"><div class="analytics-stat-num">' + totalClicks + '</div><div class="analytics-stat-label">总点击量</div></div>';
+  html += '<div class="analytics-stat-card"><div class="analytics-stat-num">' + sorted.length + '</div><div class="analytics-stat-label">触达功能</div></div>';
+  html += '</div>';
+  /* 元信息 */
+  html += '<div class="analytics-section-title">访问记录</div>';
+  html += '<div class="analytics-meta-row"><span>首次访问</span><span class="val">' + fmtDate(data.firstVisit) + '</span></div>';
+  html += '<div class="analytics-meta-row"><span>最近访问</span><span class="val">' + fmtDate(data.lastVisit) + '</span></div>';
+  /* 功能点击排行 */
+  html += '<div class="analytics-section-title">功能点击排行</div>';
+  if (sorted.length === 0) {
+    html += '<div class="analytics-empty">暂无点击数据，快去体验各功能吧～</div>';
+  } else {
+    sorted.forEach(([key, count]) => {
+      const label = FEATURE_NAMES[key] || key;
+      const pct = (count / maxClicks * 100).toFixed(1);
+      const showOutside = count / maxClicks < 0.25;
+      html += '<div class="analytics-bar-row">';
+      html += '<div class="analytics-bar-label" title="' + label + '">' + label + '</div>';
+      html += '<div class="analytics-bar-track">';
+      html += '<div class="analytics-bar-fill" style="width:' + pct + '%;">';
+      if (!showOutside) html += '<span class="analytics-bar-count">' + count + '</span>';
+      html += '</div>';
+      if (showOutside) html += '<span class="analytics-bar-count outside">&nbsp;' + count + '</span>';
+      html += '</div></div>';
+    });
+  }
+  /* 操作按钮 */
+  html += '<div class="analytics-actions">';
+  html += '<button class="analytics-btn" id="analytics-export">导出数据</button>';
+  html += '<button class="analytics-btn danger" id="analytics-reset">重置统计</button>';
+  html += '</div>';
+  analyticsBody.innerHTML = html;
+  /* 绑定按钮 */
+  document.getElementById('analytics-export').addEventListener('click', () => {
+    const json = JSON.stringify(getAnalytics(), null, 2);
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(json).then(() => showToast('数据已复制到剪贴板')).catch(() => showToast('复制失败'));
+    } else {
+      showToast('数据已输出到控制台'); console.log(json);
+    }
+  });
+  document.getElementById('analytics-reset').addEventListener('click', () => {
+    if (confirm('确定要重置所有统计数据吗？此操作不可撤销。')) {
+      localStorage.removeItem(ANALYTICS_KEY);
+      renderAnalytics();
+      showToast('统计数据已重置');
+    }
+  });
+}
+function openAnalytics() {
+  renderAnalytics();
+  analyticsOverlay.classList.add('on');
+}
+function closeAnalytics() {
+  analyticsOverlay.classList.remove('on');
+}
+analyticsClose.addEventListener('click', closeAnalytics);
+analyticsOverlay.addEventListener('click', (e) => { if (e.target === analyticsOverlay) closeAnalytics(); });
+
+/* 隐藏入口：连续点击版权信息5次 */
+let cpClickCount = 0, cpClickTimer = null;
+document.querySelectorAll('.copyright-footer, .copyright-splash').forEach(el => {
+  el.addEventListener('click', () => {
+    cpClickCount++;
+    clearTimeout(cpClickTimer);
+    cpClickTimer = setTimeout(() => { cpClickCount = 0; }, 3000);
+    if (cpClickCount >= 5) {
+      cpClickCount = 0;
+      openAnalytics();
+      showToast('数据统计看板已开启');
+    }
+  });
+});
+
+/* ===========================
+   分享卡片生成
+   =========================== */
+function drawQRToCanvas(ctx, text, x, y, size, darkColor) {
+  if (typeof qrcode !== 'function') throw new Error('qrcode lib missing');
+  var qr = qrcode(0, 'M');
+  qr.addData(text);
+  qr.make();
+  var count = qr.getModuleCount();
+  var tile = size / count;
+  ctx.fillStyle = darkColor || '#1a1a2e';
+  for (var r = 0; r < count; r++) {
+    for (var c = 0; c < count; c++) {
+      if (qr.isDark(r, c)) {
+        ctx.fillRect(x + c * tile, y + r * tile, tile + 0.5, tile + 0.5);
+      }
+    }
+  }
+}
+function loadImage(src) {
+  return new Promise(function (resolve, reject) {
+    var img = new Image();
+    img.onload = function () { resolve(img); };
+    img.onerror = reject;
+    img.src = src;
+  });
+}
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+function dataUrlToBlob(dataUrl) {
+  var arr = dataUrl.split(',');
+  var mime = arr[0].match(/:(.*?);/)[1];
+  var bstr = atob(arr[1]);
+  var n = bstr.length;
+  var u8 = new Uint8Array(n);
+  for (var i = 0; i < n; i++) u8[i] = bstr.charCodeAt(i);
+  return new Blob([u8], { type: mime });
+}
+
+var sharecardOverlay = document.getElementById('sharecard-overlay');
+var sharecardWrap = document.getElementById('sharecard-canvas-wrap');
+var sharecardSave = document.getElementById('sharecard-save');
+var sharecardCloseBtn = document.getElementById('sharecard-close');
+var sharecardDataUrl = null;
+
+async function generateShareCard() {
+  if (document.fonts && document.fonts.ready) {
+    try { await document.fonts.ready; } catch (e) {}
+  }
+  var W = 600, H = 840, dpr = 2;
+  var canvas = document.createElement('canvas');
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  var ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  /* 背景 */
+  var bg = ctx.createLinearGradient(0, 0, 0, H);
+  bg.addColorStop(0, '#0d1b2a');
+  bg.addColorStop(0.3, '#15263a');
+  bg.addColorStop(0.7, '#15263a');
+  bg.addColorStop(1, '#0d1b2a');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+
+  /* 装饰光晕 */
+  ctx.fillStyle = 'rgba(86, 152, 220, 0.05)';
+  ctx.beginPath(); ctx.arc(80, 80, 160, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.arc(520, 760, 180, 0, Math.PI * 2); ctx.fill();
+
+  /* 顶部渐变线 */
+  var ag = ctx.createLinearGradient(0, 0, W, 0);
+  ag.addColorStop(0, 'rgba(86, 152, 220, 0)');
+  ag.addColorStop(0.5, 'rgba(86, 152, 220, 0.5)');
+  ag.addColorStop(1, 'rgba(86, 152, 220, 0)');
+  ctx.fillStyle = ag;
+  ctx.fillRect(0, 0, W, 2);
+
+  /* 标题 */
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 52px "Noto Serif SC", "Songti SC", serif';
+  ctx.fillText('何学长', W / 2, 90);
+
+  ctx.font = '18px "Noto Sans SC", sans-serif';
+  ctx.fillStyle = 'rgba(255,255,255,0.6)';
+  ctx.fillText('成都东软学院 · 新生指南', W / 2, 130);
+
+  /* 分割线 */
+  ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(W * 0.25, 165);
+  ctx.lineTo(W * 0.75, 165);
+  ctx.stroke();
+
+  /* 功能亮点 */
+  ctx.font = '15px "Noto Sans SC", sans-serif';
+  ctx.fillStyle = 'rgba(255,255,255,0.5)';
+  ctx.fillText('必备清单 · 宿舍生活 · 交通出行', W / 2, 200);
+  ctx.fillText('校园网络 · 餐饮美食 · 常见问题', W / 2, 228);
+
+  /* 二维码卡片 */
+  var qrSize = 180, qrPad = 20;
+  var qrCardW = qrSize + qrPad * 2;
+  var qrCardH = qrSize + qrPad * 2;
+  var qrCardX = W / 2 - qrCardW / 2;
+  var qrCardY = 280;
+
+  ctx.shadowColor = 'rgba(0,0,0,0.3)';
+  ctx.shadowBlur = 20;
+  ctx.shadowOffsetY = 8;
+  ctx.fillStyle = '#ffffff';
+  roundRect(ctx, qrCardX, qrCardY, qrCardW, qrCardH, 16);
+  ctx.fill();
+  ctx.shadowColor = 'transparent';
+  ctx.shadowBlur = 0;
+  ctx.shadowOffsetY = 0;
+
+  /* 二维码 */
+  try {
+    drawQRToCanvas(ctx, location.href, qrCardX + qrPad, qrCardY + qrPad, qrSize, '#1a1a2e');
+  } catch (e) {
+    ctx.fillStyle = '#1a1a2e';
+    ctx.font = 'bold 14px "Noto Sans SC", sans-serif';
+    ctx.fillText('扫码访问', qrCardX + qrCardW / 2, qrCardY + qrCardH / 2 - 10);
+    ctx.font = '10px monospace';
+    var shortUrl = location.href.replace(/^https?:\/\//, '').substring(0, 30);
+    ctx.fillText(shortUrl, qrCardX + qrCardW / 2, qrCardY + qrCardH / 2 + 14);
+  }
+
+  /* CTA 文案 */
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 20px "Noto Sans SC", sans-serif';
+  ctx.fillText('扫码查看完整新生指南', W / 2, qrCardY + qrCardH + 45);
+
+  ctx.font = '14px "Noto Sans SC", sans-serif';
+  ctx.fillStyle = 'rgba(255,255,255,0.4)';
+  ctx.fillText('2026级新生专享 · 你想知道的都在这里', W / 2, qrCardY + qrCardH + 75);
+
+  /* 底部版权 */
+  ctx.fillStyle = 'rgba(255,255,255,0.2)';
+  ctx.font = '12px "Noto Sans SC", sans-serif';
+  ctx.fillText('© 2026 何学长 · 成都东软学院', W / 2, H - 30);
+
+  return canvas.toDataURL('image/png');
+}
+
+async function openShareCard() {
+  sharecardOverlay.classList.add('on');
+  sharecardWrap.innerHTML = '<div class="sharecard-loading"><div class="spinner"></div>正在生成精美卡片…</div>';
+  sharecardSave.classList.add('loading');
+  sharecardDataUrl = null;
+  try {
+    sharecardDataUrl = await generateShareCard();
+    sharecardWrap.innerHTML = '<img src="' + sharecardDataUrl + '" alt="分享卡片" />';
+  } catch (e) {
+    sharecardWrap.innerHTML = '<div class="sharecard-loading">生成失败，请重试</div>';
+  }
+  sharecardSave.classList.remove('loading');
+}
+function closeShareCard() {
+  sharecardOverlay.classList.remove('on');
+}
+
+sharecardSave.addEventListener('click', async function () {
+  if (!sharecardDataUrl) return;
+  /* 优先尝试 Web Share API 分享图片 */
+  if (navigator.canShare) {
+    try {
+      var blob = dataUrlToBlob(sharecardDataUrl);
+      var file = new File([blob], '何学长-新生指南.png', { type: 'image/png' });
+      if (navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: '何学长 · 成都东软学院新生指南' });
+        return;
+      }
+    } catch (e) { /* 用户取消或失败，继续下载 */ }
+  }
+  /* 降级：直接下载 */
+  var a = document.createElement('a');
+  a.href = sharecardDataUrl;
+  a.download = '何学长-新生指南-分享卡片.png';
+  a.click();
+  showToast('图片已保存，可分享到朋友圈');
+});
+
+sharecardCloseBtn.addEventListener('click', closeShareCard);
+sharecardOverlay.addEventListener('click', function (e) {
+  if (e.target === sharecardOverlay) closeShareCard();
+});
+
+/* ===========================
+   初始化
+   =========================== */
+updateCacheDisplay();
+updateProfileStats();
 </script>
 </body>
 </html>
