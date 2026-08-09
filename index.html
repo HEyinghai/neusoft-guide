@@ -559,6 +559,42 @@ body { overscroll-behavior: none; transition: background 400ms var(--ease-out-qu
 .detail-tip { font-size: 12px; color: var(--c-text-3); padding: 10px 12px; background: oklch(95% 0.04 50); border-radius: var(--r-md); margin-top: 12px; display: flex; gap: 8px; line-height: 1.6; }
 [data-theme="dark"] .detail-tip { background: oklch(25% 0.04 50); }
 
+/* 模拟选寝 */
+.dormsim-tabs { display: flex; gap: 8px; margin-bottom: 12px; overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+.dormsim-tabs::-webkit-scrollbar { display: none; }
+.dormsim-tab { flex-shrink: 0; padding: 8px 14px; border-radius: 20px; background: var(--bg-card); border: 1px solid var(--border); font-size: 12px; font-weight: 500; color: var(--c-text-2); cursor: pointer; transition: all 200ms var(--ease-out-quart); white-space: nowrap; }
+.dormsim-tab.active { background: oklch(55% 0.18 340); color: white; border-color: oklch(55% 0.18 340); }
+.dormsim-tab .tab-meta { font-size: 10px; opacity: 0.8; margin-left: 4px; }
+.dormsim-info { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: var(--bg-card); border-radius: var(--r-md); margin-bottom: 12px; font-size: 12px; color: var(--c-text-2); }
+.dormsim-info strong { color: var(--c-text); font-weight: 600; }
+.dormsim-legend { display: flex; gap: 12px; font-size: 11px; color: var(--c-text-3); }
+.dormsim-legend-item { display: flex; align-items: center; gap: 4px; }
+.dormsim-legend-dot { width: 10px; height: 10px; border-radius: 3px; }
+.dormsim-legend-dot.av { background: oklch(70% 0.16 160); }
+.dormsim-legend-dot.oc { background: oklch(70% 0.04 0); opacity: 0.4; }
+.dormsim-legend-dot.my { background: oklch(55% 0.18 220); }
+.dormsim-rooms { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 14px; }
+.dormsim-room { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-md); padding: 8px; }
+.dormsim-room-title { font-size: 11px; color: var(--c-text-3); margin-bottom: 6px; font-weight: 500; text-align: center; font-family: var(--f-num); }
+.dormsim-beds { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.dormsim-bed { font-size: 12px; padding: 8px 0; border-radius: 6px; text-align: center; cursor: pointer; transition: all 180ms var(--ease-out-quart); font-weight: 600; font-family: var(--f-num); border: 1px solid transparent; background: oklch(92% 0.06 160); color: oklch(35% 0.16 160); }
+.dormsim-bed:hover { transform: translateY(-1px); background: oklch(88% 0.10 160); }
+.dormsim-bed.occupied { background: oklch(85% 0.02 0); color: oklch(60% 0.02 0); cursor: not-allowed; opacity: 0.5; }
+.dormsim-bed.occupied:hover { transform: none; background: oklch(85% 0.02 0); }
+.dormsim-bed.selected { background: oklch(55% 0.18 220); color: white; border-color: oklch(45% 0.20 220); box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+.dormsim-bed.selected:hover { background: oklch(50% 0.20 220); }
+.dormsim-result { padding: 14px 16px; background: linear-gradient(135deg, oklch(95% 0.06 220), oklch(95% 0.06 280)); border-radius: var(--r-md); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+[data-theme="dark"] .dormsim-result { background: linear-gradient(135deg, oklch(30% 0.06 220), oklch(30% 0.06 280)); }
+.dormsim-result-text { flex: 1; font-size: 13px; }
+.dormsim-result-text .label { color: var(--c-text-3); font-size: 11px; margin-bottom: 2px; }
+.dormsim-result-text .value { font-weight: 600; color: var(--c-text); font-family: var(--f-num); }
+.dormsim-result-text .value.empty { color: var(--c-text-3); font-weight: 400; font-family: var(--c-f); }
+.dormsim-reset-btn { padding: 7px 14px; border-radius: 20px; background: white; color: oklch(45% 0.18 220); border: 1px solid oklch(45% 0.18 220); font-size: 12px; font-weight: 500; cursor: pointer; transition: all 200ms var(--ease-out-quart); }
+.dormsim-reset-btn:hover { background: oklch(45% 0.18 220); color: white; }
+.dormsim-tip { margin-top: 10px; font-size: 11px; color: var(--c-text-3); text-align: center; }
+
+/* 模拟选寝相关 end */
+
 /* 必备清单打卡 */
 .checklist-progress { margin-bottom: 16px; padding: 14px 16px; background: var(--bg-card); border-radius: var(--r-md); border: 1px solid var(--border); }
 .checklist-progress-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
@@ -1014,7 +1050,7 @@ html[data-fontsize="large"] .app { zoom: 1.1; }
           </div>
 
           <div class="section-head count-anim" style="margin-top:8px;">
-            <h2>新生必看</h2><span class="count">15 项</span>
+            <h2>新生必看</h2><span class="count">17 项</span>
           </div>
           <div class="menu-grid" id="menu-grid">
             <div class="menu-item" data-action="checklist"><div class="menu-ico" style="background: oklch(90% 0.06 220); color: oklch(45% 0.18 220);">✓</div><div class="menu-name">必备清单</div></div>
@@ -1032,6 +1068,8 @@ html[data-fontsize="large"] .app { zoom: 1.1; }
             <div class="menu-item" data-action="major"><div class="menu-ico" style="background: oklch(92% 0.06 250); color: oklch(45% 0.18 250);">🔄</div><div class="menu-name">转专业</div></div>
             <div class="menu-item" data-action="dormpic"><div class="menu-ico" style="background: oklch(92% 0.06 200); color: oklch(45% 0.16 200);">🖼</div><div class="menu-name">寝室图片</div></div>
             <div class="menu-item" data-action="foodpic"><div class="menu-ico" style="background: oklch(92% 0.06 30); color: oklch(45% 0.18 30);">🍱</div><div class="menu-name">食堂图片</div></div>
+            <div class="menu-item" data-action="payment"><div class="menu-ico" style="background: oklch(95% 0.06 70); color: oklch(45% 0.16 70);">💳</div><div class="menu-name">缴费须知</div></div>
+            <div class="menu-item" data-action="dormsim"><div class="menu-ico" style="background: oklch(95% 0.06 340); color: oklch(50% 0.18 340);">🛌</div><div class="menu-name">模拟选寝</div></div>
           </div>
 
           <div class="section-head more-anim" style="margin-top:8px;">
@@ -1049,7 +1087,7 @@ html[data-fontsize="large"] .app { zoom: 1.1; }
           </div>
 
           <div class="section-head more-anim" style="margin-top:24px;">
-            <h2>更多服务</h2><span class="count">5 项</span>
+            <h2>更多服务</h2><span class="count">6 项</span>
           </div>
           <div class="more-grid anim" id="more-grid">
             <div class="more-item" data-more="scholarship"><div class="more-ico" style="background: oklch(95% 0.06 50); color: oklch(55% 0.18 50);">🏆</div><div class="more-body"><div class="more-name">奖学金政策</div><div class="more-sub">资助政策及时了解</div></div></div>
@@ -1057,6 +1095,7 @@ html[data-fontsize="large"] .app { zoom: 1.1; }
             <div class="more-item" data-more="feedback"><div class="more-ico" style="background: oklch(95% 0.06 280); color: oklch(45% 0.18 280);">✉</div><div class="more-body"><div class="more-name">意见反馈</div><div class="more-sub">提交你的建议</div></div></div>
             <div class="more-item" data-more="bedding"><div class="more-ico" style="background: oklch(95% 0.06 30); color: oklch(55% 0.20 30);">🛒</div><div class="more-body"><div class="more-name">床上用品六件套</div><div class="more-sub">开学可送到寝室</div></div></div>
             <div class="more-item" data-more="campusmap"><div class="more-ico" style="background: oklch(95% 0.06 200); color: oklch(45% 0.18 200);">🗺</div><div class="more-body"><div class="more-name">校园地图</div><div class="more-sub">主校区与新校区分布</div></div></div>
+            <div class="more-item" data-more="campusmap"><div class="more-ico" style="background: oklch(95% 0.06 200); color: oklch(45% 0.18 200);">🗺</div><div class="more-body"><div class="more-name">校园驾校</div><div class="more-sub">学校官方合作驾校</div></div></div>
           </div>
           <div style="height:30px;"></div>
         </div>
@@ -1467,6 +1506,26 @@ const MENU_DATA = {
       { h: '清真餐厅', items: ['招牌：兰州拉面、盖饭', '人均：13 元', '环境清静，可自习'] }
     ],
     tip: '🍱 消费，日均餐费约 50 元。'
+  },
+  payment: { ico: '💳', icoBg: 'oklch(95% 0.06 70)', icoColor: 'oklch(45% 0.16 70)', title: '缴费须知',
+    lead: '新生入学前需缴清以下费用，建议通过学校官方渠道完成缴费，避免到现场排队。',
+    sections: [
+      { h: '必缴费用（2026 级参考）', items: ['学费：文科类专业 12000 元/年；理工类 14000 元/年；艺术类 15000 元/年（以录取通知书为准）', '住宿费：1200 元/年（4 人间标准间）', '代管费：800 元/年（含教材、卧具押金、体检等，多退少补）', '军训服装费：120 元（仅 2026 级新生）', '校园卡预存款：100 元（自愿，用于食堂、门禁、图书馆）'] },
+      { h: '缴费方式', items: ['线上：学校官方迎新系统（推荐，开学前 1 周开放）', '线上：录取通知书内附的"缴费小程序"二维码', '现场：报到当天财务处窗口（排队较久）', '银行：随通知书寄达的中国建设银行卡（可代扣）'] },
+      { h: '缓缴与绿色通道', items: ['家庭经济困难新生可申请"绿色通道"先入学后缴费', '需提供：低保证 / 建档立卡 / 残疾证 / 家庭困难证明', '报到当天在"绿色通道"窗口现场办理', '国家助学贷款：最高 20000 元/年，毕业后开始还款'] },
+      { h: '缴费时间', items: ['线上缴费：8 月 20 日 - 8 月 29 日', '现场缴费：8 月 30 日 - 31 日（建议错峰）', '逾期未缴：注册报到信息会延迟，可能影响学籍注册'] },
+      { h: '注意事项', items: ['缴费后请截图保存电子凭证', '现场报到时携缴费凭证可走快速通道', '如对金额有疑问，请联系财务处：028-64888003', '切勿轻信陌生号码"代缴费"信息，认准官方渠道'] }
+    ],
+    tip: '💰 全部费用合计约 15000-17000 元/年（不含生活费）。建议提前与家长沟通预算，避免现场尴尬。'
+  },
+  dormsim: { ico: '🛌', icoBg: 'oklch(95% 0.06 340)', icoColor: 'oklch(50% 0.18 340)', title: '模拟选寝',
+    lead: '官方选寝系统开通前的"模拟体验"，提前熟悉选房流程。可点击下方任意空床位模拟选择（仅模拟，不会影响真实选房）。',
+    sections: [
+      { h: '选房规则', items: ['每栋楼每个房间 4 个床位（上床下桌）', '每名新生只能选定 1 个床位', '提交后不可更改', '系统按"先到先得"原则，8 月 25 日 10:00 开放'] },
+      { h: '模拟选房', items: ['点击下方任意 【绿色】空床位模拟选择', '【绿色】= 可选  【蓝色】= 你已选  【灰色】= 已占', '每栋楼可切换查看不同房间', '仅限本地模拟，不上传服务器'] },
+      { h: '选房技巧', items: ['提前登录避免系统拥堵', '准备好 2-3 个备选宿舍', '宿舍平面图可参考"寝室图片"'] }
+    ],
+    tip: '🛌 真实选寝系统以学校官方通知为准'
   }
 };
 
@@ -1933,6 +1992,8 @@ function openDrawer(data) {
   if (data.title === '必备清单') enhanceChecklist();
   /* 意见反馈表单增强 */
   if (data.title === '意见反馈') enhanceFeedbackForm();
+  /* 模拟选寝增强 */
+  if (data.title === '模拟选寝') enhanceDormSim();
   /* 绑定复制按钮 */
   drawerBody.querySelectorAll('.copy').forEach(btn => {
     btn.addEventListener('click', async () => {
@@ -2105,6 +2166,137 @@ function enhanceChecklist() {
     });
   });
   updateChecklistProgress();
+}
+
+/* ===========================
+   模拟选寝
+   =========================== */
+const DORMSIM_DATA = [
+  { id: 'D1', name: 'D1-D2', range: '1-58', gender: '男生', total: 58, displayed: 10 },
+  { id: 'D3', name: 'D3', range: '1-30', gender: '男生', total: 30, displayed: 8 },
+  { id: 'D5', name: 'D5', range: '1-40', gender: '女生', total: 40, displayed: 10 },
+  { id: 'D6', name: 'D6-D9', range: '1-120', gender: '女生', total: 120, displayed: 10 },
+  { id: 'E1', name: 'E1-E3', range: '1-90', gender: '男生', total: 90, displayed: 10 },
+  { id: 'E11', name: 'E11', range: '1-60', gender: '女生', total: 60, displayed: 10 }
+];
+const DORMSIM_OCCUPIED_KEY = 'neusoft_dormsim_occupied_v1';
+/* 默认占用的床位（按 buildingId-roomNo-bedIndex 编码） */
+function getDormSimOccupied() {
+  try {
+    const stored = JSON.parse(localStorage.getItem(DORMSIM_OCCUPIED_KEY));
+    if (stored && typeof stored === 'object') return stored;
+  } catch {}
+  /* 首次使用：生成默认占位（不影响用户选择的状态） */
+  const defaults = {};
+  DORMSIM_DATA.forEach(b => {
+    defaults[b.id] = {};
+    for (let r = 1; r <= b.displayed; r++) {
+      defaults[b.id][r] = [];
+      /* 按房间号生成稳定占位：使用简单 hash 决定哪些床位被占 */
+      const hash = (b.id.charCodeAt(0) + b.id.charCodeAt(1) * 31 + r * 7) % 5;
+      for (let bed = 0; bed < 4; bed++) {
+        if ((hash + bed * 3 + r) % 4 === 0) defaults[b.id][r].push(bed);
+      }
+    }
+  });
+  try { localStorage.setItem(DORMSIM_OCCUPIED_KEY, JSON.stringify(defaults)); } catch {}
+  return defaults;
+}
+function setDormSimOccupied(data) {
+  try { localStorage.setItem(DORMSIM_OCCUPIED_KEY, JSON.stringify(data)); } catch {}
+}
+function enhanceDormSim() {
+  /* 不重复挂载 */
+  if (drawerBody.querySelector('#dormsim-container')) return;
+  const lead = drawerBody.querySelector('.detail-lead');
+  const firstH3 = drawerBody.querySelector('.detail-h3');
+  const container = document.createElement('div');
+  container.id = 'dormsim-container';
+  let currentBuildingIdx = 0;
+  let selectedBed = null;
+  function renderContainer() {
+    const b = DORMSIM_DATA[currentBuildingIdx];
+    const occupied = getDormSimOccupied();
+    const occData = occupied[b.id] || {};
+    /* 统计总空位/已占 */
+    let avCount = 0, ocCount = 0;
+    for (let r = 1; r <= b.displayed; r++) {
+      const beds = occData[r] || [];
+      for (let i = 0; i < 4; i++) {
+        if (beds.includes(i)) ocCount++; else avCount++;
+      }
+    }
+    let roomsHtml = '';
+    for (let r = 1; r <= b.displayed; r++) {
+      const beds = occData[r] || [];
+      let bedsHtml = '';
+      for (let i = 0; i < 4; i++) {
+        const bedNo = (r - 1) * 4 + i + 1;
+        const isOcc = beds.includes(i);
+        const isMy = selectedBed && selectedBed.buildingId === b.id && selectedBed.roomNo === r && selectedBed.bedIndex === i;
+        const cls = isMy ? 'selected' : (isOcc ? 'occupied' : '');
+        const dis = isOcc ? 'data-occ="1"' : '';
+        bedsHtml += `<div class="dormsim-bed ${cls}" data-bed="${i}" ${dis}>${bedNo}</div>`;
+      }
+      roomsHtml += `<div class="dormsim-room"><div class="dormsim-room-title">${b.name}-${r.toString().padStart(2, '0')}室</div><div class="dormsim-beds">${bedsHtml}</div></div>`;
+    }
+    let tabsHtml = DORMSIM_DATA.map((bd, i) => `
+      <div class="dormsim-tab ${i === currentBuildingIdx ? 'active' : ''}" data-bidx="${i}">${bd.name}<span class="tab-meta">${bd.gender}</span></div>
+    `).join('');
+    const resultVal = selectedBed ? `${selectedBed.buildingName}-${selectedBed.roomNo.toString().padStart(2,'0')}室 ${selectedBed.bedNo}号床` : '尚未选择床位';
+    container.innerHTML = `
+      <div class="dormsim-tabs">${tabsHtml}</div>
+      <div class="dormsim-info">
+        <div><strong>${b.name}</strong> ${b.gender} · 共 ${b.total} 间（显示前 ${b.displayed} 间）</div>
+        <div class="dormsim-legend">
+          <span class="dormsim-legend-item"><span class="dormsim-legend-dot av"></span>空</span>
+          <span class="dormsim-legend-item"><span class="dormsim-legend-dot oc"></span>占</span>
+          <span class="dormsim-legend-item"><span class="dormsim-legend-dot my"></span>已选</span>
+        </div>
+      </div>
+      <div class="dormsim-rooms">${roomsHtml}</div>
+      <div class="dormsim-result">
+        <div class="dormsim-result-text">
+          <div class="label">我的选择</div>
+          <div class="value ${selectedBed ? '' : 'empty'}">${resultVal}</div>
+        </div>
+        <button class="dormsim-reset-btn" id="dormsim-reset">重新选择</button>
+      </div>
+      <div class="dormsim-tip">本结果仅本地模拟，实际选房请使用学校官方系统</div>
+    `;
+  }
+  renderContainer();
+  if (lead) lead.parentNode.insertBefore(container, lead.nextSibling);
+  else if (firstH3) firstH3.parentNode.insertBefore(container, firstH3);
+  else drawerBody.appendChild(container);
+  /* 绑定事件 */
+  container.addEventListener('click', function(e) {
+    const tab = e.target.closest('.dormsim-tab');
+    if (tab) {
+      currentBuildingIdx = parseInt(tab.dataset.bidx, 10);
+      selectedBed = null;
+      renderContainer();
+      return;
+    }
+    const resetBtn = e.target.closest('#dormsim-reset');
+    if (resetBtn) {
+      selectedBed = null;
+      renderContainer();
+      showToast('已重置选择');
+      return;
+    }
+    const bed = e.target.closest('.dormsim-bed');
+    if (bed) {
+      if (bed.dataset.occ === '1') return;
+      const b = DORMSIM_DATA[currentBuildingIdx];
+      const roomNo = parseInt(bed.closest('.dormsim-room').querySelector('.dormsim-room-title').textContent.match(/(\d+)/)[1], 10);
+      const bedIndex = parseInt(bed.dataset.bed, 10);
+      const bedNo = (roomNo - 1) * 4 + bedIndex + 1;
+      selectedBed = { buildingId: b.id, buildingName: b.name, roomNo, bedIndex, bedNo };
+      renderContainer();
+      showToast(`已选 ${b.name}-${roomNo.toString().padStart(2,'0')}室 ${bedNo}号床`);
+    }
+  });
 }
 drawerMask.addEventListener('click', closeDrawer);
 drawerClose.addEventListener('click', closeDrawer);
@@ -2569,6 +2761,7 @@ const FEATURE_NAMES = {
   'menu:qa': '常见问题', 'menu:phone': '联系电话', 'menu:express': '快递地址',
   'menu:takeout': '外卖地址', 'menu:choosedorm': '选宿舍', 'menu:dormsize': '寝室尺寸',
   'menu:major': '转专业', 'menu:dormpic': '寝室图片', 'menu:foodpic': '食堂图片',
+  'menu:payment': '缴费须知', 'menu:dormsim': '模拟选寝',
   'more:scholarship': '奖学金政策', 'more:calendar': '校历查询', 'more:feedback': '意见反馈',
   'more:bedding': '床上用品六件套', 'more:campusmap': '校园地图',
   'campus:scenery': '校园风光', 'campus:major': '学院专业校区', 'campus:landmark': '校园地标',
