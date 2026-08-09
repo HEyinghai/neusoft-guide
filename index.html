@@ -1057,7 +1057,7 @@ html[data-fontsize="large"] .app { zoom: 1.1; }
             <div class="more-item" data-more="feedback"><div class="more-ico" style="background: oklch(95% 0.06 280); color: oklch(45% 0.18 280);">✉</div><div class="more-body"><div class="more-name">意见反馈</div><div class="more-sub">提交你的建议</div></div></div>
             <div class="more-item" data-more="bedding"><div class="more-ico" style="background: oklch(95% 0.06 30); color: oklch(55% 0.20 30);">🛒</div><div class="more-body"><div class="more-name">床上用品六件套</div><div class="more-sub">开学可送到寝室</div></div></div>
             <div class="more-item" data-more="campusmap"><div class="more-ico" style="background: oklch(95% 0.06 200); color: oklch(45% 0.18 200);">🗺</div><div class="more-body"><div class="more-name">校园地图</div><div class="more-sub">主校区与新校区分布</div></div></div>
-            <div class="more-item" data-more="campusmap"><div class="more-ico" style="background: oklch(95% 0.06 200); color: oklch(45% 0.18 200);">🗺</div><div class="more-body"><div class="more-name">校园驾校</div><div class="more-sub">学校官方合作驾校</div></div></div>
+            <div class="more-item" data-more="chenxing"><div class="more-ico" style="background: oklch(92% 0.08 30); color: oklch(45% 0.18 30);">🚗</div><div class="more-body"><div class="more-name">晨星驾校</div><div class="more-sub">学院官方指定驾校</div></div></div>
           </div>
           <div style="height:30px;"></div>
         </div>
@@ -1517,6 +1517,20 @@ const MORE_DATA = {
       { h: '新校区地图', items: ['F1-F5：产业区建筑', 'F6：食堂', 'F7-F9：教师公寓', 'F10：后勤宿舍', 'F12：学生活动中心', 'F15-F18：学生公寓'] }
     ],
     tip: '🗺 建议保存地图到手机相册，报到当天方便找宿舍、食堂和教学楼。'
+  },
+  chenxing: { ico: '🚗', icoBg: 'oklch(92% 0.08 30)', icoColor: 'oklch(45% 0.18 30)', title: '晨星驾校',
+    lead: '晨星驾校是成都东软学院官方指定驾校，距学院仅 10 分钟车程。学院学生报名享专属优惠价 4000 元（一费制），免费接送学车、体检、考试。',
+    images: ['images/drive_promo.png', 'images/drive1.jpg', 'images/drive2.jpg', 'images/drive3.jpg', 'images/drive4.jpg', 'images/drive5.jpg'],
+    sections: [
+      { h: '驾校简介', items: ['都江堰市晨星驾驶培训有限公司，2013 年 6 月经成都市交通运输委员会批准成立', '都江堰市唯一一所一类驾校，资质正规', '投资逾 2000 万元建设 104 亩标准驾培训练基地', '教职员工 70 余名，教练车 50 余台', '年培训各类机动车驾驶员 3500 人'] },
+      { h: '东软学生专属优惠', items: ['优惠价：4000 元（一费制，包含报名费/理论培训费/实操培训费/制卡费/书本费/简易人身保险）', '中途不再收取任何费用', '免费接送学习、体检、考试', '训练场地距学院仅 10 分钟车程', '学院到考场（蜀州考场）距离仅 20 分钟车程'] },
+      { h: '可培训车型', items: ['C1：小型汽车（手动挡，最热门）', 'C2：小型自动挡汽车（学车更快）', 'B2：大型货车', 'A1：大型客车', '提供 1 人 1 车 / 4 人 1 车 等多种班型'] },
+      { h: '训练场地与设施', items: ['训练场：都江堰市玉堂 LG 博爱中学背后', '104 亩标准化训练基地，科目二场地齐全（含曲线、S弯、直角转弯、坡道起步、倒车入库、侧方停车）', '办公楼电教室配置理论学习电脑 50 台', '15 台豪华模拟操作机模拟驾驶培训室', '学员休息室（免费 WiFi、光纤电视）、伙食团、小卖部一应俱全'] },
+      { h: '报名方式', items: ['报名地点：成都东软学院继续教育（培训）中心 C1-202 办公室（新食堂对面）', '咨询电话：028-64888025（李老师）', '咨询电话：028-64888024（刘老师）', '报名时间：工作日 9:00-17:00，开学季延长至晚 20:00', '建议提前预约，避开报名高峰'] },
+      { h: '预约练车流程', items: ['① 携带身份证、学生证到 C1-202 办公室报名登记', '② 现场采集照片、填写学员信息', '③ 缴纳学费，领取学员卡', '④ 通过"交管 12123" app 预约科目一考试', '⑤ 科目一通过后即可到训练场实操（教练统一安排练车时间）', '⑥ 依次通过科目二、科目三、科目四即可拿证'] },
+      { h: '练车小贴士', items: ['大一空闲时间多，建议尽早报名', '寒暑假是练车黄金期，时间充裕', 'C2 自动挡比 C1 手动挡学得快、考试更简单', '认真对待教练指导，安全意识第一', '理论题库多用"驾考宝典"app 反复练习'] }
+    ],
+    tip: '🚗 校内唯一官方指定驾校，报名认准 C1-202 办公室，谨防校园周边"黑驾校"虚假宣传。'
   }
 };
 
@@ -2572,7 +2586,7 @@ const FEATURE_NAMES = {
   'menu:takeout': '外卖地址', 'menu:choosedorm': '选宿舍', 'menu:dormsize': '寝室尺寸',
   'menu:major': '转专业', 'menu:dormpic': '寝室图片', 'menu:foodpic': '食堂图片',
   'more:scholarship': '奖学金政策', 'more:calendar': '校历查询', 'more:feedback': '意见反馈',
-  'more:bedding': '床上用品六件套', 'more:campusmap': '校园地图',
+  'more:bedding': '床上用品六件套', 'more:campusmap': '校园地图', 'more:chenxing': '晨星驾校',
   'campus:scenery': '校园风光', 'campus:major': '学院专业校区', 'campus:landmark': '校园地标',
   'tab:home': '首页Tab', 'tab:campus': '校园Tab', 'tab:me': '我的Tab',
   'action:联系学长': '联系学长', 'action:分享': '分享卡片', 'action:主题切换': '主题切换', 'action:消息': '消息按钮',
